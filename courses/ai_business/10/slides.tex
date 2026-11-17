@@ -1,0 +1,607 @@
+% AIビジネス入門 第10回 AIを構成する技術(2)：機械学習（CC BY-SA 4.0）
+\documentclass[aspectratio=169]{beamer}
+\usepackage{lfs-slides}
+\usepackage{url}
+\input{../aib-common.tex.inc}
+\lfscourse{AIビジネス入門}
+
+\title[AIを構成する技術(2)：機械学習]{AIを構成する技術(2)\\機械学習}
+\subtitle{AIビジネス入門 第10回}
+\author{清田 陽司}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+% ---- 前回から今日へ ----
+\begin{frame}{前回の「記号とルール」から今日へ}
+\begin{center}
+\begin{tikzpicture}[h/.style={draw,rounded corners,text width=5.6cm,minimum height=0.9cm,align=center,font=\bfseries},b/.style={draw,rounded corners,fill=gray!6,text width=5.6cm,minimum height=3.0cm,align=center,font=\small,inner sep=6pt,anchor=north}]
+  \node[h,fill=winter!15,draw=winter] (h1) at (0,0) {前回：人がルールを書く};
+  \node[b] at ($(h1.south)+(0,-0.12)$) {\texttt{IF} 耳が三角 \texttt{AND}\\ひげがある \texttt{AND}\\しっぽが長い\\\texttt{THEN}「ネコ」\\[0.5em]{\footnotesize ルールにない場合は判断できない}};
+  \node[h,fill=boom!15,draw=boom] (h2) at (6.4,0) {今日：データから学ぶ};
+  \node[b] at ($(h2.south)+(0,-0.12)$) {「ネコ」「イヌ」と\\答えのついた写真を\\\textbf{大量に}見せる\\$\downarrow$\\見分け方を機械が\textbf{自分で}つかむ\\[0.3em]{\footnotesize 見たことのない写真にも答えられる}};
+  \draw[-{Latex[length=3mm]},very thick,gray] (2.95,-1.9) -- (3.45,-1.9);
+\end{tikzpicture}
+\end{center}
+\vspace{0.4em}
+\centering{\large いまビジネスで\textbf{いちばん広く使われている} AI の技術が、この機械学習}
+\end{frame}
+
+% ---- 今回のトピックス ----
+\begin{frame}{今回のトピックス}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw,rounded corners,text width=2.9cm,minimum height=2.8cm,align=center,font=\small}]
+  \node[box,fill=gray!10] (a) {\textbf{どこから\\来たのか}\\[0.5em]冬の時代\\3つの追い風\\プレイヤー};
+  \node[box,fill=winter!8,right=0.3cm of a] (b) {\textbf{価値を生む\\しくみ}\\[0.5em]結果から原因へ\\\textbf{内挿マシン}};
+  \node[box,fill=gain!8,right=0.3cm of b] (c) {\textbf{4つの\\学び方}\\[0.5em]教師あり・なし\\半教師あり\\強化学習};
+  \node[box,fill=boom!8,right=0.3cm of c] (d) {\textbf{ビジネスと\\倫理}\\[0.5em]応用の6つの場面\\データの偏り};
+\end{tikzpicture}\\[0.5em]
+\begin{tikzpicture}
+  \node[draw,rounded corners,fill=genai!12,draw=genai,text width=13.2cm,align=center,inner sep=7pt] {\textbf{ChatGPT は、どの学び方でできている？}\quad 生成 AI も「内挿マシン」なのか};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+% ============================================================
+% 歴史と背景
+% ============================================================
+
+\sectionframe{機械学習は\\[0.3em]どこから来たのか}
+
+\begin{frame}{新しい技術は、期待の山と谷をくり返す}
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=0.72cm]
+  \draw[-{Latex[length=2.5mm]},gray] (0,0) -- (11.5,0) node[below left,font=\small] {時間};
+  \draw[-{Latex[length=2.5mm]},gray] (0,0) -- (0,4.3) node[above right,font=\small] {期待};
+  \draw[boom,line width=2pt] (0.2,0.3) .. controls (1.6,0.6) and (2.2,4.0) .. (3.0,3.9) .. controls (3.8,3.8) and (4.2,0.8) .. (5.2,0.9) .. controls (6.4,1.0) and (8.0,2.2) .. (11.0,2.4);
+  \draw[gray,dashed] (0.2,0.3) -- (11.0,2.3);
+  \node[font=\small,gray!40!black,anchor=west] at (8.9,1.0) {本当にできること};
+  \node[font=\small\bfseries,boom!85!black] at (3.0,4.25) {期待が盛り上がる};
+  \node[font=\small\bfseries,winter!80!black,anchor=west] at (5.4,0.45) {がっかり（冬の時代）};
+  \node[font=\small\bfseries,gain!60!black] at (9.6,2.85) {使い方が育つ};
+  \node[font=\footnotesize,align=center,anchor=north] at (3.0,-0.1) {お金も人も\\集まる};
+  \node[font=\footnotesize,align=center,anchor=north] at (5.2,-0.1) {お金が\\集まらない};
+\end{tikzpicture}
+\end{center}
+\vspace{0.2em}
+\centering 記号的 AI は 1980年代に盛り上がり、\textbf{1990年代に冬}。その冬に、機械学習が芽を出した\\[0.2em]
+{\small 問い：生成 AI はいま、この曲線の\textbf{どのあたり}？ \quad {\scriptsize（曲線は模式図。データではない）}}
+\end{frame}
+
+\begin{frame}{冬の時代：記号的 AI がぶつかった2つの壁}
+\begin{center}
+\begin{tikzpicture}[h/.style={draw,rounded corners,text width=5.6cm,minimum height=1.0cm,align=center,font=\bfseries},b/.style={draw,rounded corners,fill=gray!6,text width=5.6cm,minimum height=2.8cm,align=left,font=\small,inner sep=6pt,anchor=north}]
+  \node[h,fill=boom!15,draw=boom] (h1) at (0,0) {ルールを書くのが大変};
+  \node[b] at ($(h1.south)+(0,-0.12)$) {翻訳なら「this is → これは」\\のようなルールを、人が\\\textbf{何万、何十万}と書く必要がある\\[0.3em]\textbf{作るのも直すのも高くつく}};
+  \node[h,fill=winter!15,draw=winter] (h2) at (6.4,0) {ことばはあいまい};
+  \node[b] at ($(h2.south)+(0,-0.12)$) {同じ文に\textbf{複数のルール}が\\当てはまる。どれを使うかを\\決めるしくみが作れない\\[0.3em]\textbf{想定外に弱い}};
+\end{tikzpicture}
+\end{center}
+\vspace{0.4em}
+\centering ルールを人が書くかぎり、\textbf{規模}と\textbf{あいまいさ}の壁を越えにくい\\[0.2em]
+{\small 記号的 AI が役に立たないわけではない。いまも多くの場所で使われている（前回）}
+\end{frame}
+
+\begin{frame}{機械学習を押し上げた3つの追い風}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw,rounded corners,text width=3.9cm,minimum height=2.3cm,align=center,font=\small,inner sep=5pt}]
+  \node[box,fill=winter!12,draw=winter] (a) {\textbf{\large 統計の進歩}\\[0.3em]統計学とコンピューターが\\結びつき、\\データから学ぶ方法が育つ};
+  \node[box,fill=boom!12,draw=boom,right=0.35cm of a] (b) {\textbf{\large データが増えた}\\[0.3em]Web の普及で\\大量のデータ\\（ビッグデータ）};
+  \node[box,fill=gain!12,draw=gain,right=0.35cm of b] (c) {\textbf{\large 計算機が速くなった}\\[0.3em]手元のパソコンでも\\大量のデータを\\処理できる};
+\end{tikzpicture}\\[0.7em]
+\begin{tikzpicture}[x=1.2cm]
+  \draw[line width=1.5pt,gray] (0,0) -- (10.5,0);
+  \foreach \x/\yr/\t in {0.6/1990年代/{AI 冬の時代}, 2.6/1992年/{サポートベクター\\マシン（SVM）}, 4.6/1995年ごろ/{Windows 95\\Web が広がる}, 6.8/2001年/{ランダム\\フォレスト}, 9.0/2000年代/{\textbf{ビジネスで}\\\textbf{本格的に使われる}}}{
+    \fill[boom] (\x,0) circle (3pt);
+    \node[font=\footnotesize\bfseries,above] at (\x,0.1) {\yr};
+    \node[font=\footnotesize,below,align=center] at (\x,-0.1) {\t};
+  }
+\end{tikzpicture}
+\end{center}
+\vspace{0.1em}
+{\scriptsize SVM・ランダムフォレストは機械学習の代表的な手法の名前（覚えなくてよい）}
+\end{frame}
+
+\begin{frame}{機械学習を「お金」に変えたプレイヤー}
+\begin{center}
+\begin{tikzpicture}[h/.style={draw,rounded corners,text width=3.9cm,minimum height=1.0cm,align=center,font=\bfseries},b/.style={draw,rounded corners,fill=gray!6,text width=3.9cm,minimum height=2.0cm,align=center,font=\small,inner sep=6pt,anchor=north}]
+  \node[h,fill=winter!15,draw=winter] (h1) at (0,0) {Google};
+  \node[b] at ($(h1.south)+(0,-0.12)$) {検索と\textbf{広告}\\どの広告がクリック\\されそうかを予測};
+  \node[h,fill=boom!15,draw=boom] (h2) at (4.5,0) {Amazon};
+  \node[b] at ($(h2.south)+(0,-0.12)$) {\textbf{おすすめ}と需要予測\\次に何を買いそうかを\\予測};
+  \node[h,fill=gain!15,draw=gain] (h3) at (9,0) {Meta（Facebook）};
+  \node[b] at ($(h3.south)+(0,-0.12)$) {SNS と\textbf{広告}\\だれに何を見せるかを\\予測};
+\end{tikzpicture}
+\end{center}
+\vspace{0.4em}
+\centering{\large 2000年代、「\textbf{データは、お金になる}」ことを証明した}
+\end{frame}
+
+\thinkframe{今日ここまでに使ったアプリで\\[0.3em]\textbf{データから学んでいそう}なものは？\\[0.5em]{\large アプリの名前と、\textbf{何を予測していそうか}}}
+
+% ============================================================
+% 価値を生むしくみと本質
+% ============================================================
+
+\sectionframe{機械学習が\\[0.3em]価値を生むしくみ}
+
+\begin{frame}{お客さんが多いと、売上のほかに「データ」も集まる}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw,rounded corners,minimum height=1.3cm,align=center,font=\small},arr/.style={-{Latex[length=3mm]},very thick}]
+  \node[box,fill=winter!12,draw=winter,text width=3.0cm] (biz) at (0,0) {\textbf{会社の「しくみ」}\\{\footnotesize 店・レジ・サイト・工場}};
+  \node[draw,ellipse,fill=gray!8,minimum width=4.4cm,minimum height=2.6cm,align=center,font=\small] (mkt) at (8.2,0) {\textbf{マーケット}\\お客さんが\\たくさんいる};
+  \draw[arr,gray] (biz.north east) to[bend left=25] node[above,font=\small] {サービスを届ける} (mkt.north west);
+  \draw[arr,gain!70!black] (mkt.west) -- node[above,font=\small\bfseries] {売上} (biz.east);
+  \draw[arr,boom,line width=2pt] (mkt.south west) to[bend left=25] node[below,font=\small\bfseries,boom!85!black] {データ（ビッグデータ）} (biz.south east);
+\end{tikzpicture}
+\end{center}
+\vspace{0.4em}
+\begin{center}
+\colorbox{boom!10}{\parbox{12.5cm}{\centering データでしくみを少し賢くする（おすすめが少し当たる）\\$\rightarrow$ お客さんが多いほど、\textbf{少しの改善が大きな売上}になる}}
+\end{center}
+\end{frame}
+
+\begin{frame}{機械学習の本質：結果から原因を逆にたどる}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw,rounded corners,text width=3.2cm,minimum height=1.6cm,align=center,font=\small}]
+  \node[box,fill=winter!12,draw=winter] (c) at (0,0) {\textbf{\large 原因}\\モデル・仮定};
+  \node[box,fill=boom!12,draw=boom] (r) at (10,0) {\textbf{\large 結果}\\データ・実際の値};
+  \draw[-{Latex[length=3mm]},very thick,winter] ($(c.east)+(0,0.3)$) -- node[above,font=\small] {ルール：原因から結果を出す} ($(r.west)+(0,0.3)$);
+  \draw[-{Latex[length=3mm]},very thick,boom] ($(r.west)+(0,-0.3)$) -- node[below,font=\small\bfseries,boom!85!black] {機械学習：結果から原因を推定} ($(c.east)+(0,-0.3)$);
+\end{tikzpicture}\\[0.8em]
+\begin{tikzpicture}[b/.style={draw,rounded corners,text width=5.6cm,minimum height=1.9cm,align=left,font=\small,inner sep=6pt}]
+  \node[b,fill=winter!8,draw=winter] (x) {\textbf{ルールの例}\\「冬は冬服が売れるはず」\\$\rightarrow$ 12月は冬服をすすめる};
+  \node[b,fill=boom!8,draw=boom,right=0.5cm of x] (y) {\textbf{機械学習の例}\\去年の12月に\textbf{実際に売れたもの}\\$\rightarrow$ 「毛糸の服は冬に売れる」を見つける};
+\end{tikzpicture}
+\end{center}
+\vspace{0.2em}
+{\scriptsize この「逆にたどる」計算を支えるのがベイズ統計の考え方}
+\end{frame}
+
+\begin{frame}{統計的機械学習 ＝ 内挿マシン}
+\begin{columns}[c]
+\begin{column}{0.55\textwidth}
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \draw[rounded corners=12pt,dashed,gray] (-0.2,-0.2) rectangle (4.2,3.6);
+  \foreach \x/\y in {0.3/0.4,0.8/1.5,0.5/2.7,1.2/0.7,1.6/2.2,1.9/3.1,2.3/1.0,2.6/2.6,3.0/0.5,3.3/1.8,3.7/3.0,1.1/3.2,3.8/0.9,2.9/3.3,0.4/1.9,1.5/1.3,2.7/1.8,3.4/2.5}{\fill[winter] (\x,\y) circle (2.6pt);}
+  \draw[boom,thick] (2.05,1.85) circle (0.75);
+  \fill[boom] (2.05,1.85) circle (3.5pt);
+  \node[font=\footnotesize\bfseries,boom!85!black,fill=white,inner sep=1pt] at (2.05,0.9) {近所を見る};
+  \node[font=\small\bfseries,anchor=south] at (2.0,3.7) {データがある場所};
+  \draw[gray,dashed] (4.6,-0.2) rectangle (6.4,3.6);
+  \draw[boom,thick] (5.5,1.6) circle (4pt);
+  \node[font=\small\bfseries,anchor=south] at (5.5,3.7) {データがない};
+  \node[font=\footnotesize,align=center] at (5.5,0.6) {参考にできる\\例がない};
+\end{tikzpicture}\\[0.2em]
+{\small\textbf{\color{boom!85!black}内挿}：近くの例から推定 \quad \textbf{外挿}：例のない場所}
+\end{column}
+\begin{column}{0.43\textwidth}
+\begin{tikzpicture}[box/.style={draw,rounded corners,text width=5.0cm,align=left,font=\small,inner sep=6pt}]
+  \node[box,fill=gain!10,draw=gain] (a) {\textbf{得意}\\似た例がたくさんある問題\\スパム・売れ筋・不正利用};
+  \node[box,fill=boom!10,draw=boom,below=0.3cm of a] (b) {\textbf{苦手}\\\textbf{前例のない}問題\\はじめての出来事・\\世の中のルールが変わったあと};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\vspace{0.4em}
+\centering 新しいものが来たら、\textbf{似ている過去の例}を探して、それをまねる\\[0.1em]
+{\scriptsize 考え方の出典：樋口知之「人工知能はみようみまねマシンの究極形」『情報管理』59巻5号、2016年}
+\end{frame}
+
+% ============================================================
+% 4つの学び方
+% ============================================================
+
+\sectionframe{機械学習の\\[0.3em]4つの学び方}
+
+\begin{frame}{「教師」とは：正解のラベル}
+\begin{center}
+\begin{tikzpicture}[img/.style={draw,rounded corners,fill=gray!12,minimum width=1.6cm,minimum height=1.3cm,font=\footnotesize},lab/.style={draw,rounded corners,font=\small\bfseries,inner sep=3pt}]
+  \node[font=\bfseries] at (2.6,1.4) {ラベルあり（教師データ）};
+  \foreach \x/\l/\c in {0/ネコ/boom,1.8/イヌ/winter,3.6/ネコ/boom,5.4/イヌ/winter}{
+    \node[img] at (\x,0) {写真};
+    \node[lab,fill=\c!15,draw=\c] at (\x,-1.05) {\l};
+  }
+  \node[font=\bfseries] at (10.3,1.4) {ラベルなし};
+  \foreach \x in {8.0,9.8,11.6}{
+    \node[img] at (\x,0) {写真};
+    \node[lab,fill=gray!8,draw=gray] at (\x,-1.05) {？};
+  }
+  \draw[gray] (6.75,1.6) -- (6.75,-1.5);
+\end{tikzpicture}
+\end{center}
+\vspace{0.6em}
+\begin{itemize}
+  \item 学校の先生ではなく、「\textbf{これが正解}」と付けたデータのこと
+  \item ラベルは\textbf{人が付ける}ことが多い。大量に付けるには\textbf{お金と時間}がかかる
+  \item 教師データを使うか・使わないか・少しだけ使うか・使わずに試すか $\rightarrow$ \textbf{4つの学び方}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{① 教師あり学習：正解から学んで、新しいものを予測する}
+\begin{center}
+\begin{tikzpicture}[h/.style={draw,rounded corners,text width=5.7cm,minimum height=0.9cm,align=center,font=\bfseries},b/.style={draw,rounded corners,fill=gray!6,text width=5.7cm,minimum height=3.3cm,align=center,font=\small,inner sep=6pt,anchor=north}]
+  \node[h,fill=winter!15,draw=winter] (h1) at (0,0) {分類：どのグループ？};
+  \node[b] (b1) at ($(h1.south)+(0,-0.12)$) {};
+  \node[h,fill=boom!15,draw=boom] (h2) at (6.4,0) {回帰：数字でいくら？};
+  \node[b] (b2) at ($(h2.south)+(0,-0.12)$) {};
+  \node[draw,rounded corners,fill=white,font=\small,minimum width=1.6cm] (m) at (-1.6,-1.8) {メール};
+  \node[draw,rounded corners,fill=boom!15,draw=boom,font=\small] (s) at (1.4,-1.3) {迷惑メール};
+  \node[draw,rounded corners,fill=gain!15,draw=gain,font=\small] (n) at (1.4,-2.3) {ふつうのメール};
+  \draw[-{Latex},thick,gray] (m) -- (s); \draw[-{Latex},thick,gray] (m) -- (n);
+  \node[font=\footnotesize,align=center] at (0,-3.25) {過去の大量のメールに\\「迷惑／ふつう」の正解をつけて学ぶ};
+  \begin{scope}[shift={(4.3,-3.6)},x=0.85cm,y=0.55cm]
+    \draw[-{Latex},gray] (0,0) -- (4.9,0) node[below left,font=\scriptsize] {築年数};
+    \draw[-{Latex},gray] (0,0) -- (0,4.3) node[above right,font=\scriptsize] {価格};
+    \foreach \x/\y in {0.4/3.8,0.9/3.3,1.3/3.5,1.8/2.7,2.2/2.4,2.6/2.6,3.1/1.8,3.5/1.6,4.0/1.2}{\fill[winter] (\x,\y) circle (2pt);}
+    \draw[boom,thick] (0.2,4.0) -- (4.4,0.9);
+    \node[font=\scriptsize,align=left,anchor=west] at (2.5,3.6) {中古マンションの\\価格を予測する};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+\vspace{0.2em}
+\centering\small Gmail は迷惑メールなどの \textbf{99.9\% 超}を止めている（Google の説明）\\
+{\scriptsize 出典：Google「Gmail の安全性」（safety.google、Google 自身の公表値）}
+\end{frame}
+
+\begin{frame}{② 教師なし学習：正解なしで、まとまりを見つける}
+\begin{columns}[c]
+\begin{column}{0.52\textwidth}
+\centering
+\begin{tikzpicture}[x=0.95cm,y=0.75cm]
+  \draw[-{Latex},gray] (0,0) -- (6,0) node[below left,font=\scriptsize] {1年に買う回数};
+  \draw[-{Latex},gray] (0,0) -- (0,4.6) node[above right,font=\scriptsize] {1回の金額};
+  \foreach \x/\y in {0.5/0.5,0.8/0.8,0.4/1.0,1.0/0.4,1.2/0.9}{\fill[gray] (\x,\y) circle (2.2pt);}
+  \foreach \x/\y in {4.4/0.6,4.9/0.9,5.2/0.5,4.6/1.1,5.4/0.8}{\fill[winter] (\x,\y) circle (2.2pt);}
+  \foreach \x/\y in {0.8/3.6,1.2/3.9,0.6/3.2,1.4/3.4}{\fill[boom] (\x,\y) circle (2.2pt);}
+  \foreach \x/\y in {4.3/3.5,4.8/3.9,5.1/3.3,4.5/3.0}{\fill[gain] (\x,\y) circle (2.2pt);}
+  \draw[gray,dashed] (0.8,0.7) circle (0.75);
+  \draw[winter,dashed] (4.9,0.8) circle (0.75);
+  \draw[boom,dashed] (1.0,3.55) circle (0.75);
+  \draw[gain,dashed] (4.7,3.45) circle (0.75);
+  \node[font=\small\bfseries] at (1.95,0.75) {A};
+  \node[font=\small\bfseries] at (3.85,0.75) {B};
+  \node[font=\small\bfseries] at (2.0,3.55) {C};
+  \node[font=\small\bfseries] at (3.65,3.45) {D};
+\end{tikzpicture}\\[0.2em]
+{\footnotesize グループの分け方は、データの形から機械が見つける}
+\end{column}
+\begin{column}{0.46\textwidth}
+\begin{tikzpicture}[box/.style={draw,rounded corners,text width=5.4cm,align=left,font=\small,inner sep=6pt}]
+  \node[box,fill=gray!8] (a) {\textbf{クラスタリング}（顧客を分ける）\\新商品のダイレクトメール\\1万人全員に送ると \textbf{約 150 万円}};
+  \node[box,fill=gain!10,draw=gain,below=0.25cm of a] (b) {買いそうなグループの \textbf{2,000 人}\\だけに送れば \textbf{約 30 万円}\\{\footnotesize 1通 150円で計算した例}};
+  \node[box,fill=winter!10,draw=winter,below=0.25cm of b] (c) {\textbf{次元削減}：たくさんの特徴を\\2つにまとめて、地図のように見る};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\vspace{0.3em}
+\centering\small 似た人どうしをまとめる ＝ \textbf{セグメンテーション}。広告費をムダにしない
+\end{frame}
+
+\begin{frame}{③ 半教師あり学習：少しの正解と、たくさんのデータ}
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \foreach \x/\y in {0.4/0.5,0.9/1.4,1.6/0.3,2.2/1.1,0.3/2.2,1.3/2.4,2.6/2.0,3.1/0.7,3.6/1.6,4.4/2.5,4.9/0.9,5.4/1.9,6.0/0.4,6.4/2.3,7.0/1.2,7.6/2.6,8.1/0.6,8.6/1.8,9.2/2.4,9.6/1.0,5.7/2.8,2.0/2.9,7.4/0.2,4.0/0.3}{\fill[gray!45] (\x,\y) circle (3pt);}
+  \foreach \x/\y in {1.1/0.9,2.9/2.6}{\fill[boom] (\x,\y) circle (4.5pt);}
+  \foreach \x/\y in {7.9/1.6,9.0/0.4}{\fill[winter] (\x,\y) circle (4.5pt);}
+  \draw[gray,dashed,thick] (5.1,-0.2) -- (5.3,3.2);
+\end{tikzpicture}
+\end{center}
+\vspace{0.4em}
+\begin{columns}[t]
+\begin{column}{0.48\textwidth}
+\begin{itemize}\small
+  \item {\color{boom}\textbf{●}}{\color{winter}\textbf{●}} 正解つき（少し）\quad {\color{gray}\textbf{●}} 正解なし（たくさん）
+  \item 正解なしのデータの\textbf{集まり方}も手がかりにして、境目を引く
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{itemize}\small
+  \item 正解を付けるのが\textbf{高くつく}分野で役に立つ
+  \item 例：医療の画像（専門家しか正解を付けられない）・文書の分類
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{④ 強化学習：試して、ほめられた行動を強める}
+\begin{columns}[c]
+\begin{column}{0.52\textwidth}
+\centering
+\begin{tikzpicture}[box/.style={draw,rounded corners,minimum width=2.6cm,minimum height=1.4cm,align=center,font=\small},arr/.style={-{Latex[length=3mm]},very thick}]
+  \node[box,fill=genai!12,draw=genai] (ag) at (0,0) {\textbf{AI}\\（エージェント）};
+  \node[box,fill=gray!10] (env) at (0,-3.2) {\textbf{環境}\\ゲーム・ロボットの周り};
+  \draw[arr,winter] (ag.east) to[bend left=50] node[right,font=\small\bfseries] {行動} (env.east);
+  \draw[arr,gain!70!black] (env.west) to[bend left=50] node[left,font=\small\bfseries,align=center] {結果と\\報酬} (ag.west);
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.46\textwidth}
+\begin{tikzpicture}[box/.style={draw,rounded corners,text width=5.4cm,align=left,font=\small,inner sep=6pt}]
+  \node[box,fill=gray!8] (a) {\textbf{人も同じ}\\ボウリングは「こう投げる」と\\教わるだけでは上達しない。\\投げて、結果を見て、直す};
+  \node[box,fill=gain!10,draw=gain,below=0.25cm of a] (b) {\textbf{正解ラベルはない}\\あるのは「よかった／\\よくなかった」という\textbf{報酬}だけ};
+  \node[box,fill=winter!10,draw=winter,below=0.25cm of b] (c) {\textbf{使われる場面}\\ゲーム（囲碁など）・ロボットの制御};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{4つの学び方をくらべる}
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\small
+\begin{tabular}{p{2.6cm}p{5.4cm}p{5.6cm}}
+\toprule
+\textbf{学び方} & \textbf{手がかり} & \textbf{身近な例}\\
+\midrule
+\colorbox{winter!15}{\textbf{教師あり}} & 正解つきのデータ & 迷惑メールの判定・価格の予測\\
+\colorbox{gain!15}{\textbf{教師なし}} & 正解なしのデータの\textbf{形} & 顧客のグループ分け・似た曲のまとめ\\
+\colorbox{gray!15}{\textbf{半教師あり}} & 少しの正解＋たくさんの正解なし & 医療画像・文書の分類\\
+\colorbox{boom!15}{\textbf{強化学習}} & 試した結果の\textbf{報酬} & ゲーム・ロボットの動き\\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.6em}
+\centering\large 見分けるポイント：\textbf{何を手がかりに学んでいるか}\\[0.2em]
+{\small 実際のサービスは\textbf{組み合わせ}が多い。外から見て決めつけず、\textbf{理由}をそえて考える}
+\end{frame}
+
+\thinkframe{スマホの中の AI を1つ選んで\\[0.3em]\textbf{4つの学び方のどれに近い}？\\[0.5em]{\large 何を手がかりに学んでいそうか、理由も}}
+
+% ============================================================
+% ビジネス応用と倫理
+% ============================================================
+
+\sectionframe{ビジネスの現場の\\[0.3em]機械学習}
+
+\begin{frame}{機械学習のビジネス応用：6つの場面}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw,rounded corners,text width=3.9cm,minimum height=2.0cm,align=center,font=\small,inner sep=5pt}]
+  \node[box,fill=winter!10,draw=winter] (a) at (0,0) {\textbf{Web 集客}\\検索連動広告・\\行動ターゲティング広告};
+  \node[box,fill=winter!10,draw=winter] (b) at (4.4,0) {\textbf{顧客との関係づくり}\\おすすめ・\\スマホのプッシュ通知};
+  \node[box,fill=gain!10,draw=gain] (c) at (8.8,0) {\textbf{データの価値を高める}\\商品データの整備・\\荒らしコメントの削除};
+  \node[box,fill=gain!10,draw=gain] (d) at (0,-2.3) {\textbf{マッチング}\\人材採用・お見合い・\\企業どうしの提携};
+  \node[box,fill=boom!10,draw=boom] (e) at (4.4,-2.3) {\textbf{業務の効率化}\\製造の計画・\\トラックの配置・売り場};
+  \node[box,fill=boom!10,draw=boom] (f) at (8.8,-2.3) {\textbf{障害・不正を防ぐ}\\故障の予兆・不良品・\\カードの不正利用};
+\end{tikzpicture}
+\end{center}
+\vspace{0.2em}
+\centering どれも、売上を\textbf{増やす}か、コストと損を\textbf{減らす}かにつながる
+\end{frame}
+
+\begin{frame}{不正利用を見抜く：1件ずつ「あやしさ」を予測する}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw,rounded corners,minimum height=1.5cm,align=center,font=\small},arr/.style={-{Latex[length=3mm]},very thick,gray}]
+  \node[box,fill=gray!8,text width=2.6cm] (t) {\textbf{新しい取引}\\金額・場所・時刻\\・いつもとの違い};
+  \node[box,fill=winter!12,draw=winter,text width=3.2cm,right=0.7cm of t] (m) {\textbf{学習したモデル}\\過去の「不正／ふつう」\\から学んだもの};
+  \node[box,fill=boom!12,draw=boom,text width=2.6cm,right=0.7cm of m] (s) {\textbf{あやしさの点数}\\高ければ止める・\\本人に確かめる};
+  \draw[arr] (t) -- (m); \draw[arr] (m) -- (s);
+\end{tikzpicture}
+\end{center}
+\vspace{0.6em}
+\begin{columns}[t]
+\begin{column}{0.48\textwidth}
+\begin{tikzpicture}[box/.style={draw,rounded corners,text width=5.6cm,align=left,font=\small,inner sep=6pt}]
+  \node[box,fill=winter!10,draw=winter] {\textbf{教師あり学習}\\過去の取引に「不正だった／ふつうだった」の正解を付けて学ぶ};
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{tikzpicture}[box/.style={draw,rounded corners,text width=5.6cm,align=left,font=\small,inner sep=6pt}]
+  \node[box,fill=boom!10,draw=boom] {\textbf{内挿マシンの弱点}\\\textbf{新しい手口}は過去の例に似ていないので見逃しやすい $\rightarrow$ \textbf{学び直し}を続ける};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{倫理の観点から：機械学習の利点と課題}
+\begin{center}
+\begin{tikzpicture}[h/.style={draw,rounded corners,text width=5.7cm,minimum height=0.9cm,align=center,font=\bfseries},b/.style={draw,rounded corners,fill=gray!6,text width=5.7cm,minimum height=3.4cm,align=left,font=\small,inner sep=6pt,anchor=north}]
+  \node[h,fill=gain!15,draw=gain] (h1) at (0,0) {利点};
+  \node[b] at ($(h1.south)+(0,-0.12)$) {・\textbf{説明できる}こともある\\\quad 単純なモデルなら、何が\\\quad 判断に効いたかが分かる\\・大量のデータを\textbf{速く、むらなく}\\・データが公平なら、人の\\\quad 思いこみを\textbf{減らせる}かもしれない};
+  \node[h,fill=boom!15,draw=boom] (h2) at (6.4,0) {課題};
+  \node[b] at ($(h2.south)+(0,-0.12)$) {・データの\textbf{偏り}をそのまま学ぶ\\・複雑なモデルは\textbf{理由が見えない}\\・学習に使う\textbf{個人のデータ}\\\quad （プライバシー）\\・まちがえたとき、\textbf{だれの責任}か\\\quad があいまい};
+\end{tikzpicture}
+\end{center}
+\vspace{0.2em}
+\centering 対策：データを多様に集める・\textbf{説明できる AI}・プライバシー保護・責任の分担を先に決める
+\end{frame}
+
+\begin{frame}{採用の AI が、女性を不利にした（2018年の報道）}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw,rounded corners,text width=3.4cm,minimum height=2.3cm,align=center,font=\small,inner sep=5pt},arr/.style={-{Latex[length=3mm]},very thick,gray}]
+  \node[box,fill=gray!8] (a) {\textbf{過去の履歴書}\\[0.3em]約10年分。\\応募者の\textbf{多くが男性}\\（IT 業界の現実）};
+  \node[box,fill=winter!12,draw=winter,right=0.6cm of a] (b) {\textbf{機械学習}\\[0.3em]過去に\textbf{採用された人}\\に似ている人を\\高く評価する};
+  \node[box,fill=boom!12,draw=boom,right=0.6cm of b] (c) {\textbf{結果}\\[0.3em]「女性の」という語を\\ふくむ履歴書の\\評価を\textbf{下げた}};
+  \draw[arr] (a) -- (b); \draw[arr] (b) -- (c);
+\end{tikzpicture}
+\end{center}
+\vspace{0.4em}
+\begin{itemize}\small
+  \item Amazon は直そうとしたが公平さを保証できず、計画をやめた（評価には使っていない、と説明）
+  \item \textbf{内挿マシンは、過去の偏りもまねる}
+\end{itemize}
+\vspace{0.1em}
+{\scriptsize 出典：Reuters, ``Amazon scraps secret AI recruiting tool that showed bias against women''（2018年10月10日）}
+\end{frame}
+
+% ============================================================
+% 生成 AI
+% ============================================================
+
+\sectionframe{生成 AI も\\[0.3em]機械学習でできている}
+
+\begin{frame}{ChatGPT ができるまで：3つの学び方を順番に使う}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw,rounded corners,text width=3.3cm,minimum height=3.3cm,align=center,font=\small,inner sep=5pt},arr/.style={-{Latex[length=3mm]},very thick,gray},tag/.style={draw,rounded corners,font=\small\bfseries,inner sep=3pt}]
+  \node[box,fill=gain!10,draw=gain] (a) {\textbf{① 事前学習}\\[0.4em]大量の文章で\\\textbf{次のことば}を\\当てる練習\\[0.3em]{\footnotesize ことばの「近所」の\\地図ができる}};
+  \node[box,fill=winter!10,draw=winter,right=0.55cm of a] (b) {\textbf{② 指示への追従}\\[0.4em]人が書いた\\\textbf{お手本の答え}を\\まねる\\[0.3em]{\footnotesize 質問に答える\\形を覚える}};
+  \node[box,fill=boom!10,draw=boom,right=0.55cm of b] (c) {\textbf{③ 人の好みで調整}\\[0.4em]2つの答えを人が\\\textbf{くらべて点数}\\[0.3em]{\footnotesize よい答えを\\強める（RLHF）}};
+  \node[box,fill=genai!12,draw=genai,right=0.55cm of c,text width=2.0cm] (d) {\textbf{対話\\AI}\\[0.4em]{\footnotesize ChatGPT\\Gemini\\Claude\\など}};
+  \draw[arr] (a) -- (b); \draw[arr] (b) -- (c); \draw[arr] (c) -- (d);
+  \node[tag,fill=gain!20,draw=gain,below=0.15cm of a] {教師なし};
+  \node[tag,fill=winter!20,draw=winter,below=0.15cm of b] {教師あり};
+  \node[tag,fill=boom!20,draw=boom,below=0.15cm of c] {強化学習};
+\end{tikzpicture}
+\end{center}
+\vspace{0.3em}
+\centering 今日の\textbf{4つの学び方}が、そのまま生成 AI の部品になっている\\[0.1em]
+{\scriptsize 段階の分け方は代表的な作り方（OpenAI の InstructGPT の論文、2022年）。会社やモデルによって細部はちがう}
+\end{frame}
+
+\begin{frame}{① 事前学習：正解は、文章そのものの中にある}
+\begin{center}
+\begin{tikzpicture}
+  \node[draw,rounded corners,fill=gray!6,text width=11.5cm,align=center,font=\Large,inner sep=10pt] (s) {今日はとても寒いので、厚い \colorbox{gain!25}{\ \textbf{？}\ } を着て出かけた};
+  \node[font=\small,below=0.25cm of s,align=center] {候補：\textbf{コート}（よく出てくる）\quad セーター \quad 本（ほとんど出てこない）};
+\end{tikzpicture}
+\end{center}
+\vspace{0.4em}
+\begin{columns}[t]
+\begin{column}{0.48\textwidth}
+\begin{itemize}\small
+  \item 文章を隠して「次は何？」を当てる。答えは\textbf{元の文章}
+  \item 人が正解を付けなくてよい $\rightarrow$ \textbf{いくらでも量を増やせる}
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{itemize}\small
+  \item 例：Meta の Llama 3 は \textbf{15 兆トークン以上}の文章で事前学習（2024年）
+  \item 正確には\textbf{自己教師あり}学習と呼ぶ（人のラベルなしで、データから問題を作る）
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.3em}
+{\scriptsize トークン：文章を細かく切った単位。出典：Meta「Introducing Meta Llama 3」（2024年4月18日）}
+\end{frame}
+
+\begin{frame}{②③ 指示への追従と、人の好みでの調整}
+\begin{columns}[c]
+\begin{column}{0.50\textwidth}
+\begin{tikzpicture}[box/.style={draw,rounded corners,text width=5.6cm,align=left,font=\small,inner sep=6pt}]
+  \node[box,fill=winter!10,draw=winter] (a) {\textbf{② お手本をまねる}（教師あり）\\質問とよい答えの組を人が書き、\\答え方の\textbf{型}を学ぶ};
+  \node[box,fill=boom!10,draw=boom,below=0.3cm of a] (b) {\textbf{③ くらべて点数}（強化学習）\\答え A と B のどちらがよいかを\\人が選ぶ $\rightarrow$ その好みを\textbf{報酬}にして\\ほめられる答え方を強める};
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.48\textwidth}
+\centering
+{\small\textbf{InstructGPT の結果}（2022年）}\\[0.4em]
+\begin{tikzpicture}[box/.style={draw,rounded corners,text width=2.3cm,minimum height=1.9cm,align=center,font=\small}]
+  \node[box,fill=gray!10] (x) {調整なし\\\textbf{GPT-3}\\\textbf{1750億}\\{\scriptsize パラメータ}};
+  \node[box,fill=boom!12,draw=boom,right=0.4cm of x,minimum height=1.2cm] (y) {②③で調整\\\textbf{13億}};
+\end{tikzpicture}\\[0.3em]
+{\small 大きさが約 100 分の1でも、\\人は\textbf{調整したほうの答えを好んだ}}
+\end{column}
+\end{columns}
+\vspace{0.5em}
+\centering\small 2025年には、数学やプログラムのように\textbf{答えを確かめられる問題}で報酬を与え、\\
+「考えてから答える」力を強化学習で伸ばした例も（DeepSeek-R1）\\[0.1em]
+{\scriptsize 出典：Ouyang ほか（arXiv:2203.02155、2022年）。DeepSeek-AI「DeepSeek-R1」（Nature 645巻、2025年）}
+\end{frame}
+
+\begin{frame}{生成 AI も「内挿マシン」なのか？}
+\begin{center}
+\begin{tikzpicture}[h/.style={draw,rounded corners,text width=5.7cm,minimum height=0.9cm,align=center,font=\bfseries},b/.style={draw,rounded corners,fill=gray!6,text width=5.7cm,minimum height=3.2cm,align=left,font=\small,inner sep=6pt,anchor=north}]
+  \node[h,fill=gain!15,draw=gain] (h1) at (0,0) {当てはまりそうなこと};
+  \node[b] at ($(h1.south)+(0,-0.12)$) {・学んだ文章の「近所」で話す\\・学んだ\textbf{時点より後}の出来事は\\\quad 調べないと知らない\\・もっともらしい\textbf{まちがい}（前回）\\・学んだ文章の\textbf{偏り}もまねる\\・前例のない大発見は苦手};
+  \node[h,fill=genai!15,draw=genai] (h2) at (6.4,0) {当てはまりにくく見えること};
+  \node[b] at ($(h2.south)+(0,-0.12)$) {・\textbf{見たことのない文}を作れる\\・ちがう話題を\textbf{組み合わせ}られる\\\quad （例：配送計画を俳句で説明）\\・学んだ量が膨大で、\\\quad 「近所」がとても\textbf{広い}};
+\end{tikzpicture}
+\end{center}
+\vspace{0.2em}
+\centering{\large ひとつの見方：「\textbf{近所がとても広くなった}内挿マシン」}\\[0.1em]
+{\small 正解は決まっていない。研究者のあいだでも議論が続いている問い}
+\end{frame}
+
+\thinkframe{生成 AI は\\[0.3em]「\textbf{内挿マシン}」だと思う？\\[0.5em]{\large 思う・思わない、どちらでも。\\\textbf{自分が使った経験}から理由を1つ}}
+
+% ============================================================
+% まとめ・演習
+% ============================================================
+
+\begin{frame}{まとめ}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw,rounded corners,text width=3.9cm,minimum height=3.0cm,align=center,font=\small}]
+  \node[box,fill=gray!8] (a) {\textbf{本質}\\[0.5em]結果から原因へ\\\textbf{内挿マシン}\\似た過去をまねる\\前例のないものは苦手};
+  \node[box,fill=gain!8,right=0.35cm of a] (b) {\textbf{4つの学び方}\\[0.5em]教師あり・教師なし\\半教師あり・強化学習\\\textbf{何を手がかりに}\\\textbf{学ぶか}で見分ける};
+  \node[box,fill=genai!8,right=0.35cm of b] (c) {\textbf{生成 AI}\\[0.5em]事前学習（教師なし）\\指示追従（教師あり）\\RLHF（強化学習）\\の組み合わせ};
+\end{tikzpicture}\\[0.8em]
+{\large データから学ぶ AI は、\textbf{データの外}をどこまで語れるか}
+\end{center}
+\end{frame}
+
+\begin{frame}{演習課題：AI の「学び方」を選んで説明する}
+次の例から\textbf{1つ}を選び、3点について論じてください。\\[0.2em]
+{\small (a) メールを迷惑メールとふつうのメールに分けたい\quad (b) 顧客をグループに分けて特徴を知りたい\\
+(c) 自動運転車が、信号で止まるタイミングを学びたい\quad (d) 対話 AI の答え方を人の好みに合わせたい\par}
+\begin{enumerate}\small
+  \item どの学び方（\textbf{教師あり・教師なし・半教師あり・強化学習}）が向いているか。\textbf{理由}も
+  \item 学ぶために\textbf{どんなデータ}が要るか。正解（ラベル）や報酬は何で、だれが用意するか
+  \item 「\textbf{内挿マシン}」の見方から、その AI が\textbf{苦手にしそうな場面}と、使うときの注意
+\end{enumerate}
+\vspace{0.1em}
+\begin{itemize}\small
+  \item 文字数の目安：\textbf{800〜2000字}。調べた内容には\textbf{情報源の URL}
+  \item 生成 AI の利用可。ただし\textbf{自分のことばで説明できること}
+\end{itemize}
+\end{frame}
+
+% ============================================================
+% 付録
+% ============================================================
+
+\sectionframe{付録}
+
+\begin{frame}{付録1：機械学習のことば}
+\small
+\begin{columns}[t]
+\begin{column}{0.48\textwidth}
+\begin{itemize}\scriptsize\setlength{\itemsep}{1pt}
+  \item \textbf{機械学習}：人がルールを書くかわりに、データから判断のしかたを機械に学ばせる方法。今日の「統計的機械学習」は、統計学の考え方でデータから学ぶもの
+  \item \textbf{教師データ（ラベル）}：「これが正解」と付けたデータ。迷惑メールかどうか、写真に写っているのは何か、など
+  \item \textbf{分類と回帰}：教師あり学習の2つの型。分類は「どのグループか」、回帰は「数字でいくらか」を予測する
+  \item \textbf{クラスタリング}：正解なしで、似たものどうしをグループにまとめること。顧客に使うとセグメンテーション
+  \item \textbf{次元削減}：たくさんの特徴を少数（たとえば2つ）にまとめ、地図のように見えるようにすること
+  \item \textbf{報酬}：強化学習で、行動の結果が「よかった／よくなかった」を表す点数
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{itemize}\scriptsize\setlength{\itemsep}{1pt}
+  \item \textbf{内挿と外挿}：手元のデータがある範囲の内側で推定するのが内挿、データのない外側を推定するのが外挿。統計的機械学習は内挿が得意で、外挿は苦手
+  \item \textbf{事前学習}：大量の文章で「次のことば」を当てる練習をさせ、ことばの使われ方を学ばせる段階。人がラベルを付けないので教師なしに分類されるが、正確には\textbf{自己教師あり学習}（データそのものから問題と正解を作る）
+  \item \textbf{ファインチューニング}：事前学習したモデルを、目的に合わせて追加で学習させること。お手本の答えで学ばせる「指示への追従」はその一つ
+  \item \textbf{RLHF}：人間のフィードバックによる強化学習。人が答えをくらべて選んだ結果を報酬にして、答え方を調整する
+  \item \textbf{パラメータ}：モデルの中の調整できる数値。数が多いほど「大きい」モデル
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{付録2：数字と出典}
+\scriptsize
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item \textbf{内挿マシン}：樋口知之「視点 人工知能はみようみまねマシンの究極形」『情報管理』59巻5号、pp.331--335、2016年。\url{https://doi.org/10.1241/johokanri.59.331}
+  \item \textbf{Gmail の迷惑メール対策}：「迷惑メール・フィッシング・マルウェアの 99.9\% 超を防ぐ」は Google 自身の説明（safety.google の Gmail のページ）
+  \item \textbf{ダイレクトメールの例}：1通 150円として、1万人で 150万円、2,000人で 30万円（説明のための計算）
+  \item \textbf{採用の AI}：Reuters ``Amazon scraps secret AI recruiting tool that showed bias against women''（2018年10月10日）。10年分の履歴書から学び、``women's'' をふくむ履歴書の評価を下げた。Amazon は採用担当者の評価には使っていないと説明
+  \item \textbf{Llama 3}：Meta「Introducing Meta Llama 3」（2024年4月18日）。15兆トークン以上の公開データで事前学習
+  \item \textbf{InstructGPT}：L.~Ouyang ほか ``Training language models to follow instructions with human feedback''（arXiv:2203.02155、2022年）。13億パラメータの調整済みモデルの答えが、1750億パラメータの GPT-3 より好まれた
+  \item \textbf{DeepSeek-R1}：DeepSeek-AI ``DeepSeek-R1 incentivizes reasoning in LLMs through reinforcement learning''（Nature 645巻、2025年）
+  \item \textbf{SVM・ランダムフォレストの年}：一般に知られた発表年（論文そのものは確認していない）
+\end{itemize}
+\end{frame}
+
+\begin{frame}{付録3：生成 AI と機械学習 — 3つの段階と「内挿マシン」}
+\footnotesize
+\begin{itemize}
+  \item \textbf{① 事前学習（教師なし／自己教師あり）}：インターネットや本の大量の文章で、隠したことばを当てる練習をする。人がラベルを付けなくてよいので、量を大きく増やせる。ことばどうしの「近さ」の地図ができる
+  \item \textbf{② 指示への追従（教師あり）}：「質問」と「よい答え」の組を人が書き、答え方の型を学ばせる。ここで初めて、質問に答える AI らしくなる
+  \item \textbf{③ 人の好みでの調整（強化学習・RLHF）}：同じ質問への答えを人がくらべて選び、その好みを点数にする。点数が高くなる答え方を強める。2025年には、数学やプログラムのように答えを機械で確かめられる問題で報酬を与え、考える過程を伸ばす方法も広がった（DeepSeek-R1 など）
+  \item \textbf{「内挿マシン」は当てはまるか}：学んだ文章の範囲で話すこと、学んだ時点より後の出来事を知らないこと、学んだ文章の偏りをまねることは、内挿マシンの見方でよく説明できる。一方で、見たことのない文を作り、ちがう話題を組み合わせられるのは、「近所」がとても広いからだ、という見方もある。どこまでが内挿で、どこからが本当に新しいのかは、研究者のあいだでも議論が続いている
+  \item \textbf{使うときの心がけ}：生成 AI の答えは「学んだデータの近所」から来る。新しい出来事・前例のない問題・数字の正確さが要る場面では、出典を確かめ、自分で検算する
+\end{itemize}
+\end{frame}
+
+\end{document}

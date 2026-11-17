@@ -1,0 +1,82 @@
+%%AMC:latex_engine=lualatex
+% ↑ AMC 本体にこのファイルを LuaLaTeX で処理させる指定（消さないでください）
+%
+% AIビジネス入門 第09回 記号とルール 確認問題（CC BY-SA 4.0）
+\documentclass[a4paper,11pt]{ltjsarticle}
+\usepackage{lfs-fonts}
+\usepackage{amsmath,amssymb}
+\usepackage[nowatermark]{automultiplechoice}
+\AMCrandomseed{260901}
+\def\AMCbeginQuestion#1#2{\par\noindent{\bfseries 問#1}\quad #2}
+
+\begin{document}
+
+\element{aib09}{
+  \begin{question}{AIB09-Q1}
+    記号的 AI のもっとも基本的な特徴はどれですか？
+    \begin{choices}
+      \wrongchoice{大量のデータから学習する}
+      \correctchoice{明示的なルールにもとづいて推論する}
+      \wrongchoice{ニューラルネットワークを使う}
+      \wrongchoice{確率的に予測する}
+    \end{choices}
+  \end{question}
+}
+
+\element{aib09}{
+  \begin{question}{AIB09-Q2}
+    セマンティック・ネットワークの主な目的はどれですか？
+    \begin{choices}
+      \wrongchoice{データを圧縮すること}
+      \correctchoice{概念と概念の関係を表すこと}
+      \wrongchoice{計算を速くすること}
+      \wrongchoice{メモリを節約すること}
+    \end{choices}
+  \end{question}
+}
+
+\element{aib09}{
+  \begin{question}{AIB09-Q3}
+    記号的 AI でバイアス（かたより）が生まれる主な原因はどれですか？
+    \begin{choices}
+      \wrongchoice{ハードウェアの性能の限界}
+      \wrongchoice{プログラミング言語の制約}
+      \wrongchoice{計算誤差の積み重なり}
+      \correctchoice{ルールを作る人の偏見}
+    \end{choices}
+  \end{question}
+}
+
+\element{aib09}{
+  \begin{question}{AIB09-Q4}
+    次のうち、記号的 AI がもっとも効果を発揮しやすい分野はどれですか？
+    \begin{choices}
+      \wrongchoice{顔認識システム}
+      \correctchoice{融資審査システム}
+      \wrongchoice{音声認識システム}
+      \wrongchoice{自動運転システム}
+    \end{choices}
+  \end{question}
+}
+
+\element{aib09}{
+  \begin{question}{AIB09-Q5}
+    ChatGPT などの大規模言語モデルについて、もっとも適切な説明はどれですか？
+    \begin{choices}
+      \wrongchoice{答える前に必ず事実の一覧と照らし合わせているので、まちがった内容を答えることはない}
+      \correctchoice{事実を照らし合わせるための知識の表を持たず、もっともらしい文章を作るので、事実でない内容を答えることがある。関係する文書を検索して根拠として渡す（RAG）と減らせるが、なくなるわけではない}
+      \wrongchoice{記号的 AI と同じく、人が書いたルールにしたがって答えを作っている}
+      \wrongchoice{関係する文書を検索して渡す（RAG）を使えば、まちがいは必ずなくなるので、答えを確かめる必要はない}
+    \end{choices}
+  \end{question}
+}
+
+\onecopy{1}{
+  \noindent{\large\bfseries AIビジネス入門　第09回　確認問題}\hfill
+  氏名\,\underline{\hspace{45mm}}\par\medskip
+  \AMCcodeGridInt[h]{student}{8}
+  \medskip
+  \insertgroup{aib09}
+}
+
+\end{document}

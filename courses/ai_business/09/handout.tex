@@ -1,0 +1,6 @@
+% 配布用ハンドアウト（slides.tex と同じ内容を、アニメーションなし・A4横1ページに4枚で出力）
+% slides.tex を編集すれば、こちらは自動的に追従します。
+\PassOptionsToClass{handout}{beamer}
+\RequirePackage{pgfpages}
+\AtBeginDocument{\pgfpagesuselayout{4 on 1}[a4paper,landscape,border shrink=5mm]}
+\input{slides}
