@@ -1,0 +1,35 @@
+# LaTeX の中間ファイル・生成物（PDF は CI が Release に置く）
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.xdv
+*.pdf
+*.amc
+*.xy
+build/
+
+# AMC プロジェクト（スキャン画像・採点データ）は絶対に入れない
+**/amc_project/
+*.ppm
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+*.csv
+!templates/**/*.csv
+
+# OS・エディタ
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 教材の図（figures/ 配下）は PDF・画像でも管理する
+!**/figures/*

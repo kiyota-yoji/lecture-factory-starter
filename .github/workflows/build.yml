@@ -1,0 +1,55 @@
+# Windows / Mac / Linux の3環境で、すべての教材がビルドできることを確認する。
+# main への push・PR で実行。v で始まるタグを push すると PDF を Release に添付する。
+name: build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: TeX Live をインストール
+        uses: teatimeguest/setup-texlive-action@v3
+        with:
+          package-file: .github/texlive.packages
+          update-all-packages: true
+
+      - name: すべての教材をビルド
+        run: perl tools/build_all.pl
+
+      - name: PDF をまとめる
+        if: matrix.os == 'ubuntu-latest'
+        shell: bash
+        run: |
+          mkdir -p dist
+          find courses templates -name '*.pdf' -not -path '*/figures/*' | while read -r f; do
+            cp "$f" "dist/$(echo "${f%.pdf}" | tr '/' '_').pdf"
+          done
+          ls dist
+
+      - name: 成果物として保存
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf
+          path: dist/*.pdf
+
+      - name: Release に添付（タグ push 時のみ）
+        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.pdf

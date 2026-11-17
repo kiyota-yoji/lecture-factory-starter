@@ -1,0 +1,53 @@
+% lfs-slides.sty — Beamer スライドの共通設定（lecture-factory-starter）
+%
+% 使い方（slides.tex の冒頭）:
+%   \documentclass[aspectratio=169]{beamer}
+%   \usepackage{lfs-slides}            % フォントを BIZ UD にするなら [bizud]
+%   \lfscourse{基礎数学}                % フッター左に出る科目名
+%
+% 配布用（1ページに複数スライド・アニメーションなし）は handout.tex を参照。
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{lfs-slides}[2026/11/17 lecture-factory-starter slides]
+
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{lfs-fonts}}
+\ProcessOptions\relax
+
+\RequirePackage{lfs-fonts}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{graphicx}
+\RequirePackage{booktabs}
+\RequirePackage{tikz}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+
+% 和文は既定でサンセリフ（ゴシック）に揃える
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+
+% 図は各回の figures/ に置く
+\graphicspath{{figures/}}
+
+% フッター：左＝科目名、中央＝短いタイトル、右＝ページ番号
+\newcommand{\lfs@course}{}
+\newcommand{\lfscourse}[1]{\renewcommand{\lfs@course}{#1}}
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+      \lfs@course
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}%
+    \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+% 1行メッセージ用の強調ボックス
+\newcommand{\lfsmessage}[1]{%
+  \begin{center}\usebeamercolor[fg]{structure}\Large\bfseries #1\end{center}}
+
+\endinput

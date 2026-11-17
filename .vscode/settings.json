@@ -1,0 +1,22 @@
+{
+  // LaTeX Workshop の設定（lecture-factory-starter）
+  // どの授業回のフォルダの .tex を開いても、リポジトリ直下の .latexmkrc を使ってビルドします。
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk (lecture-factory-starter)",
+      "command": "latexmk",
+      "args": ["-r", "%WORKSPACE_FOLDER%/.latexmkrc", "%DOCFILE%"],
+      "env": {}
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    { "name": "latexmk (LuaLaTeX)", "tools": ["latexmk (lecture-factory-starter)"] }
+  ],
+  "latex-workshop.latex.recipe.default": "first",
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.outDir": "%DIR%",
+  "latex-workshop.view.pdf.viewer": "tab",
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "[latex]": { "editor.wordWrap": "on" }
+}

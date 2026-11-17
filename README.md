@@ -1,0 +1,71 @@
+# lecture-factory-starter
+
+LaTeX（LuaLaTeX）で **授業スライド・配布資料・ワークシート・選択式問題（マークシート）** を作るための、
+テンプレートとサンプル教材のセットです。
+
+麗澤大学工学部の授業で運用している教材制作の仕組みから、どの大学・どの科目でも使える部分だけを取り出し、
+できるだけシンプルにしたものです。Windows / Mac のどちらでも同じ手順で使えます。
+
+> **現在は準備中（段階1：骨組み）です。** サンプル教材（基礎数学・AIビジネス入門）と環境構築の手順書は順次追加します。
+
+## できること
+
+| 作るもの | ファイル | 備考 |
+|---|---|---|
+| 投影用スライド | `slides.tex` | Beamer・16:9 |
+| 配布用ハンドアウト | `handout.tex` | `slides.tex` を1ページ4枚に。同じソースから自動で作られる |
+| ワークシート（学生用・解答版） | `worksheet.tex` / `worksheet_answers.tex` | 同じソースから2種類。記入欄の大きさは両者で同じ |
+| 選択式問題 | `amc/exercise.tex` | [Auto Multiple Choice](https://www.auto-multiple-choice.net/) 形式。問題用紙は TeX だけで作れ、スキャン・自動採点には AMC 本体を使う |
+
+## 使い始める（3ステップ）
+
+1. **TeX Live 2026 をインストールする**（Windows: TeX Live 公式インストーラ／Mac: MacTeX）。
+   → [推奨環境](docs/RECOMMENDED_ENV.md)
+2. **このリポジトリを入手する**（GitHub の「Use this template」または「Code → Download ZIP」）。
+3. **ビルドする**。リポジトリのフォルダで次を実行します。
+
+   ```bash
+   latexmk -cd courses/example/01/slides.tex
+   ```
+
+   すべての教材をまとめてビルドするには:
+
+   ```bash
+   perl tools/build_all.pl
+   ```
+
+   VS Code ＋ LaTeX Workshop を使う場合は、このフォルダを開いて `.tex` を保存するだけで PDF ができます（設定は `.vscode/` に同梱）。
+
+うまくいかないときは [トラブルシューティング](docs/TROUBLESHOOTING.md) を見てください。
+
+## フォルダ構成
+
+```text
+├─ templates/        新しい授業回を作るときの雛形
+│  ├─ preamble/      共通設定（lfs-fonts / lfs-slides / lfs-worksheet）
+│  ├─ slides/  worksheet/  amc/
+├─ courses/          サンプル教材（科目/回/）
+├─ vendor/amc/       AMC の LaTeX パッケージ（AMC 本体なしで問題用紙を組むため）
+├─ tools/            ビルド補助（Perl。TeX Live に同梱されているので追加インストール不要）
+├─ docs/             手順書
+└─ .latexmkrc        LuaLaTeX を使い、templates/preamble を自動で読み込む設定
+```
+
+## 和文フォント
+
+既定は TeX Live に同梱されている **原ノ味フォント** です（追加インストール不要で、Windows でも Mac でも同じ見た目になります）。
+BIZ UDPゴシックを使いたい場合は、プリアンブルを次のように変えます。
+
+```latex
+\usepackage[bizud]{lfs-slides}
+```
+
+BIZ UDPゴシックは Windows 10 以降に標準搭載されています。Mac では別途インストールが必要です。
+
+## ライセンス
+
+- 教材（`courses/`）: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.ja)
+- テンプレート・ツール・手順書: [MIT](LICENSE)
+- `vendor/amc/automultiplechoice.sty`: GNU GPL v2 以降
+
+詳しくは [LICENSE-CONTENT.md](LICENSE-CONTENT.md) を見てください。

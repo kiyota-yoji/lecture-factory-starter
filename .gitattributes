@@ -1,0 +1,11 @@
+# Windows / Mac で改行を揃える（TeX ファイルは LF・UTF-8）
+* text=auto eol=lf
+*.tex text eol=lf
+*.sty text eol=lf
+*.md  text eol=lf
+*.yml text eol=lf
+.latexmkrc text eol=lf
+*.png binary
+*.pdf binary
+*.otf binary
+*.ttf binary

@@ -1,0 +1,33 @@
+# CI でインストールする TeX Live のパッケージ（docs/RECOMMENDED_ENV.md の「最小構成」と同じ）
+# 利用者は TeX Live / MacTeX のフルインストールを推奨。ここは CI を軽くするための最小限。
+collection-latexrecommended
+collection-langjapanese
+collection-luatex
+collection-fontsrecommended
+latexmk
+beamer
+pgf
+tcolorbox
+environ
+trimspaces
+fancyhdr
+geometry
+booktabs
+# automultiplechoice.sty の依存
+csvsimple
+fancybox
+rotating
+storebox
+collectbox
+xkeyval
+etoolbox
+everyhook
+svn-prov
+etex-pkg
+epstopdf-pkg
+# beamer・luatexja の依存（通常は自動で入るが念のため明記）
+translator
+sansmathaccent
+lua-ul
+koma-script
+haranoaji
