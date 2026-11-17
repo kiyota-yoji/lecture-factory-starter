@@ -62,10 +62,10 @@ cd C:\work\lecture-factory-starter
 ```
 
 ```powershell
-latexmk -cd courses/example/01/slides.tex
+latexmk -cd courses/basic_math/07/slides.tex
 ```
 
-`courses\example\01\slides.pdf` ができれば成功です。
+`courses\basic_math\07\slides.pdf` ができれば成功です。
 
 > **初回は数分かかります。** LuaLaTeX が最初にフォントの一覧（キャッシュ）を作るためです。止まっているように見えても待ってください。2回目からは数秒〜十数秒で終わります。
 
@@ -81,7 +81,7 @@ texlua tools/build_all.lua
 
 1. VS Code の「ファイル」→ **「フォルダーを開く」** で、リポジトリのフォルダ（`C:\work\lecture-factory-starter`）を開きます。
    - `.tex` ファイルを単体で開くのではなく、**必ずフォルダごと開いてください**（設定が読み込まれません）。
-2. `courses/example/01/slides.tex` を開き、少し書き換えて保存（Ctrl+S）すると、自動でビルドされます。
+2. `courses/basic_math/07/slides.tex` を開き、少し書き換えて保存（Ctrl+S）すると、自動でビルドされます。
 3. 右上の「View LaTeX PDF」ボタン（虫眼鏡つきの文書アイコン）で PDF が横に表示されます。
 
 ## 7. 和文フォントを BIZ UDPゴシックにする（任意）

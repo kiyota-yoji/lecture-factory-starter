@@ -1,0 +1,11 @@
+% 弧度法：半径 1 の円で、角 θ に対する弧の長さが θ
+\begin{tikzpicture}[scale=1.8]
+  \draw[thin,gray] (0,0) circle (1);
+  \draw[very thick] (0,0) -- (1,0) node[midway,below] {$1$};
+  \draw[very thick] (0,0) -- (70:1);
+  \draw[ultra thick,red] (1,0) arc (0:70:1);
+  \node[red,right] at (35:1.05) {弧の長さ $\theta$};
+  \draw (0.25,0) arc (0:70:0.25);
+  \node at (35:0.4) {$\theta$};
+  \fill (0,0) circle (1pt);
+\end{tikzpicture}

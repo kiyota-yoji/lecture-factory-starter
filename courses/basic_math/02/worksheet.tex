@@ -1,0 +1,66 @@
+% 基礎数学 第02回 ワークシート（CC BY-SA 4.0）
+% 解答版は worksheet_answers.tex をビルドする
+\documentclass[a4paper,11pt]{ltjsarticle}
+\usepackage{lfs-worksheet}
+
+\begin{document}
+\lfsheader{基礎数学}{第02回 変数と関数・三角関数 ワークシート}
+
+\problem{関数 $f(x) = x^2 - 2x$ について、次の値を求めなさい。}
+\begin{minipage}[t]{0.48\linewidth}
+  (1) $f(3)$
+  \answerbox[2cm]{$9 - 6 = 3$}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\linewidth}
+  (2) $f(-1)$
+  \answerbox[2cm]{$1 + 2 = 3$}
+\end{minipage}
+
+\problem{度は弧度に、弧度は度に直しなさい。}
+\begin{minipage}[t]{0.23\linewidth}
+  (1) $120^\circ$
+  \answerbox[2cm]{$\dfrac{2}{3}\pi$}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.23\linewidth}
+  (2) $315^\circ$
+  \answerbox[2cm]{$\dfrac{7}{4}\pi$}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.23\linewidth}
+  (3) $\dfrac{\pi}{6}$
+  \answerbox[2cm]{$30^\circ$}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.23\linewidth}
+  (4) $\dfrac{5}{4}\pi$
+  \answerbox[2cm]{$225^\circ$}
+\end{minipage}
+
+\problem{単位円をかいて、次の値を求めなさい。}
+\begin{minipage}[t]{0.23\linewidth}
+  (1) $\sin\dfrac{2}{3}\pi$
+  \answerbox[2.5cm]{$\dfrac{\sqrt{3}}{2}$}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.23\linewidth}
+  (2) $\cos\dfrac{2}{3}\pi$
+  \answerbox[2.5cm]{$-\dfrac{1}{2}$}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.23\linewidth}
+  (3) $\cos\pi$
+  \answerbox[2.5cm]{$-1$}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.23\linewidth}
+  (4) $\sin\dfrac{3}{2}\pi$
+  \answerbox[2.5cm]{$-1$}
+\end{minipage}
+
+\problem{$0 < \theta < \dfrac{\pi}{2}$ で $\sin\theta = \dfrac{3}{5}$ のとき、$\cos\theta$ と $\tan\theta$ を求めなさい。}
+\answerbox[3.5cm]{%
+  $\cos^2\theta = 1 - \sin^2\theta = 1 - \dfrac{9}{25} = \dfrac{16}{25}$，\ $\cos\theta > 0$ より $\cos\theta = \dfrac{4}{5}$\\[1ex]
+  $\tan\theta = \dfrac{\sin\theta}{\cos\theta} = \dfrac{3}{4}$}
+
+\problem{関数 $y = 3\sin 2x$ の振幅と周期を答えなさい。}
+\answerbox[2.5cm]{振幅 $3$，\ 周期 $\dfrac{2\pi}{2} = \pi$}
+
+\problem{長さ $2$ m のロボットの腕を、水平から $\dfrac{\pi}{3}$ だけ持ち上げた。腕の付け根を原点とするとき、先端の座標を求めなさい。}
+\answerbox[3cm]{$\left(2\cos\dfrac{\pi}{3},\ 2\sin\dfrac{\pi}{3}\right) = (1,\ \sqrt{3})$}
+
+\end{document}

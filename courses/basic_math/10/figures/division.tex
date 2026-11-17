@@ -1,0 +1,17 @@
+% 線分 AB を m:n に内分する点 P（図は 2:1）
+\begin{tikzpicture}[scale=1.0,>=stealth]
+  \coordinate (O) at (0,0);
+  \coordinate (A) at (0.5,2.6);
+  \coordinate (B) at (4.5,1.4);
+  \coordinate (P) at ($(A)!2/3!(B)$);
+  \draw[thick] (A) -- (B);
+  \draw[->,thick,blue] (O) -- (A) node[midway,left] {$\vec{a}$};
+  \draw[->,thick,blue] (O) -- (B) node[midway,below] {$\vec{b}$};
+  \draw[->,very thick,violet] (O) -- (P) node[pos=0.55,above] {$\vec{p}$};
+  \fill (A) circle (2pt) node[above] {A};
+  \fill (B) circle (2pt) node[right] {B};
+  \fill (P) circle (2pt) node[above right] {P};
+  \fill (O) circle (2pt) node[below left] {O};
+  \node[above,font=\small] at ($(A)!0.33!(B)$) {$m$};
+  \node[above,font=\small] at ($(A)!0.84!(B)$) {$n$};
+\end{tikzpicture}

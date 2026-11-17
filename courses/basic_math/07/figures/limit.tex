@@ -1,0 +1,21 @@
+% 割線が接線に近づく図：y = x^2 の点 (1,1) で、相手の点 (1+h, (1+h)^2) を近づける
+\begin{tikzpicture}[xscale=1.35,yscale=0.6]
+  \begin{scope}
+    \clip (-0.4,-0.8) rectangle (3.2,6.6);
+    \draw[thick,blue,domain=0:2.55,samples=60] plot (\x,{\x*\x});
+    % 割線（h = 1.5, 1, 0.5）：(1,1) と (1+h,(1+h)^2) を通る。傾き 2 + h
+    \foreach \h/\c in {1.5/red!30, 1/red!55, 0.5/red!85} {
+      \draw[\c,thick,domain=0.6:{1+\h}] plot (\x,{(2+\h)*(\x-1)+1});
+      \fill[\c] ({1+\h},{(1+\h)*(1+\h)}) circle (2.5pt);
+    }
+    % 接線（傾き 2）
+    \draw[black,very thick,domain=0.3:3.0] plot (\x,{2*(\x-1)+1});
+  \end{scope}
+  \draw[->] (-0.4,0) -- (3.3,0) node[right] {$x$};
+  \draw[->] (0,-0.8) -- (0,6.8) node[above] {$y$};
+  \fill (1,1) circle (2.5pt) node[below right] {$(1,\,1)$};
+  \node[right] at (3.0,5.0) {接線};
+  \foreach \h in {1.5, 1, 0.5} {
+    \node[above left,inner sep=1pt] at ({1+\h},{(1+\h)*(1+\h)}) {\small $h=\h$};
+  }
+\end{tikzpicture}

@@ -6,16 +6,28 @@ LaTeX（LuaLaTeX）で **授業スライド・配布資料・ワークシート�
 麗澤大学工学部の授業で運用している教材制作の仕組みから、どの大学・どの科目でも使える部分だけを取り出し、
 できるだけシンプルにしたものです。Windows / Mac のどちらでも同じ手順で使えます。
 
-> **現在は準備中です。** テンプレートと手順書は揃いました。サンプル教材（基礎数学・AIビジネス入門）は順次追加します。
+> **現在は準備中です。** テンプレート・手順書・基礎数学のサンプル（4回分）が揃いました。AIビジネス入門のサンプルは追加予定です。
 
 ## できること
 
 | 作るもの | ファイル | 備考 |
 |---|---|---|
 | 投影用スライド | `slides.tex` | Beamer・16:9 |
-| 配布用ハンドアウト | `handout.tex` | `slides.tex` を1ページ4枚に。同じソースから自動で作られる |
+| 配布用ハンドアウト | `handout.tex` | `slides.tex` をA4横1ページに4枚。同じソースから自動で作られる |
 | ワークシート（学生用・解答版） | `worksheet.tex` / `worksheet_answers.tex` | 同じソースから2種類。記入欄の大きさは両者で同じ |
 | 選択式問題 | `amc/exercise.tex` | [Auto Multiple Choice](https://www.auto-multiple-choice.net/) 形式。問題用紙は TeX だけで作れ、スキャン・自動採点には AMC 本体を使う |
+
+## サンプル教材
+
+| 科目 | 回 | 内容 |
+|---|---|---|
+| [基礎数学](courses/basic_math/syllabus.md) | [02](courses/basic_math/02/) | 変数と関数・三角関数 |
+| | [07](courses/basic_math/07/) | 微分法の基礎 |
+| | [10](courses/basic_math/10/) | ベクトルの基礎 |
+| | [11](courses/basic_math/11/) | 行列の基礎 |
+
+各回に、スライド・配布用ハンドアウト・ワークシート（学生用／解答版）・選択式の確認問題（5問）があります。
+PDF は GitHub の Releases からもダウンロードできます（公開後）。
 
 ## 使い始める（3ステップ）
 
@@ -25,7 +37,7 @@ LaTeX（LuaLaTeX）で **授業スライド・配布資料・ワークシート�
 3. **ビルドする**。リポジトリのフォルダで次を実行します。
 
    ```bash
-   latexmk -cd courses/example/01/slides.tex
+   latexmk -cd courses/basic_math/07/slides.tex
    ```
 
    すべての教材をまとめてビルドするには:

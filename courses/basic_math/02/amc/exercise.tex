@@ -1,0 +1,82 @@
+%%AMC:latex_engine=lualatex
+% ↑ AMC 本体にこのファイルを LuaLaTeX で処理させる指定（消さないでください）
+%
+% 基礎数学 第02回 変数と関数・三角関数 確認問題（CC BY-SA 4.0）
+\documentclass[a4paper,11pt]{ltjsarticle}
+\usepackage{lfs-fonts}
+\usepackage{amsmath,amssymb}
+\usepackage[nowatermark]{automultiplechoice}
+\AMCrandomseed{260201}
+\def\AMCbeginQuestion#1#2{\par\noindent{\bfseries 問#1}\quad #2}
+
+\begin{document}
+
+\element{bm02}{
+  \begin{question}{BM02-Q1}
+    $60^\circ$ を弧度法で表すと？
+    \begin{choiceshoriz}
+      \correctchoice{$\dfrac{\pi}{3}$}
+      \wrongchoice{$\dfrac{\pi}{6}$}
+      \wrongchoice{$\dfrac{\pi}{4}$}
+      \wrongchoice{$\dfrac{2}{3}\pi$}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{bm02}{
+  \begin{question}{BM02-Q2}
+    $\sin\dfrac{\pi}{6}$ の値は？
+    \begin{choiceshoriz}
+      \correctchoice{$\dfrac{1}{2}$}
+      \wrongchoice{$\dfrac{\sqrt{3}}{2}$}
+      \wrongchoice{$\dfrac{\sqrt{2}}{2}$}
+      \wrongchoice{$1$}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{bm02}{
+  \begin{question}{BM02-Q3}
+    $\cos\pi$ の値は？
+    \begin{choiceshoriz}
+      \correctchoice{$-1$}
+      \wrongchoice{$0$}
+      \wrongchoice{$1$}
+      \wrongchoice{$\dfrac{1}{2}$}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{bm02}{
+  \begin{question}{BM02-Q4}
+    関数 $y = \sin 2x$ の周期は？
+    \begin{choiceshoriz}
+      \correctchoice{$\pi$}
+      \wrongchoice{$2\pi$}
+      \wrongchoice{$4\pi$}
+      \wrongchoice{$\dfrac{\pi}{2}$}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{bm02}{
+  \begin{question}{BM02-Q5}
+    $0 < \theta < \dfrac{\pi}{2}$ で $\sin\theta = \dfrac{4}{5}$ のとき、$\cos\theta$ の値は？
+    \begin{choiceshoriz}
+      \correctchoice{$\dfrac{3}{5}$}
+      \wrongchoice{$\dfrac{1}{5}$}
+      \wrongchoice{$\dfrac{3}{4}$}
+      \wrongchoice{$\dfrac{5}{3}$}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\onecopy{1}{
+  \noindent{\large\bfseries 基礎数学　第02回　確認問題}\hfill
+  氏名\,\underline{\hspace{45mm}}\par\medskip
+  \AMCcodeGridInt[h]{student}{8}
+  \medskip
+  \insertgroup{bm02}
+}
+
+\end{document}

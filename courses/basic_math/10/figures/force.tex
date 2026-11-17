@@ -1,0 +1,10 @@
+% 力の合成：F1 = (3, 0)、F2 = (0, 4) → 合力 (3, 4)
+\begin{tikzpicture}[scale=0.6,>=stealth]
+  \draw[->] (-0.5,0) -- (4.5,0) node[right] {$x$};
+  \draw[->] (0,-0.5) -- (0,5) node[above] {$y$};
+  \fill[gray!50] (-0.3,-0.3) rectangle (0.3,0.3);
+  \draw[->,very thick,blue] (0,0) -- (3,0) node[below] {$\vec{F}_1 = (3,\,0)$};
+  \draw[->,very thick,red] (0,0) -- (0,4) node[left] {$\vec{F}_2 = (0,\,4)$};
+  \draw[dashed] (3,0) -- (3,4) -- (0,4);
+  \draw[->,ultra thick,violet] (0,0) -- (3,4) node[above right] {合力 $(3,\,4)$};
+\end{tikzpicture}

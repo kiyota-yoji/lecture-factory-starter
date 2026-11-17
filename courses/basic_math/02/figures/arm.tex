@@ -1,0 +1,15 @@
+% ロボットアームの先端の位置：(L cos θ, L sin θ)
+\begin{tikzpicture}[scale=1.5]
+  \draw[->] (-0.3,0) -- (2.4,0) node[right] {$x$};
+  \draw[->] (0,-0.3) -- (0,1.9) node[above] {$y$};
+  \fill[gray!60] (-0.15,-0.15) rectangle (0.15,0);
+  \draw[line width=5pt,orange!80!black,line cap=round] (0,0) -- (35:2);
+  \fill (0,0) circle (2pt);
+  \fill (35:2) circle (2pt);
+  \node[above] at (35:2) {先端};
+  \node[above left] at (35:1) {$L$};
+  \draw (0.45,0) arc (0:35:0.45);
+  \node at (17:0.65) {$\theta$};
+  \draw[dashed] (35:2) -- ({2*cos(35)},0) node[below] {$L\cos\theta$};
+  \draw[dashed] (35:2) -- (0,{2*sin(35)}) node[left] {$L\sin\theta$};
+\end{tikzpicture}

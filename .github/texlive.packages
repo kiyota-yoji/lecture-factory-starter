@@ -8,6 +8,7 @@ latexmk
 beamer
 pgf
 tcolorbox
+needspace
 environ
 trimspaces
 fancyhdr

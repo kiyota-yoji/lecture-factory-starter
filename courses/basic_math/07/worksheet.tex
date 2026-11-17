@@ -1,0 +1,39 @@
+% 基礎数学 第07回 ワークシート（CC BY-SA 4.0）
+% 解答版は worksheet_answers.tex をビルドする
+\documentclass[a4paper,11pt]{ltjsarticle}
+\usepackage{lfs-worksheet}
+
+\begin{document}
+\lfsheader{基礎数学}{第07回 微分法の基礎 ワークシート}
+
+\problem{関数 $f(x) = x^2$ について、$x$ が $1$ から $3$ まで変わるときの平均変化率を求めなさい。}
+\answerbox[3cm]{$\dfrac{f(3) - f(1)}{3 - 1} = \dfrac{9 - 1}{2} = 4$}
+
+\problem{関数 $f(x) = x^2 + x$ について、定義 $f'(a) = \displaystyle\lim_{h \to 0} \frac{f(a+h) - f(a)}{h}$ に従って $f'(2)$ を求めなさい。}
+\answerbox[5cm]{%
+  $f(2+h) - f(2) = \{(2+h)^2 + (2+h)\} - (4 + 2) = 5h + h^2$\\[1ex]
+  $\dfrac{f(2+h) - f(2)}{h} = 5 + h \ \to\ 5 \quad (h \to 0)$ \qquad よって $f'(2) = 5$}
+
+\problem{次の関数を微分しなさい。}
+\begin{minipage}[t]{0.48\linewidth}
+  (1) $y = x^3$
+  \answerbox[2.2cm]{$y' = 3x^2$}
+  (3) $y = x^4 - 3x^2 + 7$
+  \answerbox[2.2cm]{$y' = 4x^3 - 6x$}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\linewidth}
+  (2) $y = 2x^2 - 5x + 3$
+  \answerbox[2.2cm]{$y' = 4x - 5$}
+  (4) $y = (x + 1)(x - 2)$
+  \answerbox[2.2cm]{展開して $y = x^2 - x - 2$ より $y' = 2x - 1$}
+\end{minipage}
+
+\problem{曲線 $y = x^2 - 3x$ 上の点 $(1,\,-2)$ における接線の方程式を求めなさい。}
+\answerbox[4cm]{%
+  $y' = 2x - 3$ より、$x = 1$ での傾きは $-1$\\[1ex]
+  $y - (-2) = -1 \cdot (x - 1)$ \quad よって $y = -x - 1$}
+
+\problem{物体を静かに落とすと、$t$ 秒後までに $s(t) = 4.9t^2$ メートル落下する。$t = 2$ の瞬間の落下の速さを求めなさい。}
+\answerbox[3cm]{$s'(t) = 9.8t$ より、$s'(2) = 19.6$ \quad 答え：毎秒 $19.6$ メートル}
+
+\end{document}

@@ -1,0 +1,82 @@
+%%AMC:latex_engine=lualatex
+% ↑ AMC 本体にこのファイルを LuaLaTeX で処理させる指定（消さないでください）
+%
+% 基礎数学 第11回 行列の基礎 確認問題（CC BY-SA 4.0）
+\documentclass[a4paper,11pt]{ltjsarticle}
+\usepackage{lfs-fonts}
+\usepackage{amsmath,amssymb}
+\usepackage[nowatermark]{automultiplechoice}
+\AMCrandomseed{261101}
+\def\AMCbeginQuestion#1#2{\par\noindent{\bfseries 問#1}\quad #2}
+
+\begin{document}
+
+\element{bm11}{
+  \begin{question}{BM11-Q1}
+    $\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix} + \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$ は？
+    \begin{choiceshoriz}
+      \correctchoice{$\begin{pmatrix} 2 & 2 \\ 3 & 5 \end{pmatrix}$}
+      \wrongchoice{$\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$}
+      \wrongchoice{$\begin{pmatrix} 2 & 3 \\ 4 & 5 \end{pmatrix}$}
+      \wrongchoice{$\begin{pmatrix} 1 & 0 \\ 0 & 4 \end{pmatrix}$}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{bm11}{
+  \begin{question}{BM11-Q2}
+    $\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}\begin{pmatrix} 1 \\ 1 \end{pmatrix}$ は？
+    \begin{choiceshoriz}
+      \correctchoice{$\begin{pmatrix} 3 \\ 7 \end{pmatrix}$}
+      \wrongchoice{$\begin{pmatrix} 4 \\ 6 \end{pmatrix}$}
+      \wrongchoice{$\begin{pmatrix} 1 \\ 4 \end{pmatrix}$}
+      \wrongchoice{$\begin{pmatrix} 2 \\ 5 \end{pmatrix}$}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{bm11}{
+  \begin{question}{BM11-Q3}
+    $\begin{pmatrix} 1 & 2 \\ 0 & 1 \end{pmatrix}\begin{pmatrix} 1 & 0 \\ 3 & 1 \end{pmatrix}$ は？
+    \begin{choiceshoriz}
+      \correctchoice{$\begin{pmatrix} 7 & 2 \\ 3 & 1 \end{pmatrix}$}
+      \wrongchoice{$\begin{pmatrix} 1 & 2 \\ 3 & 7 \end{pmatrix}$}
+      \wrongchoice{$\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$}
+      \wrongchoice{$\begin{pmatrix} 2 & 2 \\ 3 & 2 \end{pmatrix}$}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{bm11}{
+  \begin{question}{BM11-Q4}
+    $2 \times 3$ 行列と $3 \times 1$ 行列の積は、何行何列の行列になるか？
+    \begin{choiceshoriz}
+      \correctchoice{$2 \times 1$}
+      \wrongchoice{$3 \times 3$}
+      \wrongchoice{$1 \times 2$}
+      \wrongchoice{計算できない}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\element{bm11}{
+  \begin{question}{BM11-Q5}
+    点 $(1,\, 0)$ を原点のまわりに $90^\circ$ 回転させた点は？
+    \begin{choiceshoriz}
+      \correctchoice{$(0,\, 1)$}
+      \wrongchoice{$(0,\, -1)$}
+      \wrongchoice{$(-1,\, 0)$}
+      \wrongchoice{$(1,\, 1)$}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+\onecopy{1}{
+  \noindent{\large\bfseries 基礎数学　第11回　確認問題}\hfill
+  氏名\,\underline{\hspace{45mm}}\par\medskip
+  \AMCcodeGridInt[h]{student}{8}
+  \medskip
+  \insertgroup{bm11}
+}
+
+\end{document}

@@ -23,18 +23,21 @@
 \RequirePackage{tcolorbox}
 \RequirePackage{fancyhdr}
 \RequirePackage{tikz}
+\usetikzlibrary{calc,arrows.meta}
+\RequirePackage{needspace}
 
 \graphicspath{{figures/}}
 
 \newif\iflfsanswers
 \ifdefined\lfsShowAnswers \lfsanswerstrue \else \lfsanswersfalse \fi
 
-% ヘッダー：左＝科目名、右＝タイトル。氏名欄つき
+% ヘッダー：左＝科目名、右＝タイトル。その下にタイトルと学籍番号・氏名の欄
 \newcommand{\lfsheader}[2]{%
   \pagestyle{fancy}\fancyhf{}%
   \lhead{#1}\rhead{#2\iflfsanswers\ \textcolor{red}{【解答】}\fi}%
   \cfoot{\thepage}%
-  \noindent\textbf{\Large #2}\hfill 学籍番号\,\underline{\hspace{30mm}}\quad 氏名\,\underline{\hspace{40mm}}\par\medskip}
+  \noindent{\Large\bfseries #2}\par\smallskip
+  \noindent\hfill 学籍番号\,\underline{\hspace{30mm}}\quad 氏名\,\underline{\hspace{45mm}}\par\medskip}
 
 % 記入欄。高さは学生用・解答版で同じ（枠の大きさで答えが推測されないように揃える）
 %   \answerbox[高さ]{解答}
@@ -45,8 +48,8 @@
     \iflfsanswers\color{red}#2\fi
   \end{tcolorbox}}
 
-% 小問（\problem{問題文}）
+% 小問（\problem{問題文}）。問題文と記入欄がページをまたいで離れないよう、残りが少なければ改ページする
 \newcounter{lfsq}
-\newcommand{\problem}[1]{\par\medskip\stepcounter{lfsq}\noindent\textbf{問\thelfsq}\quad #1\par}
+\newcommand{\problem}[1]{\par\Needspace{10\baselineskip}\medskip\stepcounter{lfsq}\noindent\textbf{問\thelfsq}\quad #1\par}
 
 \endinput

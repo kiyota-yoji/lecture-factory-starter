@@ -61,10 +61,10 @@ cd ~/work/lecture-factory-starter
 ```
 
 ```bash
-latexmk -cd courses/example/01/slides.tex
+latexmk -cd courses/basic_math/07/slides.tex
 ```
 
-`courses/example/01/slides.pdf` ができれば成功です。
+`courses/basic_math/07/slides.pdf` ができれば成功です。
 
 > **初回は数分かかります。** LuaLaTeX が最初にフォントの一覧（キャッシュ）を作るためです。2回目からは数秒〜十数秒で終わります。
 
@@ -95,7 +95,7 @@ BIZ UDPゴシックは Mac には入っていないので、先にインスト�
 
 1. VS Code の「ファイル」→ **「フォルダーを開く」** で、リポジトリのフォルダを開きます。
    - `.tex` ファイルを単体で開くのではなく、**必ずフォルダごと開いてください**（設定が読み込まれません）。
-2. `courses/example/01/slides.tex` を開き、少し書き換えて保存（⌘S）すると、自動でビルドされます。
+2. `courses/basic_math/07/slides.tex` を開き、少し書き換えて保存（⌘S）すると、自動でビルドされます。
 3. 右上の「View LaTeX PDF」ボタンで PDF が横に表示されます。
 
 ---

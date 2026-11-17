@@ -5,7 +5,7 @@
 #   （どの授業回のフォルダからビルドしても \usepackage{lfs-slides} 等が見つかる）
 #
 # 使い方: リポジトリのルートで
-#   latexmk -cd courses/example/01/slides.tex
+#   latexmk -cd courses/basic_math/07/slides.tex
 # VS Code（LaTeX Workshop）からは .vscode/settings.json の設定で自動的にこのファイルが使われます。
 
 use File::Basename;

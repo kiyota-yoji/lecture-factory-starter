@@ -1,0 +1,215 @@
+% 基礎数学 第07回 微分法の基礎（CC BY-SA 4.0）
+\documentclass[aspectratio=169]{beamer}
+\usepackage{lfs-slides}
+\lfscourse{基礎数学}
+
+\title{微分法の基礎}
+\subtitle{基礎数学 第07回}
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{今日のねらい}
+  \lfsmessage{微分 ＝ その瞬間の「変化の速さ」}
+  \bigskip
+  \begin{itemize}
+    \item 平均変化率から、瞬間の変化率（微分係数）へ
+    \item $x^n$ の微分の公式を使えるようになる
+    \item 接線の方程式を求める
+    \item 工学では：位置を微分すると速度になる
+  \end{itemize}
+\end{frame}
+
+\section{平均変化率}
+
+\begin{frame}{平均変化率：「平均してどれだけ増えたか」}
+  \begin{columns}[c]
+    \column{0.5\textwidth}
+      \begin{center}
+        \input{figures/secant}
+      \end{center}
+    \column{0.5\textwidth}
+      $x$ が $a$ から $b$ まで変わるときの
+      \[
+        \text{平均変化率} = \frac{f(b) - f(a)}{b - a}
+      \]
+      \medskip
+      $f(x) = x^2$、$1 \to 3$ なら
+      \[
+        \frac{9 - 1}{3 - 1} = \frac{8}{2} = 4
+      \]
+      \medskip
+      {\small 図の赤い直線（割線）の傾きと同じ}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{例：ボールが転がった距離}
+  \lfsmessage{平均変化率 ＝ 平均の速さ}
+  \medskip
+  時刻 $t$ 秒までに $s(t) = 5t^2$ メートル進むとき、$t = 1$ から $t = 3$ までの平均の速さは
+  \[
+    \frac{s(3) - s(1)}{3 - 1} = \frac{45 - 5}{2} = 20 \ \text{(m/s)}
+  \]
+  \begin{alertblock}{でも知りたいのは…}
+    「$t = 1$ の\textbf{その瞬間}の速さ」は？ \quad → 区間をどんどん短くする
+  \end{alertblock}
+\end{frame}
+
+\section{微分係数}
+
+\begin{frame}{区間を縮めていく}
+  \begin{columns}[c]
+    \column{0.52\textwidth}
+      \begin{center}
+        \input{figures/limit}
+      \end{center}
+    \column{0.48\textwidth}
+      $f(x) = x^2$、$x = 1$ から $1 + h$ まで
+      \medskip
+      \begin{center}
+        \begin{tabular}{rr}
+          \toprule
+          $h$ & 平均変化率 \\
+          \midrule
+          $1$ & $3$ \\
+          $0.1$ & $2.1$ \\
+          $0.01$ & $2.01$ \\
+          $0.001$ & $2.001$ \\
+          \bottomrule
+        \end{tabular}
+      \end{center}
+      \medskip
+      $h \to 0$ で \textbf{$2$ に近づく}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{微分係数の定義}
+  \lfsmessage{$\displaystyle f'(a) = \lim_{h \to 0} \frac{f(a+h) - f(a)}{h}$}
+  \bigskip
+  \begin{itemize}
+    \item $f'(a)$ を「$x = a$ における\textbf{微分係数}」とよぶ
+    \item $\lim\limits_{h \to 0}$ は「$h$ を $0$ に限りなく近づけたときの値」
+    \item 図では：割線が\textbf{接線}に近づく → $f'(a)$ は接線の傾き
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{定義どおりに計算してみる}
+  $f(x) = x^2$ の $x = a$ における微分係数
+  \begin{align*}
+    \frac{f(a+h) - f(a)}{h}
+      &= \frac{(a+h)^2 - a^2}{h}
+       = \frac{2ah + h^2}{h} \\
+      &= 2a + h
+      \quad \xrightarrow{\ h \to 0\ } \quad 2a
+  \end{align*}
+  \begin{block}{結果}
+    $f'(a) = 2a$ \qquad （$a = 1$ なら $2$：表の結果と一致）
+  \end{block}
+\end{frame}
+
+\section{導関数と公式}
+
+\begin{frame}{導関数}
+  \lfsmessage{$a$ を $x$ にしたもの ＝ 導関数 $f'(x)$}
+  \medskip
+  \begin{itemize}
+    \item $f(x) = x^2$ の導関数は $f'(x) = 2x$
+    \item 導関数を求めることを「\textbf{微分する}」という
+    \item 書き方はいろいろ：$f'(x)$，\ $y'$，\ $\dfrac{dy}{dx}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{微分の公式}
+  \begin{columns}[t]
+    \column{0.5\textwidth}
+      \begin{block}{べき関数}
+        \[
+          (x^n)' = n\,x^{n-1}
+        \]
+        {\small 例：$(x^3)' = 3x^2$，\ $(x)' = 1$}
+      \end{block}
+      \begin{block}{定数}
+        \[
+          (c)' = 0
+        \]
+      \end{block}
+    \column{0.5\textwidth}
+      \begin{block}{定数倍と和}
+        \[
+          \{k f(x)\}' = k f'(x)
+        \]
+        \[
+          \{f(x) + g(x)\}' = f'(x) + g'(x)
+        \]
+      \end{block}
+      \begin{block}{三角関数（参考）}
+        $(\sin x)' = \cos x$，\ $(\cos x)' = -\sin x$\\
+        {\small （$x$ は弧度法）}
+      \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{公式を使う}
+  \[
+    (3x^2 - 4x + 1)' = 3 \cdot 2x - 4 \cdot 1 + 0 = 6x - 4
+  \]
+  \bigskip
+  \[
+    (x^3 - 2x^2 + 5x)' = 3x^2 - 4x + 5
+  \]
+  \bigskip
+  \begin{block}{手順}
+    項ごとに分けて、\ 係数はそのまま、\ $x^n \to n x^{n-1}$
+  \end{block}
+\end{frame}
+
+\section{接線}
+
+\begin{frame}{接線の方程式}
+  \lfsmessage{点 $(a,\,f(a))$ を通り、傾き $f'(a)$ の直線}
+  \[
+    y - f(a) = f'(a)\,(x - a)
+  \]
+  \medskip
+  例：$y = x^2$ の点 $(1,\,1)$ における接線
+  \begin{itemize}
+    \item $f'(x) = 2x$ より $f'(1) = 2$
+    \item $y - 1 = 2(x - 1)$ \ → \ $y = 2x - 1$
+  \end{itemize}
+\end{frame}
+
+\section{工学では}
+
+\begin{frame}{位置を微分すると速度}
+  \lfsmessage{速度 ＝ 位置の時間変化率}
+  \medskip
+  ボールの位置 $s(t) = 5t^2$（m）のとき
+  \[
+    v(t) = s'(t) = 10t \ \text{(m/s)}
+  \]
+  $t = 1$ の瞬間の速さは $10$ m/s、\ $t = 3$ では $30$ m/s
+  \begin{block}{使われる場面}
+    自動車・ロボットの制御（速さ・加速度の調整）、\
+    物理シミュレーション、\
+    センサーの値の変化から異常を見つける など
+  \end{block}
+\end{frame}
+
+\begin{frame}{まとめ}
+  \begin{itemize}
+    \item 平均変化率 $\dfrac{f(b) - f(a)}{b - a}$ ＝ 割線の傾き
+    \item 微分係数 $f'(a) = \lim\limits_{h \to 0} \dfrac{f(a+h) - f(a)}{h}$ ＝ 接線の傾き
+    \item 公式：$(x^n)' = n x^{n-1}$、定数は $0$、項ごとに微分できる
+    \item 接線：$y - f(a) = f'(a)(x - a)$
+    \item 位置を微分すると速度
+  \end{itemize}
+  \bigskip
+  \lfsmessage{次回：積分法の基礎（微分の逆）}
+\end{frame}
+
+\end{document}

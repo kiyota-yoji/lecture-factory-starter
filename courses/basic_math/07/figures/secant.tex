@@ -1,0 +1,13 @@
+% 平均変化率（割線）の図：y = x^2 の x=1 から x=3 まで
+\begin{tikzpicture}[xscale=1.0,yscale=0.5]
+  \draw[->] (-0.5,0) -- (4,0) node[right] {$x$};
+  \draw[->] (0,-0.5) -- (0,10) node[above] {$y$};
+  \draw[thick,blue,domain=0:3.15,samples=60] plot (\x,{\x*\x}) node[right] {$y=x^2$};
+  % 割線：(1,1) と (3,9) を通る（傾き 4）
+  \draw[red,thick] (0.5,-1) -- (3.4,10.6);
+  \fill (1,1) circle (2.5pt) node[left] {$(1,\,1)$};
+  \fill (3,9) circle (2.5pt) node[left] {$(3,\,9)$};
+  \draw[dashed] (1,1) -- (3,1) -- (3,9);
+  \node[below] at (2,1) {$x$ の増加 $2$};
+  \node[right] at (3,5) {$y$ の増加 $8$};
+\end{tikzpicture}

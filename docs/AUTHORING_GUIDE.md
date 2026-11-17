@@ -14,7 +14,7 @@ courses/
    ├─ syllabus.md          科目の概要と各回のテーマ（任意）
    ├─ 01/
    │  ├─ slides.tex        投影用スライド
-   │  ├─ handout.tex       配布用（slides.tex を1ページ4枚に）
+   │  ├─ handout.tex       配布用（slides.tex をA4横に4枚）
    │  ├─ worksheet.tex     ワークシート（学生用）
    │  ├─ worksheet_answers.tex  ワークシート（解答版）
    │  ├─ amc/exercise.tex  選択式問題
@@ -106,11 +106,13 @@ Windows では、エクスプローラーで `templates\slides`・`templates\wor
 - **ファイルの1行目の `%%AMC:latex_engine=lualatex` は消さないでください。** AMC 本体がこの行を見て LuaLaTeX を選びます。
 - `\AMCrandomseed{数字}` は、問題と選択肢の並び順を決める乱数の種です。**一度印刷したら変えないでください**（変えると、印刷した用紙と採点用のレイアウトが一致しなくなります）。回ごとに違う数字にしておくと、並び順が回ごとに変わります。
 - 学籍番号の桁数は `\AMCcodeGridInt[h]{student}{8}` の `8` で変えます。
+- 選択肢が短い（数値や短い式）ときは、`choices` の代わりに `choiceshoriz` を使うと選択肢が横に並び、1枚に収まりやすくなります（`courses/basic_math/` のサンプルはすべてこの形です）。
+- 正解の選択肢をソースで先頭に書いても、AMC が表示順を入れ替えます（並び順は `\AMCrandomseed` で決まります）。
 
 ## 5. 図（`figures/`）
 
 - 図は各回の `figures/` に置きます。スライド・ワークシートでは `figures/` を書かずにファイル名だけで読み込めます（`\includegraphics{graph.pdf}`）。
-- TikZ で描いた図は、`figures/tangent.tex` のように別ファイルにして `\input{figures/tangent}` で読み込むと、スライドとワークシートで使い回せます。
+- TikZ で描いた図は、`figures/secant.tex` のように別ファイルにして `\input{figures/secant}` で読み込むと、スライドとワークシートで使い回せます（例：`courses/basic_math/07/figures/`）。
 - **Web で拾った画像・教科書や他の資料の図は使わないでください。** このリポジトリの教材は CC BY-SA 4.0 で公開するため、自分で作った図か、利用条件が明確な素材（出典を明記）に限ります。
 
 ## 6. ビルドと確認
