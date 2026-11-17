@@ -15,6 +15,6 @@
 |---|---|---|---|
 | macOS 26（Apple Silicon） | TeX Live 2026（Homebrew） | 手元でビルド（全教材・BIZ UD 切替・IPAex 切替） | 2026-11-17 |
 | macOS 26（Apple Silicon） | AMC 1.7.0（Homebrew）＋ LuaLaTeX | 問題用紙作成〜スキャン読み取りまでコマンドで確認 | 2026-11-17 |
-| Ubuntu / Windows / macOS | TeX Live（最新） | GitHub Actions | （公開後に記入） |
+| Ubuntu 24.04 / Windows Server / macOS（GitHub Actions） | TeX Live 2026（TeX-Live/setup-texlive-action） | 全31ファイルを自動ビルド | 2026-11-17 |
 | Windows 11 | TeX Live 2026 | 手元で [SETUP_WINDOWS.md](SETUP_WINDOWS.md) どおりに確認 | （未実施） |
 | Windows 11 | WSL2 ＋ Ubuntu 24.04 ＋ AMC 1.7.0 | 手元で [SETUP_AMC.md](SETUP_AMC.md) どおりに確認 | （未実施） |
