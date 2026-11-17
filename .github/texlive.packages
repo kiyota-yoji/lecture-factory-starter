@@ -17,7 +17,6 @@ booktabs
 # automultiplechoice.sty の依存
 csvsimple
 fancybox
-rotating
 storebox
 collectbox
 xkeyval
