@@ -1,9 +1,13 @@
+%%AMC:latex_engine=lualatex
+% ↑ AMC 本体にこのファイルを LuaLaTeX で処理させる指定（消さないでください）
+%
 % 選択式問題（AMC 形式）の雛形
 %
 % - AMC 本体がなくても、このファイルをビルドすれば問題用紙の PDF（確認用）が作れます。
 % - マークシートの印刷・スキャン・自動採点は AMC 本体で行います（docs/SETUP_AMC.md）。
 \documentclass[a4paper,11pt]{ltjsarticle}
-\usepackage{lfs-fonts}
+\usepackage{lfs-fonts}     % BIZ UDPゴシックにするなら \usepackage[bizud]{lfs-fonts}
+%   AMC 本体で使うときは、lfs-fonts が見つかるよう docs/SETUP_AMC.md の「共通設定をリンクする」を済ませておく
 \usepackage{amsmath,amssymb}
 \usepackage[nowatermark]{automultiplechoice}
 \AMCrandomseed{1234}   % 乱数の種。問題・選択肢の並びを固定する

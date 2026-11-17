@@ -1,7 +1,7 @@
 % lfs-fonts.sty — 和文フォントの設定（lecture-factory-starter）
 %
 % 使い方:
-%   \usepackage{lfs-fonts}            % 既定：原ノ味フォント（TeX Live 同梱・追加インストール不要）
+%   \usepackage{lfs-fonts}            % 既定：原ノ味フォント（TeX Live 同梱・追加インストール不要）。無ければ IPAex
 %   \usepackage[bizud]{lfs-fonts}     % BIZ UDPゴシック（Windows は標準搭載、Mac は要インストール）
 %
 % LuaLaTeX 専用です。
@@ -24,8 +24,14 @@
   \setmainjfont{BIZ UDPGothic}
   \setsansjfont{BIZ UDPGothic}
 \else
-  % 原ノ味。luatexja-preset の haranoaji は TeX Live 2020 以降に同梱
-  \RequirePackage[haranoaji]{luatexja-preset}
+  % 原ノ味（TeX Live 2020 以降に同梱）。見つからない環境（Ubuntu の apt 版 TeX など）では IPAex に切り替える
+  \edef\lfs@jpreset{\directlua{
+    tex.sprint(kpse.find_file("HaranoAjiMincho-Regular.otf", "opentype fonts") and "haranoaji" or "ipaex")}}
+  \def\lfs@tmp{ipaex}
+  \ifx\lfs@jpreset\lfs@tmp
+    \PackageWarningNoLine{lfs-fonts}{原ノ味フォントが見つからないため IPAex フォントを使います}
+  \fi
+  \expandafter\RequirePackage\expandafter[\lfs@jpreset]{luatexja-preset}
 \fi
 
 \endinput

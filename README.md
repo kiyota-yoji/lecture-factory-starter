@@ -6,7 +6,7 @@ LaTeX（LuaLaTeX）で **授業スライド・配布資料・ワークシート�
 麗澤大学工学部の授業で運用している教材制作の仕組みから、どの大学・どの科目でも使える部分だけを取り出し、
 できるだけシンプルにしたものです。Windows / Mac のどちらでも同じ手順で使えます。
 
-> **現在は準備中（段階1：骨組み）です。** サンプル教材（基礎数学・AIビジネス入門）と環境構築の手順書は順次追加します。
+> **現在は準備中です。** テンプレートと手順書は揃いました。サンプル教材（基礎数学・AIビジネス入門）は順次追加します。
 
 ## できること
 
@@ -31,12 +31,20 @@ LaTeX（LuaLaTeX）で **授業スライド・配布資料・ワークシート�
    すべての教材をまとめてビルドするには:
 
    ```bash
-   perl tools/build_all.pl
+   texlua tools/build_all.lua
    ```
 
    VS Code ＋ LaTeX Workshop を使う場合は、このフォルダを開いて `.tex` を保存するだけで PDF ができます（設定は `.vscode/` に同梱）。
 
-うまくいかないときは [トラブルシューティング](docs/TROUBLESHOOTING.md) を見てください。
+詳しい手順は OS ごとの手順書を見てください。
+
+| 手順書 | 内容 |
+|---|---|
+| [SETUP_WINDOWS.md](docs/SETUP_WINDOWS.md) | Windows での環境構築 |
+| [SETUP_MAC.md](docs/SETUP_MAC.md) | Mac での環境構築 |
+| [SETUP_AMC.md](docs/SETUP_AMC.md) | マークシートのスキャン・自動採点（AMC）を使う場合 |
+| [AUTHORING_GUIDE.md](docs/AUTHORING_GUIDE.md) | 新しい科目・授業回の作り方 |
+| [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | エラーメッセージ別の対処 |
 
 ## フォルダ構成
 
@@ -46,7 +54,7 @@ LaTeX（LuaLaTeX）で **授業スライド・配布資料・ワークシート�
 │  ├─ slides/  worksheet/  amc/
 ├─ courses/          サンプル教材（科目/回/）
 ├─ vendor/amc/       AMC の LaTeX パッケージ（AMC 本体なしで問題用紙を組むため）
-├─ tools/            ビルド補助（Perl。TeX Live に同梱されているので追加インストール不要）
+├─ tools/            ビルド補助（texlua。TeX Live に同梱されているので追加インストール不要）
 ├─ docs/             手順書
 └─ .latexmkrc        LuaLaTeX を使い、templates/preamble を自動で読み込む設定
 ```
