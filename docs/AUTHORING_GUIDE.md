@@ -108,6 +108,7 @@ Windows では、エクスプローラーで `templates\slides`・`templates\wor
 - 学籍番号の桁数は `\AMCcodeGridInt[h]{student}{8}` の `8` で変えます。
 - 選択肢が短い（数値や短い式）ときは、`choices` の代わりに `choiceshoriz` を使うと選択肢が横に並び、1枚に収まりやすくなります（`courses/basic_math/` のサンプルはすべてこの形です）。
 - 正解の選択肢をソースで先頭に書いても、AMC が表示順を入れ替えます（並び順は `\AMCrandomseed` で決まります）。
+- 問の順番はソースの順のままです。問の順番も部ごとに入れ替えたいときは、`\insertgroup` の前に `\shufflegroup{グループ名}` を入れます。
 
 ## 5. 図（`figures/`）
 

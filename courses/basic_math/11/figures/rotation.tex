@@ -10,6 +10,7 @@
   \filldraw[fill=red!15,draw=red,thick] (0,0) -- (-1,2) -- (0,2) -- cycle;
   \fill[blue] (2,1) circle (2pt) node[right] {P$(2,\,1)$};
   \fill[red] (-1,2) circle (2pt) node[left] {P$'(-1,\,2)$};
-  \draw[->,gray,thick] (1.6,1.5) arc (40:100:1.4);
-  \node[gray] at (0.9,2.6) {$90^\circ$};
+  % 原点を中心に、OP の向き（約26.6°）から OP' の向き（約116.6°）まで 90° の弧
+  \draw[->,gray,thick] (26.57:1.4) arc (26.57:116.57:1.4);
+  \node[gray] at (71.57:1.75) {$90^\circ$};
 \end{tikzpicture}

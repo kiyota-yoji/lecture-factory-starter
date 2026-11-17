@@ -1,0 +1,12 @@
+% 減衰（半減期 3 時間、初めの量 80）：m(t) = 80 (1/2)^{t/3}（CC BY-SA 4.0）
+\begin{tikzpicture}[xscale=0.44,yscale=0.032]
+  \draw[->] (0,0) -- (13,0) node[right] {$t$（時間）};
+  \draw[->] (0,0) -- (0,92) node[above] {$m$（mg）};
+  \foreach \t in {0,3,6,9,12} \node[below,font=\scriptsize] at (\t,0) {$\t$};
+  \draw[very thick,blue,domain=0:12.5,samples=80] plot (\x,{80*0.5^(\x/3)});
+  \foreach \t/\m in {0/80,3/40,6/20,9/10}{
+    \draw[dashed,black!50] (\t,0) -- (\t,\m) -- (0,\m);
+    \fill (\t,\m) circle (2.5pt);
+    \node[left,font=\scriptsize] at (0,\m) {$\m$};
+  }
+\end{tikzpicture}

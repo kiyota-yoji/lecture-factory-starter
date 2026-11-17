@@ -6,7 +6,7 @@ LaTeX（LuaLaTeX）で **授業スライド・配布資料・ワークシート�
 麗澤大学工学部の授業で運用している教材制作の仕組みから、どの大学・どの科目でも使える部分だけを取り出し、
 できるだけシンプルにしたものです。Windows / Mac のどちらでも同じ手順で使えます。
 
-> **現在は公開準備中です。** テンプレート・手順書・サンプル教材（基礎数学4回分・AIビジネス入門2回分）が揃いました。
+> **現在は公開準備中です。** テンプレート・手順書・サンプル教材（基礎数学5回分・AIビジネス入門2回分）が揃いました。
 
 ## できること
 
@@ -22,15 +22,29 @@ LaTeX（LuaLaTeX）で **授業スライド・配布資料・ワークシート�
 | 科目 | 回 | 内容 |
 |---|---|---|
 | [基礎数学](courses/basic_math/syllabus.md) | [02](courses/basic_math/02/) | 変数と関数・三角関数 |
+| | [03](courses/basic_math/03/) | 指数関数 |
 | | [07](courses/basic_math/07/) | 微分法の基礎 |
 | | [10](courses/basic_math/10/) | ベクトルの基礎 |
 | | [11](courses/basic_math/11/) | 行列の基礎 |
-| [AIビジネス入門](courses/ai_business/README.md) | [09](courses/ai_business/09/) | AIを構成する技術(1)：記号とルール |
+| [AIビジネス入門](courses/ai_business/syllabus.md) | [09](courses/ai_business/09/) | AIを構成する技術(1)：記号とルール |
 | | [10](courses/ai_business/10/) | AIを構成する技術(2)：機械学習 |
 
+- 各回に授業計画（`lesson_plan.md`）があります
 - 基礎数学：スライド・配布用ハンドアウト・ワークシート（学生用／解答版）・選択式の確認問題（5問）
 - AIビジネス入門：スライド（用語・出典の付録つき）・配布用ハンドアウト・講義台本・選択式の確認問題（5問）
 PDF は GitHub の Releases からもダウンロードできます（公開後）。
+
+## 授業づくりの流れ
+
+教材は、**シラバス → 授業計画 → 教材** の3段階で作ります（[WORKFLOW.md](docs/WORKFLOW.md)）。
+
+| 段階 | 作るもの | 形式 | Claude Code のスキル |
+|---|---|---|---|
+| ① | `syllabus.md`（科目全体：目標・各回・評価・実施要件・教材の作り方） | [SYLLABUS_FORMAT.md](docs/SYLLABUS_FORMAT.md) | `syllabus-markdown` |
+| ② | `lesson_plan.md`（1回分の設計：到達目標・授業の流れ・教材の設計） | [LESSON_PLAN_FORMAT.md](docs/LESSON_PLAN_FORMAT.md) | `lesson-plan` |
+| ③ | スライド・ワークシート・確認問題など | [AUTHORING_GUIDE.md](docs/AUTHORING_GUIDE.md) | `lesson-materials` |
+
+このリポジトリを [Claude Code](https://claude.com/claude-code) で開くと、3つのスキル（`.claude/skills/`）が使えます。生成 AI を使わずに、`templates/` の雛形から手で作ることもできます。
 
 ## 使い始める（3ステップ）
 
@@ -58,13 +72,16 @@ PDF は GitHub の Releases からもダウンロードできます（公開後�
 | [SETUP_WINDOWS.md](docs/SETUP_WINDOWS.md) | Windows での環境構築 |
 | [SETUP_MAC.md](docs/SETUP_MAC.md) | Mac での環境構築 |
 | [SETUP_AMC.md](docs/SETUP_AMC.md) | マークシートのスキャン・自動採点（AMC）を使う場合 |
+| [WORKFLOW.md](docs/WORKFLOW.md) | シラバス → 授業計画 → 教材の流れ（Claude Code のスキルの使い方） |
+| [SYLLABUS_FORMAT.md](docs/SYLLABUS_FORMAT.md) / [LESSON_PLAN_FORMAT.md](docs/LESSON_PLAN_FORMAT.md) | `syllabus.md`・`lesson_plan.md` の標準フォーマット |
 | [AUTHORING_GUIDE.md](docs/AUTHORING_GUIDE.md) | 新しい科目・授業回の作り方 |
 | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | エラーメッセージ別の対処 |
 
 ## フォルダ構成
 
 ```text
-├─ templates/        新しい授業回を作るときの雛形
+├─ .claude/skills/   Claude Code のスキル（syllabus-markdown / lesson-plan / lesson-materials）
+├─ templates/        新しい授業回を作るときの雛形（syllabus.md・lesson_plan.md も）
 │  ├─ preamble/      共通設定（lfs-fonts / lfs-slides / lfs-worksheet）
 │  ├─ slides/  worksheet/  amc/
 ├─ courses/          サンプル教材（科目/回/）
