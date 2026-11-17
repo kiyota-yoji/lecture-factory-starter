@@ -18,6 +18,10 @@
 \RequirePackage{booktabs}
 \RequirePackage{tikz}
 \usetikzlibrary{calc,arrows.meta}
+% TikZ のノード（ボックス）の中で、1行目の先頭の和文に付く空きを入れない。
+% luatexja は「・」などの前に 1/4 字ほどの空きを置くが、\\ で改行した後の行では
+% この空きが消えるため、入れたままだと1行目だけが右にずれて見える。
+\tikzset{every node/.append style={execute at begin node=\inhibitglue}}
 
 \usetheme{Madrid}
 \usecolortheme{default}
