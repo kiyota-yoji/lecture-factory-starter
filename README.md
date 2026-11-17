@@ -38,13 +38,13 @@ PDF は GitHub の Releases からもダウンロードできます（公開後�
 
 教材は、**シラバス → 授業計画 → 教材** の3段階で作ります（[WORKFLOW.md](docs/WORKFLOW.md)）。
 
-| 段階 | 作るもの | 形式 | Claude Code のスキル |
+| 段階 | 作るもの | 形式 | スキル |
 |---|---|---|---|
 | ① | `syllabus.md`（科目全体：目標・各回・評価・実施要件・教材の作り方） | [SYLLABUS_FORMAT.md](docs/SYLLABUS_FORMAT.md) | `syllabus-markdown` |
 | ② | `lesson_plan.md`（1回分の設計：到達目標・授業の流れ・教材の設計） | [LESSON_PLAN_FORMAT.md](docs/LESSON_PLAN_FORMAT.md) | `lesson-plan` |
 | ③ | スライド・ワークシート・確認問題など | [AUTHORING_GUIDE.md](docs/AUTHORING_GUIDE.md) | `lesson-materials` |
 
-このリポジトリを [Claude Code](https://claude.com/claude-code) で開くと、3つのスキル（`.claude/skills/`）が使えます。生成 AI を使わずに、`templates/` の雛形から手で作ることもできます。
+3つのスキルは、複数の AI で使える共通の形式で `.agents/skills/` に入っています。**Claude Code・Codex・Antigravity** などでこのフォルダを開くと使えます（[WORKFLOW.md](docs/WORKFLOW.md)）。生成 AI を使わずに、`templates/` の雛形から手で作ることもできます。
 
 ## 使い始める（3ステップ）
 
@@ -72,7 +72,7 @@ PDF は GitHub の Releases からもダウンロードできます（公開後�
 | [SETUP_WINDOWS.md](docs/SETUP_WINDOWS.md) | Windows での環境構築 |
 | [SETUP_MAC.md](docs/SETUP_MAC.md) | Mac での環境構築 |
 | [SETUP_AMC.md](docs/SETUP_AMC.md) | マークシートのスキャン・自動採点（AMC）を使う場合 |
-| [WORKFLOW.md](docs/WORKFLOW.md) | シラバス → 授業計画 → 教材の流れ（Claude Code のスキルの使い方） |
+| [WORKFLOW.md](docs/WORKFLOW.md) | シラバス → 授業計画 → 教材の流れ（AI エージェントでのスキルの使い方） |
 | [SYLLABUS_FORMAT.md](docs/SYLLABUS_FORMAT.md) / [LESSON_PLAN_FORMAT.md](docs/LESSON_PLAN_FORMAT.md) | `syllabus.md`・`lesson_plan.md` の標準フォーマット |
 | [AUTHORING_GUIDE.md](docs/AUTHORING_GUIDE.md) | 新しい科目・授業回の作り方 |
 | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | エラーメッセージ別の対処 |
@@ -80,7 +80,9 @@ PDF は GitHub の Releases からもダウンロードできます（公開後�
 ## フォルダ構成
 
 ```text
-├─ .claude/skills/   Claude Code のスキル（syllabus-markdown / lesson-plan / lesson-materials）
+├─ AGENTS.md         AI エージェント向けの共通の指示（CLAUDE.md・GEMINI.md からも読み込む）
+├─ .agents/skills/   スキルの原本（syllabus-markdown / lesson-plan / lesson-materials）
+├─ .claude/skills/   Claude Code 用の写し（tools/sync_skills.lua で作る。直接編集しない）
 ├─ templates/        新しい授業回を作るときの雛形（syllabus.md・lesson_plan.md も）
 │  ├─ preamble/      共通設定（lfs-fonts / lfs-slides / lfs-worksheet）
 │  ├─ slides/  worksheet/  amc/

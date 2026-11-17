@@ -25,9 +25,21 @@ courses/<科目>/<NN>/slides.tex, handout.tex, worksheet.tex, amc/exercise.tex, 
 
 ---
 
-## Claude Code で行う場合
+## AI エージェントで行う場合
 
-このリポジトリには、3つの段階に対応する **スキル**（`.claude/skills/`）が入っています。リポジトリのフォルダで Claude Code を開くと、自動で使えるようになります。
+このリポジトリには、3つの段階に対応する **スキル**（作業手順書）が入っています。スキルは、複数の AI で使える共通の形式（[Agent Skills](https://agentskills.io/)）で書いてあり、リポジトリのフォルダを開くと各ツールが読み込みます。
+
+| ツール | スキルを読む場所 | 共通の指示を読むファイル |
+|---|---|---|
+| Claude Code | `.claude/skills/`（`.agents/skills/` の写し） | `CLAUDE.md`（→ `AGENTS.md`） |
+| Codex（OpenAI） | `.agents/skills/` | `AGENTS.md` |
+| Antigravity（Google） | `.agents/skills/` | `GEMINI.md`（→ `AGENTS.md`）・`AGENTS.md` |
+| そのほか Agent Skills に対応したツール（Cursor、Gemini CLI、GitHub Copilot など） | 各ツールの説明書を確認（多くは `.agents/skills/` か、設定で指定） | 多くは `AGENTS.md` |
+
+- スキルの**原本**は `.agents/skills/` です。`.claude/skills/` はその写しなので、スキルを直すときは `.agents/skills/` を編集し、`texlua tools/sync_skills.lua` で写してください（自動ビルドで食い違いを検査しています）。
+- 動作を確かめているのは Claude Code です。ほかのツールは、各社の公式文書にある置き場所と形式に合わせています。
+
+頼み方は、どのツールでも同じです。
 
 | 段階 | スキル | 頼み方の例 |
 |---|---|---|
@@ -35,7 +47,7 @@ courses/<科目>/<NN>/slides.tex, handout.tex, worksheet.tex, amc/exercise.tex, 
 | ② | `lesson-plan` | 「`my_course` の第03回の授業計画を作って」 |
 | ③ | `lesson-materials` | 「第03回の授業計画から教材一式を作って」 |
 
-- ①では、公式シラバスに書かれていない「実施要件」「教材の作り方」について、Claude から質問されます。答えた内容が `syllabus.md` に書き込まれます。
+- ①では、公式シラバスに書かれていない「実施要件」「教材の作り方」について、AI から質問されます。答えた内容が `syllabus.md` に書き込まれます。
 - ②は、1回ずつでも、複数回まとめてでも頼めます。できた `lesson_plan.md` を読んで、直したいところを伝えてから③へ進んでください。
 - ③では、作った教材をビルドし、画像にして見た目を確かめ、解答を検算してから報告するよう指示してあります。それでも、**最後は必ず人が PDF を見て確認**してください。
 
@@ -45,7 +57,11 @@ courses/<科目>/<NN>/slides.tex, handout.tex, worksheet.tex, amc/exercise.tex, 
 2. `templates/lesson_plan.md` を `courses/<科目>/<NN>/lesson_plan.md` にコピーし、[LESSON_PLAN_FORMAT.md](LESSON_PLAN_FORMAT.md) に従って埋める。
 3. `templates/` の `.tex` をコピーして教材を書き（[AUTHORING_GUIDE.md](AUTHORING_GUIDE.md)）、`texlua tools/build_all.lua courses/<科目>/<NN>` でビルドする。
 
-ほかの生成 AI（ChatGPT など）を使う場合も、`.claude/skills/*/SKILL.md` の本文を指示として渡せば、同じ手順で作業させられます。
+## スキルに対応していない AI・ローカル LLM で行う場合
+
+- **ファイルの読み書きとコマンドの実行ができるツール**（ローカルのモデルにつないだエージェント型のツールなど）なら、最初に「`AGENTS.md` と `.agents/skills/<名前>/SKILL.md` を読んで、その手順で作業して」と頼めば、同じ流れで作業させられます。
+- **チャットだけの AI** なら、`SKILL.md` の本文と、元にする文書（`syllabus.md` など）を貼り付けて頼み、返ってきた内容を自分でファイルに保存してビルドします。
+- この流れは、日本語の文章・LaTeX・数式を正確に書き、ビルドのエラーを読んで直すことを前提にしています。小さなモデルでは、ビルドが通らない・計算を誤るなどが起きやすいので、**ビルドとはみ出しの確認、正解の検算は必ず行ってください**。
 
 ## 例
 

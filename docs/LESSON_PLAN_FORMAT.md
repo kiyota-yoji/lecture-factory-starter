@@ -4,7 +4,7 @@
 
 - [`syllabus.md`](SYLLABUS_FORMAT.md) の授業計画・実施要件・教材の作り方から作ります。
 - スライド・ワークシート・確認問題などの教材は、この文書から作ります。教材と食い違ったときは、`lesson_plan.md` を直してから教材を直します。
-- 作り方の手順は [WORKFLOW.md](WORKFLOW.md)、白紙の雛形は [`templates/lesson_plan.md`](../templates/lesson_plan.md) です。Claude Code では `lesson-plan` スキルで作れます。
+- 作り方の手順は [WORKFLOW.md](WORKFLOW.md)、白紙の雛形は [`templates/lesson_plan.md`](../templates/lesson_plan.md) です。AI エージェント（Claude Code・Codex・Antigravity など）では `lesson-plan` スキルで作れます（[WORKFLOW.md](WORKFLOW.md)）。
 - 記入例：[`courses/basic_math/07/lesson_plan.md`](../courses/basic_math/07/lesson_plan.md)
 
 ---

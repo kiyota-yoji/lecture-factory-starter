@@ -28,6 +28,9 @@ jobs:
           package-file: .github/texlive.packages
           update-all-packages: true
 
+      - name: スキルの写し（.claude/skills）が原本（.agents/skills）と一致しているか確認
+        run: texlua tools/sync_skills.lua --check
+
       - name: すべての教材をビルド
         run: texlua tools/build_all.lua
 

@@ -4,7 +4,7 @@
 
 - 大学の公式シラバス（Web・PDF）の内容を写したうえで、公式シラバスには書かれない「**どう実施するか**」「**教材をどう作るか**」を書き足します。
 - 各回の授業計画（[`lesson_plan.md`](LESSON_PLAN_FORMAT.md)）は、この文書から作ります。内容が食い違ったときは `syllabus.md` を正とします。
-- 作り方の手順は [WORKFLOW.md](WORKFLOW.md)、白紙の雛形は [`templates/syllabus.md`](../templates/syllabus.md) です。Claude Code では `syllabus-markdown` スキルで作れます。
+- 作り方の手順は [WORKFLOW.md](WORKFLOW.md)、白紙の雛形は [`templates/syllabus.md`](../templates/syllabus.md) です。AI エージェント（Claude Code・Codex・Antigravity など）では `syllabus-markdown` スキルで作れます（[WORKFLOW.md](WORKFLOW.md)）。
 - 記入例：[`courses/basic_math/syllabus.md`](../courses/basic_math/syllabus.md)、[`courses/ai_business/syllabus.md`](../courses/ai_business/syllabus.md)
 
 ---
