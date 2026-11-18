@@ -84,7 +84,7 @@
 
 ### `Package lfs-fonts Warning: 原ノ味フォントが見つからないため IPAex フォントを使います`
 
-- **原因**：TeX に原ノ味フォントが入っていない（Ubuntu の apt で入れた TeX など）。エラーではなく警告で、PDF はできる。
+- **原因**：TeX に原ノ味フォントが入っていない（古い TeX Live、日本語のパッケージを入れていない Linux の TeX など）。エラーではなく警告で、PDF はできる。
 - **対処**：そのままで問題なし（字形が少し変わるだけ）。原ノ味で組みたい場合は、公式インストーラの TeX Live を使う。
 
 ### `! Undefined control sequence.` で、行に全角スラッシュ「／」がある
@@ -183,6 +183,21 @@
 
 - **原因**：日本語の表示用フォントが入っていない。
 - **対処**：`sudo apt install fonts-noto-cjk` を実行し、AMC を起動し直す。
+
+### AMC の画面が英語で表示される（WSL・Linux）
+
+- **原因**：Ubuntu の言語の設定が英語（`C.UTF-8` など）になっている。WSL の Ubuntu は、最初はこの設定。
+- **対処**：`sudo apt install language-pack-ja` と `sudo update-locale LANG=ja_JP.UTF-8` を実行し、Ubuntu の端末を開き直してから AMC を起動する。
+
+### AMC の起動時に `Please install libnotify to make desktop notifications available.` と出る（WSL・Linux）
+
+- **原因**：AMC のデスクトップ通知に使う部品が入っていない。採点には影響しない。
+- **対処**：OK を押せば、そのまま使える。通知も使う場合は `sudo apt install gir1.2-notify-0.7` を実行し、AMC を起動し直す。このダイアログを出したとき AMC は通知の設定をオフにするので、通知が出ないときは「編集」→「設定」で通知をオンに戻す。
+
+### `auto-multiple-choice &` で「アンパサンド (&) 文字は許可されていません」と出る（Windows）
+
+- **原因**：Ubuntu 用のコマンドを Windows の PowerShell で実行している。
+- **対処**：スタートメニューの「Ubuntu 24.04」で Ubuntu の端末を開いて実行する。PowerShell から起動する場合は `wsl -d Ubuntu-24.04 -- auto-multiple-choice` を実行する（`&` は付けない）。
 
 ### AMC のウィンドウが表示されない
 

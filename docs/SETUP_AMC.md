@@ -54,12 +54,24 @@ sudo apt update
 ```
 
 ```bash
-sudo apt install auto-multiple-choice texlive-luatex texlive-lang-japanese fonts-noto-cjk
+sudo apt install auto-multiple-choice texlive-luatex texlive-lang-japanese fonts-noto-cjk gir1.2-notify-0.7
 ```
 
-- `texlive-luatex` と `texlive-lang-japanese` は、LuaLaTeX と日本語のためです（AMC は Windows 側の TeX Live ではなく、Ubuntu 側の TeX を使います）。
+- `texlive-luatex` と `texlive-lang-japanese` は、LuaLaTeX と日本語のためです（AMC は Windows 側の TeX Live ではなく、Ubuntu 側の TeX を使います）。Ubuntu 24.04 の `texlive-lang-japanese` には原ノ味フォントが入っているので、問題用紙は Windows でビルドしたときと同じフォントで組まれます。
 - `fonts-noto-cjk` は、AMC の画面の日本語が □ に化けないようにするためです。
-- Ubuntu の TeX には原ノ味フォントが入っていないため、問題用紙は **IPAex フォント** で組まれます（`lfs-fonts` が自動で切り替えます）。見た目が少し変わるだけで、採点には影響しません。
+- `gir1.2-notify-0.7` は、AMC のデスクトップ通知のためです。入れないと、起動時に「Please install libnotify to make desktop notifications available.」と出ます（OK を押せば、そのまま使えます）。
+
+AMC の画面を日本語にするため、Ubuntu の言語を日本語にします（WSL の Ubuntu は、最初は英語の設定になっています）。
+
+```bash
+sudo apt install language-pack-ja
+```
+
+```bash
+sudo update-locale LANG=ja_JP.UTF-8
+```
+
+（開いている Ubuntu の端末は、一度閉じて開き直します。Ubuntu の端末に出るメッセージも日本語になります。）
 
 ### A-3. 共通設定をリンクする
 
@@ -84,8 +96,16 @@ kpsewhich lfs-fonts.sty
 
 ### A-4. 起動する
 
+**Ubuntu の端末で** 次を実行します（PowerShell ではありません）。
+
 ```bash
 auto-multiple-choice &
+```
+
+Windows の PowerShell から起動する場合は、`&` を付けずに次を実行します（PowerShell 5.1 では、行の最後の `&` はエラーになります）。AMC を閉じるまで、PowerShell には戻りません。
+
+```powershell
+wsl -d Ubuntu-24.04 -- auto-multiple-choice
 ```
 
 Windows 11 では、AMC のウィンドウが Windows のデスクトップに表示されます（WSLg という仕組みです）。

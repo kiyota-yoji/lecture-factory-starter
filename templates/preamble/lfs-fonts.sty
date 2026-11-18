@@ -24,7 +24,7 @@
   \setmainjfont{BIZ UDPGothic}
   \setsansjfont{BIZ UDPGothic}
 \else
-  % 原ノ味（TeX Live 2020 以降に同梱）。見つからない環境（Ubuntu の apt 版 TeX など）では IPAex に切り替える
+  % 原ノ味（TeX Live 2020 以降に同梱）。見つからない環境（古い TeX など）では IPAex に切り替える
   \edef\lfs@jpreset{\directlua{
     tex.sprint(kpse.find_file("HaranoAjiMincho-Regular.otf", "opentype fonts") and "haranoaji" or "ipaex")}}
   \def\lfs@tmp{ipaex}
