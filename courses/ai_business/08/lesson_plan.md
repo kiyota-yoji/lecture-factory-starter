@@ -2,7 +2,7 @@
 course_id: "ai_business"
 lesson_no: 8
 lesson_title: "AIプラットフォームビジネスの全体像と課題"
-outputs: [slides, handout, exercise]
+outputs: [slides, handout, exercise, lecture_script]
 duration_minutes: 100
 delivery_mode: "hybrid"
 prev_lesson: 7
@@ -218,19 +218,21 @@ references: ["syllabus.md", "08/source/SOURCES.md", "08/source/aib08_public.pdf�
 | 35 | 演習課題 | 40 | 書き換え | 字数を syllabus に、締切の日付・遅延の扱いを削除 |
 | — | — | 41–43 | 追加 | 付録（ことば・数字と出典。syllabus のスライドの方針） |
 
+講義台本（`lecture_script.md`）は原本になく、作り直したスライドに合わせて新しく書いた。
+
 # 教員レビュー項目
 
 - [ ] 原本と作り直したスライドを並べて、内容の抜け・順番の入れ替わりがない
 - [ ] 直した2点（LINE の年表・優先度の式）が意図どおり
 - [ ] 追加した問いかけ3枚（スライド 9・26・32）、生成 AI の視点（スライド 33–36）、確認問題5問（原本になし）の内容
 - [ ] 生成 AI の数値（1億人の推計・GPT Store）を、使う時点で確かめ直した
+- [ ] 講義台本（原本になし）の言い回し・⚠ の注意が、スライドと合っている
 - [ ] スライドと付録の出典が一致している
 - [ ] 確認問題の選択肢の長さがそろっている
 - [ ] 授業の流れの時間の合計が授業時間に一致する
 
 # 未確定事項
 
-- [ ] 講義台本（`lecture_script`）は原本にないため作っていない。syllabus の「毎回作る教材」に合わせて作るか
 - [ ] 演習課題の字数：原本 200〜3000字、syllabus 800〜2000字。教材は syllabus にそろえた
 - [ ] 冒頭で前回の「考えてみよう」の回答を紹介する枠（syllabus `## フィードバック`）が原本にない
 - [ ] 失敗事例・課題の例に、具体的な企業名を出典つきで戻すか
