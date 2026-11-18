@@ -1,12 +1,14 @@
 # lecture-factory-starter
 
+作者：清田陽司（[https://www.kiyota-yoji.net/](https://www.kiyota-yoji.net/)）
+
 LaTeX（LuaLaTeX）で **授業スライド・配布資料・ワークシート・選択式問題（マークシート）** を作るための、
 テンプレートとサンプル教材のセットです。
 
 麗澤大学工学部の授業で運用している教材制作の仕組みから、どの大学・どの科目でも使える部分だけを取り出し、
 できるだけシンプルにしたものです。Windows / Mac のどちらでも同じ手順で使えます。
 
-> **現在は公開準備中です。** テンプレート・手順書・サンプル教材（基礎数学5回分・AIビジネス入門3回分）が揃いました。
+> はじめての方は、[Wiki](https://github.com/kiyota-yoji/lecture-factory-starter/wiki) の「はじめての方へ」から読んでください。
 
 ## できること
 
@@ -34,7 +36,7 @@ LaTeX（LuaLaTeX）で **授業スライド・配布資料・ワークシート�
 - 基礎数学：スライド・配布用ハンドアウト・ワークシート（学生用／解答版）・選択式の確認問題（5問）
 - AIビジネス入門：スライド（用語・出典の付録つき）・配布用ハンドアウト・講義台本・選択式の確認問題（5問）
 - AIビジネス入門 第08回は、既存の資料（Google スライドの PDF）から作り直した例です。元の資料からロゴなどを消した写しと、点検の記録（`source/SOURCES.md`）もあります（[SOURCE_MATERIALS.md](docs/SOURCE_MATERIALS.md)）
-PDF は GitHub の Releases からもダウンロードできます（公開後）。
+PDF は GitHub の [Releases](https://github.com/kiyota-yoji/lecture-factory-starter/releases) からもダウンロードできます。
 
 ## 授業づくりの流れ
 

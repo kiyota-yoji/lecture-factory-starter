@@ -1,10 +1,10 @@
 # Windows / Mac / Linux の3環境で、すべての教材がビルドできることを確認する。
-# main・initial-draft への push・PR で実行。v で始まるタグを push すると PDF を Release に添付する。
+# main への push・PR で実行。v で始まるタグを push すると PDF を Release に添付する。
 name: build
 
 on:
   push:
-    branches: [main, initial-draft]
+    branches: [main]
     tags: ["v*"]
   pull_request:
   workflow_dispatch:
