@@ -43,6 +43,7 @@ description: Use this skill when the user wants to generate the teaching materia
 - `# 授業の流れ` の順番・区切りと一致させる。演習の時間にはその合図のスライドを置く。
 - 最初に「今日のねらい」、最後に「まとめ」（`# 強調したいポイント`）と次回予告（`## 次回へ`）。
 - 図は TikZ で描く。外部の画像を使わない。
+- 配布資料に載せない内容（確認問題の正解、出席の確認、答え合わせの枚など）は、`\begin{frame}<handout:0>` か `\only<handout:0>{…}` でスライドだけに出す。ハンドアウトだけに出すものは `\mode<handout>{…}`。使ったら、`lesson_plan.md` の `# スライド設計` にその枚が「スライドのみ」であることを書き、`slides.pdf` と `handout.pdf` の両方で出方を確かめる（[AUTHORING_GUIDE.md](../../../docs/AUTHORING_GUIDE.md) §2）。
 
 ### ワークシート（`worksheet.tex`）
 

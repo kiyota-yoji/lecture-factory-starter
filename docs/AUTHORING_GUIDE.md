@@ -67,6 +67,32 @@ Windows では、エクスプローラーで `templates\slides`・`templates\wor
 \end{frame}
 ```
 
+### スライドだけに出す・ハンドアウトだけに出す
+
+`handout.tex` は、`slides.tex` を Beamer の「ハンドアウトモード」で読み込んでいます。そのため、次の書き方で、スライド（投影用）とハンドアウト（配布用）に出すものを分けられます。
+
+| したいこと | 書き方 | 使いどころの例 |
+|---|---|---|
+| 1枚まるごと、スライドだけに出す | `\begin{frame}<handout:0>{見出し} … \end{frame}` | 出席の確認、答え合わせの枚、配布したくない画面 |
+| 枚の中の一部だけ、スライドだけに出す | `\only<handout:0>{…}` | 確認問題の正解、授業中だけ見せる一言 |
+| 枚の中の一部だけ、ハンドアウトだけに出す | `\mode<handout>{…}` | メモ欄、口頭で話す補足 |
+
+```latex
+\begin{frame}<handout:0>{答え合わせ}
+  問1：(イ)\quad 問2：(ア)
+\end{frame}
+
+\begin{frame}{確認問題}
+  問1 \only<handout:0>{\quad\textbf{正解：(イ)}}
+  \mode<handout>{\par メモ：\underline{\hspace{8cm}}}
+\end{frame}
+```
+
+- **ページ番号がずれます。** 外した枚はハンドアウトでは数えないので、フッターの「N / 全体」がスライドとハンドアウトで変わります。`lesson_plan.md` や講義台本で「スライド N」と書くときは、スライド（`slides.pdf`）の番号です。
+- 分けたら、`slides.pdf` と `handout.pdf` の両方を開いて、意図どおりに出ている・消えているかを確かめてください。
+- `\pause` などの段階表示は、ハンドアウトではすべて表示した1枚にまとまります（このリポジトリの教材では使っていません）。
+- 科目で独自に作った枚の型（AIビジネス入門の `\sectionframe`・`\thinkframe` など）には、そのままでは `<handout:0>` を付けられません。その枚は `\begin{frame}<handout:0>` で書き下してください。
+
 ## 3. ワークシート（`worksheet.tex`）
 
 ```latex
