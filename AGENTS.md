@@ -26,6 +26,13 @@ LaTeX（LuaLaTeX）で授業のスライド・ワークシート・選択式問�
 - スキルを直したら `texlua tools/sync_skills.lua --check` が通ること。
 - つまずいたら [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)。
 
+## ブランチとコミット
+
+- 作業は作業ブランチで行う。いまの作業ブランチは `initial-draft` です（公開の準備中のため、`main` は置いていません）。
+- `main` へのコミット・push・マージ、`main` の作成は、教員の指示があるまでしない。
+- コミット・push は、教員に頼まれたときだけ行う。どのブランチに入れるか分からないときは、先に教員に確認する。
+- `.github/workflows/build.yml` の自動ビルドは、`main`・`initial-draft` への push と PR で動く。push したら3 OS とも成功したかを確かめる。
+
 ## 守ること
 
 - 学生個人の情報（氏名・学籍番号・成績・提出状況・配慮の具体的な内容）を、どのファイルにも書かない。
