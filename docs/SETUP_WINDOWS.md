@@ -12,6 +12,7 @@ Windows 10 / 11 で、スライド・ワークシート・選択式問題の PDF
 1. [TeX Live のダウンロードページ](https://www.tug.org/texlive/acquire-netinstall.html) から **`install-tl-windows.exe`** をダウンロードします。
 2. ダウンロードしたファイルを実行します。
    - 「Windows によって PC が保護されました」と出たら、「詳細情報」→「実行」を押します。
+   - 「スマート アプリ コントロール」のダイアログが出て実行できない場合は、[TROUBLESHOOTING.md](TROUBLESHOOTING.md#スマート-アプリ-コントロールでインストーラが止められるwindows-11) を見てください。
 3. インストーラの画面で **「Install」** を選び、設定は変えずに（スキーム「full」、インストール先 `C:\texlive\2026`）インストールを始めます。
 4. 「Welcome to TeX Live!」と表示されたら完了です。
 
