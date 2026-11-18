@@ -19,7 +19,7 @@
 - [用語集](用語集)
 
 **手順書（docs/）**
-- [Windows の環境構築](https://github.com/kiyota-yoji/lecture-factory-starter/blob/main/docs/SETUP_WINDOWS.md)
-- [Mac の環境構築](https://github.com/kiyota-yoji/lecture-factory-starter/blob/main/docs/SETUP_MAC.md)
-- [AMC の環境構築](https://github.com/kiyota-yoji/lecture-factory-starter/blob/main/docs/SETUP_AMC.md)
-- [トラブルシューティング](https://github.com/kiyota-yoji/lecture-factory-starter/blob/main/docs/TROUBLESHOOTING.md)
+- [Windows の環境構築](https://github.com/kiyota-yoji/lecture-factory-starter/blob/HEAD/docs/SETUP_WINDOWS.md)
+- [Mac の環境構築](https://github.com/kiyota-yoji/lecture-factory-starter/blob/HEAD/docs/SETUP_MAC.md)
+- [AMC の環境構築](https://github.com/kiyota-yoji/lecture-factory-starter/blob/HEAD/docs/SETUP_AMC.md)
+- [トラブルシューティング](https://github.com/kiyota-yoji/lecture-factory-starter/blob/HEAD/docs/TROUBLESHOOTING.md)

@@ -2,7 +2,7 @@
 --
 -- 確かめること:
 --   ・Wiki のページどうしのリンク [表示](ページ名) の先のページ（wiki/ページ名.md）があるか
---   ・リポジトリのファイルへのリンク https://github.com/<REPO>/blob|tree/main/<パス> の先が、このリポジトリにあるか
+--   ・リポジトリのファイルへのリンク https://github.com/<REPO>/blob|tree/HEAD/<パス> の先が、このリポジトリにあるか
 --   ・すべてのページが目次（_Sidebar.md）から辿れるか
 -- 外部のサイトへのリンクは確かめない。
 --
@@ -38,12 +38,12 @@ for page in pairs(pages) do
     local t = target:gsub("#.*$", "")
     if target:sub(1, #REPO) == REPO then
       local rest = target:sub(#REPO + 1)
-      local path = rest:match("^blob/main/([^#]*)") or rest:match("^tree/main/([^#]*)")
+      local path = rest:match("^blob/HEAD/([^#]*)") or rest:match("^tree/HEAD/([^#]*)")
       if path then
         path = path:gsub("/$", "")
         if lfs.attributes(path, "mode") == nil then problem(page, "missing file in repository: " .. path) end
       elseif not (rest:match("^releases") or rest:match("^issues")) then
-        problem(page, "unexpected repository link (use blob/main or tree/main): " .. target)
+        problem(page, "unexpected repository link (use blob/HEAD or tree/HEAD): " .. target)
       end
     elseif t:match("^%a[%w+.-]*:") then
       -- 外部のサイト（確かめない）

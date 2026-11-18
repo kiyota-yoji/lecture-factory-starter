@@ -42,4 +42,4 @@ LaTeX を使ったことがなくても始められます。最初は、サン�
 | 基礎数学 | 第02回 変数と関数・三角関数／第03回 指数関数／第07回 微分法の基礎／第10回 ベクトルの基礎／第11回 行列の基礎 |
 | AIビジネス入門 | 第08回 AIプラットフォームビジネスの全体像と課題（既存の資料から作り直した例）／第09回 記号とルール／第10回 機械学習 |
 
-ソースは [courses/](https://github.com/kiyota-yoji/lecture-factory-starter/tree/main/courses) にあります。PDF は [Releases](https://github.com/kiyota-yoji/lecture-factory-starter/releases) からダウンロードできます。
+ソースは [courses/](https://github.com/kiyota-yoji/lecture-factory-starter/tree/HEAD/courses) にあります。PDF は [Releases](https://github.com/kiyota-yoji/lecture-factory-starter/releases) からダウンロードできます。

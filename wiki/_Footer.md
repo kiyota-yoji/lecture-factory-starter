@@ -1,1 +1,1 @@
-この Wiki の原稿はリポジトリの [`wiki/`](https://github.com/kiyota-yoji/lecture-factory-starter/tree/main/wiki) にあります。直したいところは Issues でお知らせください。・ 手順書の正本は [`docs/`](https://github.com/kiyota-yoji/lecture-factory-starter/tree/main/docs) です。
+この Wiki の原稿はリポジトリの [`wiki/`](https://github.com/kiyota-yoji/lecture-factory-starter/tree/HEAD/wiki) にあります。直したいところは Issues でお知らせください。・ 手順書の正本は [`docs/`](https://github.com/kiyota-yoji/lecture-factory-starter/tree/HEAD/docs) です。

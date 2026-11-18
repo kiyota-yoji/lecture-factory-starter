@@ -6,7 +6,7 @@
 - このファイル（`README.md`）は Wiki には写しません。
 - ページ名＝ファイル名です（`はじめての方へ.md` → ページ「はじめての方へ」）。`Home.md` が表紙、`_Sidebar.md` が横の目次、`_Footer.md` が各ページの下に出る文です。
 - ページの先頭に、ページ名と同じ `#` 見出しは書きません（Wiki がページ名を見出しとして自動で出すため、二重になる）。`Home.md` だけは、表紙の見出しを書いています。
-- Wiki のページどうしのリンクは `[表示](ページ名)`、リポジトリのファイルへのリンクは `https://github.com/kiyota-yoji/lecture-factory-starter/blob/main/<パス>` の形の絶対 URL で書きます。
+- Wiki のページどうしのリンクは `[表示](ページ名)`、リポジトリのファイルへのリンクは `https://github.com/kiyota-yoji/lecture-factory-starter/blob/HEAD/<パス>` の形の絶対 URL で書きます。`HEAD` は GitHub の既定のブランチを指すので、ブランチの名前が変わってもリンクが切れません（`main` などブランチ名を直接書かない）。
 - 書き方の方針：Wiki は**入口**（はじめての方へ・流れ・よくある質問）です。手順の細部は `docs/` にあり、Wiki からはリンクで案内します（同じことを2か所に書かない）。
 - リンク切れは `texlua tools/check_wiki.lua` で確かめられます（自動ビルドでも確かめます）。
 

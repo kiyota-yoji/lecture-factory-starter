@@ -1,5 +1,5 @@
 このリポジトリには、授業づくりの各段階を生成 AI に手伝ってもらうための**作業手順書（スキル）**が入っています。フォルダを開くだけで、対応するツールがスキルを読み込みます。
-くわしくは [WORKFLOW.md](https://github.com/kiyota-yoji/lecture-factory-starter/blob/main/docs/WORKFLOW.md) を見てください。
+くわしくは [WORKFLOW.md](https://github.com/kiyota-yoji/lecture-factory-starter/blob/HEAD/docs/WORKFLOW.md) を見てください。
 
 ## 使えるツール
 
