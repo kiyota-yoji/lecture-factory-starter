@@ -39,7 +39,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p dist
-          find courses templates -name '*.pdf' -not -path '*/figures/*' | while read -r f; do
+          find courses templates -name '*.pdf' -not -path '*/figures/*' -not -path '*/source/*' | while read -r f; do
             cp "$f" "dist/$(echo "${f%.pdf}" | tr '/' '_').pdf"
           done
           ls dist

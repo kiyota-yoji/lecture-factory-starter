@@ -33,3 +33,9 @@ desktop.ini
 
 # 教材の図（figures/ 配下）は PDF・画像でも管理する
 !**/figures/*
+
+# 既存の授業資料（docs/SOURCE_MATERIALS.md）
+# 原本は第三者の素材・学生の情報を含みうるので入れない
+**/source/original/
+# 第三者の素材を消した公開用の PDF だけは管理する
+!**/source/*_public.pdf

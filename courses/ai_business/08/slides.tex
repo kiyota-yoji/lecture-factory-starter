@@ -1,0 +1,609 @@
+% AIビジネス入門 第08回 AIプラットフォームビジネスの全体像と課題（CC BY-SA 4.0）
+% 既存の資料（Google スライド）からの作り直し。原本との対応は lesson_plan.md の「元資料との対応」、点検の記録は source/SOURCES.md
+\documentclass[aspectratio=169]{beamer}
+\usepackage{lfs-slides}
+\usepackage{url}
+\input{../aib-common.tex.inc}
+\lfscourse{AIビジネス入門}
+
+\title[AIプラットフォームビジネスの全体像と課題]{AIプラットフォームビジネスの\\全体像と課題}
+\subtitle{AIビジネス入門 第08回}
+\author{清田 陽司}
+\date{}
+
+% 3列の表（見出し＋箇条書き）を並べる型
+\tikzset{
+  col/.style={draw,rounded corners,text width=4.0cm,align=left,font=\small,inner sep=6pt,anchor=north},
+  colh/.style={draw,rounded corners,text width=4.0cm,minimum height=0.8cm,align=center,font=\small\bfseries,anchor=north},
+  arr/.style={-{Latex[length=3mm]},very thick,gray},
+}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+% ---- 位置づけ（原本 p.3–4 の講義計画を1枚に）----
+\begin{frame}{この回の位置づけ}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw,rounded corners,text width=3.6cm,minimum height=2.2cm,align=center,font=\small}]
+  \node[box,fill=gray!8] (a) {\textbf{第04〜07回}\\ケーススタディ\\{\footnotesize Web 広告・電子商取引\\運輸・流通・衣食住}};
+  \node[box,fill=boom!12,draw=boom,line width=1.2pt,right=0.8cm of a] (b) {\textbf{今日 第08回}\\{\large 全体像と課題}\\{\footnotesize 共通する「\textbf{場}」の\\仕組みとしてまとめる}};
+  \node[box,fill=winter!8,draw=winter,right=0.8cm of b] (c) {\textbf{第09〜11回}\\AI を構成する技術\\{\footnotesize 記号とルール・機械学習\\ディープラーニング}};
+  \draw[arr] (a) -- (b); \draw[arr] (b) -- (c);
+\end{tikzpicture}
+\end{center}
+\vspace{0.8em}
+\centering「何に使われているか」から「\textbf{なぜビジネスとして成り立つか}」へ
+\end{frame}
+
+\begin{frame}{今回のトピックス}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw,rounded corners,text width=3.9cm,minimum height=2.6cm,align=center,font=\small}]
+  \node[box,fill=gray!10] (a) {\textbf{\large AIプラット\\フォーム\\ビジネスとは}};
+  \node[box,fill=gain!8,draw=gain,right=0.35cm of a] (b) {\textbf{\large 成功の条件}};
+  \node[box,fill=boom!8,draw=boom,right=0.35cm of b] (c) {\textbf{\large 課題}};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+% ============================================================
+% AIプラットフォームビジネスとは
+% ============================================================
+
+\sectionframe{AIプラットフォーム\\[0.3em]ビジネスとは}
+
+\begin{frame}{プラットフォームビジネスとは何か？}
+\begin{center}
+\begin{tikzpicture}[h/.style={draw,rounded corners,text width=5.4cm,minimum height=0.9cm,align=center,font=\bfseries},b/.style={draw,rounded corners,text width=5.4cm,minimum height=2.6cm,align=left,font=\small,inner sep=7pt,anchor=north}]
+  \node[h,fill=winter!15,draw=winter] (h1) at (0,0) {従来のビジネスモデル};
+  \node[b,fill=winter!5,draw=winter] (b1) at ($(h1.south)+(0,-0.1)$) {・メーカー → 卸売 → 小売 → 消費者\\・\textbf{一方通行}の価値提供\\・在庫リスクがある};
+  \node[h,fill=boom!15,draw=boom] (h2) at (7.2,0) {プラットフォームビジネス};
+  \node[b,fill=boom!5,draw=boom] (b2) at ($(h2.south)+(0,-0.1)$) {・「\textbf{場}」の提供\\・\textbf{利用者同士}の価値交換\\・在庫リスクがない};
+  \draw[arr] ($(b1.east)+(0.1,0)$) -- ($(b2.west)+(-0.1,0)$);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+% 3つのサービス（原本 p.8–10。ロゴは使わずサービス名を文字で）
+\newcommand{\threecols}[6]{%
+\begin{center}
+\begin{tikzpicture}
+  \node[colh,fill=winter!15,draw=winter] (h1) at (0,0) {#1};
+  \node[col,fill=winter!5,draw=winter,minimum height=3.6cm] at ($(h1.south)+(0,-0.1)$) {#2};
+  \node[colh,fill=gain!15,draw=gain] (h2) at (4.5,0) {#3};
+  \node[col,fill=gain!5,draw=gain,minimum height=3.6cm] at ($(h2.south)+(0,-0.1)$) {#4};
+  \node[colh,fill=genai!15,draw=genai] (h3) at (9.0,0) {#5};
+  \node[col,fill=genai!5,draw=genai,minimum height=3.6cm] at ($(h3.south)+(0,-0.1)$) {#6};
+\end{tikzpicture}
+\end{center}}
+
+\begin{frame}{LINE の例で考える}
+\threecols{LINE が提供しているもの}{・メッセージのやり取りの「場」\\・スタンプ販売の「場」\\・広告配信の「場」}
+{関係するプレイヤー}{・一般ユーザー\\\quad（メッセージ交換）\\・クリエイター\\\quad（スタンプ制作）\\・企業（広告出稿）}
+{プラットフォームの価値}{・ユーザー数が増えるほど\\\quad 価値が上がる\\・お金を払わなくても利用できる\\・一部のユーザーがお金を払う}
+\end{frame}
+
+\begin{frame}{Instagram の例で考える}
+\threecols{Instagram が提供しているもの}{・写真・動画共有の「場」\\・インフルエンサーと一般ユーザーの出会いの「場」\\・企業とユーザーの出会いの「場」}
+{関係するプレイヤー}{・投稿者と閲覧者\\・インフルエンサーと\\\quad フォロワー\\・広告主とユーザー}
+{プラットフォームの収益源}{・広告収入\\・ショッピング機能の手数料\\・データ活用}
+\end{frame}
+
+\begin{frame}{TikTok の例で考える}
+\threecols{TikTok が提供しているもの}{・ショート動画共有の「場」\\・クリエイターと視聴者の出会いの「場」\\・バイラルコンテンツ発見の「場」}
+{関係するプレイヤー}{・一般ユーザー（視聴者）\\・クリエイター\\\quad（動画制作者）\\・企業（広告主）}
+{プラットフォームの価値}{・\textbf{AI による高度な\\\quad コンテンツ推薦}\\・簡単な動画編集・投稿\\・グローバルな展開力}
+\end{frame}
+
+\thinkframe{みなさんがよく使うサービスを1つ\\[0.3em]そのサービスで\\[0.3em]\textbf{お金を払っているのはだれ？}\\[0.6em]{\large 自分？ 企業？ ほかの利用者？}}
+
+\begin{frame}{プラットフォームビジネスの本質}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\centering\textbf{ネットワーク効果}\\[0.6em]
+\begin{tikzpicture}[n/.style={draw,rounded corners,fill=winter!15,draw=winter,text width=2.0cm,minimum height=1.0cm,align=center,font=\small\bfseries}]
+  \node[n] (a) at (0,0) {利用者の\\増加};
+  \node[n] (b) at (3.4,0) {価値の\\向上};
+  \draw[arr] (a) to[bend left=35] (b);
+  \draw[arr] (b) to[bend left=35] (a);
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.48\textwidth}
+\centering\textbf{複数のプレイヤーの存在}\\[0.6em]
+\begin{tikzpicture}[c/.style={circle,draw,minimum size=1.3cm,align=center,font=\small\bfseries}]
+  \node[c,fill=gain!15,draw=gain] (p) at (0,0) {提供側};
+  \node[draw,rounded corners,fill=winter!15,draw=winter,minimum height=1.0cm,align=center,font=\small\bfseries] (f) at (2.3,0) {プラット\\フォーム};
+  \node[c,fill=boom!15,draw=boom] (u) at (4.6,0) {利用側};
+  \draw[arr] (p) -- (f); \draw[arr] (f) -- (u);
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\vspace{1.2em}
+\centering\textbf{マネタイズの仕組み}\\[0.5em]
+\begin{tikzpicture}[m/.style={draw,rounded corners,text width=3.4cm,minimum height=0.9cm,align=center,font=\small\bfseries}]
+  \node[m,fill=yellow!20] (a) at (0,0) {フリーミアムモデル};
+  \node[m,fill=gain!15] (b) at (4.2,0) {手数料モデル};
+  \node[m,fill=boom!15] (c) at (8.4,0) {広告モデル};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{AI によるプラットフォームビジネスの進化}
+\begin{center}
+\begin{tikzpicture}[h/.style={draw,rounded corners,text width=5.0cm,minimum height=0.8cm,align=center,font=\bfseries},b/.style={draw,rounded corners,text width=5.0cm,minimum height=2.0cm,align=left,font=\small,inner sep=7pt,anchor=north}]
+  \node[h,fill=winter!15,draw=winter] (h1) at (0,0) {従来のプラットフォーム};
+  \node[b,fill=winter!5,draw=winter] (b1) at ($(h1.south)+(0,-0.1)$) {・固定的なマッチング\\・画一的なコンテンツ\\・手動での最適化};
+  \node[h,fill=boom!15,draw=boom] (h2) at (6.8,0) {AIプラットフォーム};
+  \node[b,fill=boom!5,draw=boom] (b2) at ($(h2.south)+(0,-0.1)$) {・\textbf{自動}マッチング\\・\textbf{パーソナライズ}\\・\textbf{リアルタイム}最適化};
+  \draw[arr] ($(b1.east)+(0.1,0)$) -- ($(b2.west)+(-0.1,0)$);
+\end{tikzpicture}\\[0.8em]
+{\small\bfseries 具体的な活用例}\\[0.3em]
+\begin{tikzpicture}[e/.style={draw,rounded corners,text width=3.6cm,minimum height=1.1cm,align=center,font=\small}]
+  \node[e,fill=gain!10,draw=gain] at (0,0) {\textbf{LINE}\\AI による広告配信の最適化};
+  \node[e,fill=genai!10,draw=genai] at (4.2,0) {\textbf{Instagram}\\AI によるフィードの最適化};
+  \node[e,fill=gray!10] at (8.4,0) {\textbf{TikTok}\\AI によるコンテンツ推薦};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{AI による進化のポイント}
+\begin{center}
+\begin{tikzpicture}[s/.style={draw,rounded corners,text width=3.3cm,minimum height=1.2cm,align=center,font=\small,text=white}]
+  \draw[thick,gray] (0,0) ellipse (4.2cm and 1.9cm);
+  \node[s,fill=gain!80!black] at (0,1.9) {\textbf{データ収集}\\{\footnotesize 行動ログ・クリック履歴}};
+  \node[s,fill=yellow!70!orange,text=black] at (4.2,0) {\textbf{リアルタイム分析}};
+  \node[s,fill=red!75!black] at (0,-1.9) {\textbf{自動最適化}\\{\footnotesize レコメンド・広告配信}};
+  \node[s,fill=winter] at (-4.2,0) {\textbf{パーソナライズ}\\{\footnotesize 個別最適化}};
+\end{tikzpicture}
+\end{center}
+\vspace{0.3em}
+\centering 使われるほど\textbf{データ}が集まり、一人ひとりに合わせた場になっていく
+\end{frame}
+
+\begin{frame}{AI がもたらす具体的な変化}
+\begin{center}
+\begin{tikzpicture}[h/.style={text width=3.8cm,align=center,font=\bfseries},i/.style={draw,rounded corners,text width=3.4cm,minimum height=0.75cm,align=center,font=\small}]
+  \foreach \x/\t/\c/\a/\b/\d in {0/ユーザー体験/winter/スムーズな検索/関連コンテンツ表示/快適な操作性,4.4/収益化/gain/広告効果の向上/課金率の向上/新規ビジネスの創出,8.8/運営効率/boom/自動モデレーション/不正利用の検知/運用コストの削減}{
+    \fill[\c!6,rounded corners] (\x-2.0,0.5) rectangle (\x+2.0,-3.9);
+    \node[h,text=\c!80!black] at (\x,0) {\t};
+    \node[i,draw=\c,fill=white] at (\x,-1.0) {\a};
+    \node[i,draw=\c,fill=white] at (\x,-2.1) {\b};
+    \node[i,draw=\c,fill=white] at (\x,-3.2) {\d};
+  }
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+% ============================================================
+% 成功の条件
+% ============================================================
+
+\sectionframe{AIプラットフォームビジネスの\\[0.3em]成功の条件}
+
+% 原本 p.16 の画像（出どころを確かめられない）を TikZ で描き直した
+\begin{frame}{確立に至る2つの道}
+\begin{columns}[c]
+\begin{column}{0.46\textwidth}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \draw[-{Latex[length=2.5mm]},gray] (0,0) -- (5.6,0) node[below left,font=\scriptsize] {時間};
+  \draw[-{Latex[length=2.5mm]},gray] (0,0) -- (0,4.4) node[above right,font=\scriptsize] {規模};
+  \draw[boom,line width=2pt] (0.1,0.2) .. controls (1.5,0.4) and (2.0,3.0) .. (2.6,3.9);
+  \draw[gain,line width=2pt] (0.1,0.2) .. controls (2.0,0.4) and (3.5,1.2) .. (5.2,2.8);
+  \node[circle,fill=boom!80,text=white,font=\small\bfseries,minimum size=1.3cm] at (3.3,3.7) {大規模化};
+  \node[circle,fill=gain!80,text=white,font=\small\bfseries,minimum size=1.3cm] at (4.5,1.4) {段階的};
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.52\textwidth}
+\begin{tikzpicture}[b/.style={draw,rounded corners,text width=6.0cm,align=left,font=\small,inner sep=7pt}]
+  \node[b,fill=boom!8,draw=boom] (a) {\textbf{方法1：一気に大規模化}\\・巨額の資金が必要\\・成功すれば大きな価値\\・例）新しい SNS、フリマアプリ};
+  \node[b,fill=gain!8,draw=gain,below=0.35cm of a] (b) {\textbf{方法2：段階的成長}\\・特定の分野から始める\\・小さな成功を積み重ねる\\・例）地域に特化したサービス};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{プラットフォーマー成功の3条件}
+\begin{center}
+\begin{tikzpicture}
+  \node[colh,fill=gain!15,draw=gain] (h1) at (0,0) {条件1：明確な価値提供};
+  \node[col,fill=gain!5,draw=gain,minimum height=2.8cm] at ($(h1.south)+(0,-0.1)$) {・既存の課題を解決できるか\\・新しい価値を生み出せるか};
+  \node[colh,fill=winter!15,draw=winter] (h2) at (4.5,0) {条件2：継続的な成長};
+  \node[col,fill=winter!5,draw=winter,minimum height=2.8cm] at ($(h2.south)+(0,-0.1)$) {・ネットワーク効果が働くか\\・データの蓄積が価値を生むか};
+  \node[colh,fill=boom!15,draw=boom] (h3) at (9.0,0) {条件3：収益モデル};
+  \node[col,fill=boom!5,draw=boom,minimum height=2.8cm] at ($(h3.south)+(0,-0.1)$) {・だれがお金を払うのか\\・どのように収益を上げるのか};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{ケーススタディ：LINE の例}
+\begin{center}
+\begin{tikzpicture}[col/.style={draw,rounded corners,text width=4.0cm,align=left,font=\small,inner sep=5pt,anchor=north},colh/.style={draw,rounded corners,text width=4.0cm,minimum height=0.7cm,align=center,font=\small\bfseries,anchor=north}]
+  \node[colh,fill=gain!15,draw=gain] (h1) at (0,0) {条件1：明確な価値提供};
+  \node[col,fill=gain!5,draw=gain,minimum height=1.9cm] at ($(h1.south)+(0,-0.08)$) {・無料通話・メッセージ\\・スタンプで心情表現\\・グループトーク機能};
+  \node[colh,fill=winter!15,draw=winter] (h2) at (4.5,0) {条件2：継続的な成長};
+  \node[col,fill=winter!5,draw=winter,minimum height=1.9cm] at ($(h2.south)+(0,-0.08)$) {・友だち紹介の仕組み\\・クリエイター参加の促進\\・サービス追加の継続};
+  \node[colh,fill=boom!15,draw=boom] (h3) at (9.0,0) {条件3：収益モデル};
+  \node[col,fill=boom!5,draw=boom,minimum height=1.9cm] at ($(h3.south)+(0,-0.08)$) {・スタンプ販売\\・ゲーム課金\\・広告収入};
+\end{tikzpicture}\\[0.5em]
+\begin{tikzpicture}[x=1cm]
+  \node[font=\small\bfseries,anchor=west] at (-2.4,0.55) {LINE の成長過程};
+  \draw[gray,thick] (-2.2,0) -- (11.2,0);
+  \foreach \x/\y/\t in {0/2011年6月/サービス開始,4.5/2011年10月/スタンプ・無料通話,9.0/2014年12月/決済サービス}{
+    \fill[winter] (\x,0) circle (0.14);
+    \node[below,font=\small,align=center] at (\x,-0.15) {\textbf{\y}\\\t};
+  }
+\end{tikzpicture}
+\end{center}
+{\scriptsize 出典：LINEヤフー「沿革（LINE株式会社）」、決済（LINE Pay）は報道（2014年12月）による。付録2}
+\end{frame}
+
+\begin{frame}{LINE 成功のポイント}
+\begin{itemize}
+  \setlength{\itemsep}{1.2em}
+  \item 無料の基本機能で\textbf{急速に普及}
+  \item 段階的な\textbf{機能追加と収益化}
+  \item \textbf{ユーザーのニーズ}に基づく展開
+\end{itemize}
+\end{frame}
+
+\begin{frame}{失敗のパターンから学ぶ教訓}
+\begin{center}
+\begin{tikzpicture}
+  \node[colh,fill=boom!15,draw=boom,minimum height=1.2cm] (h1) at (0,0) {パターン1\\提供価値が不明確};
+  \node[col,fill=boom!5,draw=boom,minimum height=3.0cm] at ($(h1.south)+(0,-0.1)$) {・例：すでに利用者の多いサービスが、外部に「場」を広げる\\・教訓：\textbf{既存ユーザーの価値を損なわない}形で広げる};
+  \node[colh,fill=winter!15,draw=winter,minimum height=1.2cm] (h2) at (4.5,0) {パターン2\\収益化のタイミングを誤る};
+  \node[col,fill=winter!5,draw=winter,minimum height=3.0cm] at ($(h2.south)+(0,-0.1)$) {・例：早すぎる手数料で利用者が離れるフリマアプリ\\・教訓：\textbf{ユーザー基盤の確立が先}、収益化は後};
+  \node[colh,fill=gain!15,draw=gain,minimum height=1.2cm] (h3) at (9.0,0) {パターン3\\規模拡大に伴うコスト増};
+  \node[col,fill=gain!5,draw=gain,minimum height=3.0cm] at ($(h3.south)+(0,-0.1)$) {・例：利用が増えるほど費用が増えるシェアリングサービス\\・教訓：\textbf{収益とコストのバランス}を常に意識};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{プラットフォームビジネスの実践のポイント}
+\begin{center}
+\begin{tikzpicture}[p/.style={draw,rounded corners,text width=10cm,minimum height=1.3cm,align=left,font=\large,inner sep=10pt}]
+  \node[p,fill=gain!8,draw=gain] (a) {1.\quad 小さく始めて、\textbf{素早く軌道修正}};
+  \node[p,fill=winter!8,draw=winter,below=0.5cm of a] {2.\quad \textbf{コアユーザー}を大切に育てる};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{実践のステップ}
+\begin{center}
+\begin{tikzpicture}[colh/.style={draw,rounded corners,text width=3.9cm,minimum height=0.7cm,align=center,font=\small\bfseries,anchor=north},col/.style={draw,rounded corners,text width=3.9cm,align=left,font=\small,inner sep=5pt,anchor=north}]
+  \node[colh,fill=winter!15,draw=winter] (h1) at (0,0) {Step 1：市場調査};
+  \node[col,fill=winter!5,draw=winter,minimum height=1.7cm] (c1) at ($(h1.south)+(0,-0.08)$) {・ユーザーへの取材\\・競合サービスの分析\\・市場規模の確認};
+  \node[colh,fill=gain!15,draw=gain] (h2) at (4.5,0) {Step 2：MVP 開発};
+  \node[col,fill=gain!5,draw=gain,minimum height=1.7cm] (c2) at ($(h2.south)+(0,-0.08)$) {・最小機能の決定\\・プロトタイプ作成\\・テストユーザー募集};
+  \node[colh,fill=boom!15,draw=boom] (h3) at (9.0,0) {Step 3：改善の繰り返し};
+  \node[col,fill=boom!5,draw=boom,minimum height=1.7cm] (c3) at ($(h3.south)+(0,-0.08)$) {・ユーザーの反応の分析\\・機能の改善\\・規模の拡大};
+  \draw[arr] (c1.east) -- (c2.west); \draw[arr] (c2.east) -- (c3.west);
+\end{tikzpicture}\\[0.6em]
+\begin{tikzpicture}[b/.style={draw,rounded corners,text width=6.3cm,align=left,font=\small,inner sep=6pt,anchor=north}]
+  \node[b,fill=gray!8] at (0,0) {\textbf{重要なポイント}\\・各ステップで明確な判断基準を設定\\・ユーザーの声を常に意識\\・失敗を恐れず、素早く方向転換};
+  \node[b,fill=gain!8,draw=gain] at (6.8,0) {\textbf{MVP = Minimum Viable Product}\\・製品を提供するうえで必要最小限の機能だけをもつ、もっともシンプルな製品\\・顧客価値があり、利益を生み出せる最小限のもの};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Step 1：市場調査}
+\begin{columns}[T]
+\begin{column}{0.56\textwidth}
+\small
+\begin{itemize}
+  \item \textbf{SNS での情報収集}
+  \begin{itemize}\footnotesize
+    \item X（Twitter）、Instagram など
+    \item 実際の声を集める・トレンドを把握する
+  \end{itemize}
+  \item \textbf{アンケート調査}
+  \begin{itemize}\footnotesize
+    \item Web フォームなどで定量データを集める
+    \item 仮説を検証する
+  \end{itemize}
+  \item \textbf{直接インタビュー}
+  \begin{itemize}\footnotesize
+    \item 友人、先輩・後輩、SNS での募集など
+    \item 深く理解する・本音を引き出す
+  \end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{tikzpicture}
+  \node[draw,rounded corners,fill=gray!10,text width=5.0cm,align=left,font=\small,inner sep=8pt] {\textbf{具体的な質問の例}\\[0.3em]
+  1. 今使っているサービスの不満は？\\[0.2em]
+  2. どんな機能があれば使ってみたい？\\[0.2em]
+  3. いくらまでなら払ってもいい？\\[0.2em]
+  4. どんな場面で使いたい？};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Step 2：MVP 開発}
+\begin{columns}[T]
+\begin{column}{0.56\textwidth}
+\small
+\begin{itemize}
+  \item \textbf{最小機能の決め方}
+  \begin{itemize}\footnotesize
+    \item 必須の3要素：① 核となる価値、② 基本的なユーザーインタフェース、③ データ収集の機能
+    \item 数週間で作れる範囲に
+  \end{itemize}
+  \item \textbf{開発コストの最小化}
+  \begin{itemize}\footnotesize
+    \item ノーコードツール（プログラミングなしで開発できるサービス）の活用
+  \end{itemize}
+  \item \textbf{テストユーザーの確保}
+  \begin{itemize}\footnotesize
+    \item 大学などのコミュニティ、SNS での告知、知人の紹介
+    \item 最初は 20 人程度に
+  \end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{tikzpicture}
+  \node[draw,rounded corners,fill=gray!10,text width=5.0cm,align=left,font=\small,inner sep=8pt] {\textbf{例：LINE スタンプを作る場}\\[0.3em]
+  \textbf{MVP の段階の最小機能}\\・簡単な描画ツール\\・テンプレートの選択\\・作品の保存\\[0.3em]
+  \textbf{あえて含めない機能}\\・高度な編集機能\\・SNS 連携\\・決済システム};
+\end{tikzpicture}\\[0.3em]
+{\footnotesize\color{winter} まず基本機能を作り、ユーザーの反応を見て機能を足していく}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Step 3：改善の繰り返し}
+\begin{columns}[T]
+\begin{column}{0.50\textwidth}
+\small\textbf{重要な指標（KPI）}
+\begin{itemize}
+  \item ユーザー系
+  \begin{itemize}\footnotesize
+    \item DAU / MAU（毎日・毎月の利用者数）
+    \item 継続率（続けて使うユーザーの割合）
+  \end{itemize}
+  \item 行動系
+  \begin{itemize}\footnotesize
+    \item 滞在時間・機能の使用率
+  \end{itemize}
+  \item 収益系
+  \begin{itemize}\footnotesize
+    \item 課金率・LTV（顧客生涯価値）
+  \end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{tikzpicture}
+  \node[draw,rounded corners,fill=gray!10,text width=5.6cm,align=left,font=\small,inner sep=8pt] {\textbf{改善の優先順位の付け方}\\[0.4em]
+  優先度 ＝\\\quad \textbf{期待される効果} × \textbf{実装の易しさ}\\[0.6em]
+  例：\\ログイン機能の改善\\\quad ＜ \textbf{核となる機能}の改善};
+\end{tikzpicture}\\[0.3em]
+{\footnotesize 効果が大きく、手軽にできるものから}
+\end{column}
+\end{columns}
+\end{frame}
+
+% 原本 p.26 の画面写真を、模式図に置き換えた（数字は架空）
+\begin{frame}{分析ツールの画面の例（模式図）}
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,k/.style={draw=gray!60,fill=white,rounded corners=2pt,text width=2.3cm,minimum height=1.2cm,align=center,font=\scriptsize}]
+  \fill[gray!8,rounded corners] (0,0) rectangle (12.4,5.6);
+  \fill[gray!25,rounded corners] (0,5.0) rectangle (12.4,5.6);
+  \node[anchor=west,font=\scriptsize\bfseries] at (0.2,5.3) {アクセス解析ツール};
+  \fill[gray!18] (0,0) rectangle (0.6,5.0);
+  \node[k] at (1.9,4.1) {利用者数\\{\normalsize\bfseries 1,250}};
+  \node[k] at (4.5,4.1) {新しい利用者\\{\normalsize\bfseries 310}};
+  \node[k] at (7.1,4.1) {平均の滞在時間\\{\normalsize\bfseries 2分40秒}};
+  \node[k,text width=2.6cm] at (10.6,4.1) {いまの利用者\\{\normalsize\bfseries 18}};
+  \draw[gray!60,fill=white,rounded corners=2pt] (0.8,0.3) rectangle (9.0,3.3);
+  \draw[gray!40] (1.1,0.7) -- (8.7,0.7);
+  \draw[winter,thick] (1.1,1.4) -- (2.2,1.8) -- (3.3,1.6) -- (4.4,2.4) -- (5.5,2.1) -- (6.6,2.8) -- (7.7,2.5) -- (8.7,2.9);
+  \draw[winter!40,thick,dashed] (1.1,1.2) -- (2.2,1.3) -- (3.3,1.5) -- (4.4,1.4) -- (5.5,1.7) -- (6.6,1.6) -- (7.7,1.9) -- (8.7,1.8);
+  \node[font=\scriptsize,anchor=west] at (1.0,3.0) {日ごとの利用者数（実線：今週、点線：先週）};
+  \draw[gray!60,fill=white,rounded corners=2pt] (9.3,0.3) rectangle (12.2,3.3);
+  \node[font=\scriptsize,anchor=north west,text width=2.7cm,align=left] at (9.35,3.25) {\textbf{よく見られたページ}\\1. トップ\\2. 作品一覧\\3. 新規登録};
+\end{tikzpicture}
+\end{center}
+\vspace{0.2em}
+\centering\small KPI を\textbf{毎日}確かめる道具。代表例は Google アナリティクス\quad{\scriptsize（画面は説明のための模式図。数字は架空）}
+\end{frame}
+
+\thinkframe{大学の中で、小さく始められる\\[0.3em]「\textbf{場}」を1つ考えよう\\[0.6em]{\large \textbf{最初の 20 人}はだれ？}}
+
+% ============================================================
+% 課題
+% ============================================================
+
+\sectionframe{AIプラットフォーム\\[0.3em]ビジネスの課題}
+
+\begin{frame}{AIプラットフォームビジネスの課題}
+\begin{center}
+\begin{tikzpicture}[col/.style={draw,rounded corners,text width=4.0cm,align=left,font=\footnotesize,inner sep=5pt,anchor=north},colh/.style={draw,rounded corners,text width=4.0cm,minimum height=0.8cm,align=center,font=\small\bfseries,anchor=north}]
+  \node[colh,fill=winter!15,draw=winter] (h1) at (0,0) {1. データの収集と品質};
+  \node[col,fill=winter!5,draw=winter,minimum height=4.6cm] at ($(h1.south)+(0,-0.08)$) {\textbf{課題}\\初期データの不足、データの偏り、ノイズの混入\\[0.3em]\textbf{例}\\動画共有サービスの初期の投稿の偏り、不適切なコンテンツの混入\\[0.3em]\textbf{対策}\\人による選別、段階的なデータ収集、品質基準の設定};
+  \node[colh,fill=gain!15,draw=gain] (h2) at (4.5,0) {2. プライバシーとセキュリティ};
+  \node[col,fill=gain!5,draw=gain,minimum height=4.6cm] at ($(h2.south)+(0,-0.08)$) {\textbf{課題}\\個人情報の保護、データ漏洩のリスク、同意の取得\\[0.3em]\textbf{例}\\顔認識機能の使用範囲、位置情報の取り扱い\\[0.3em]\textbf{対策}\\透明性の確保、オプトアウト機能、暗号化技術の活用};
+  \node[colh,fill=boom!15,draw=boom] (h3) at (9.0,0) {3. 継続的な学習と改善};
+  \node[col,fill=boom!5,draw=boom,minimum height=4.6cm] at ($(h3.south)+(0,-0.08)$) {\textbf{課題}\\モデルの陳腐化、新しい傾向への対応、コスト\\[0.3em]\textbf{例}\\SNS の推薦の仕組みの定期的な更新、コストの管理\\[0.3em]\textbf{対策}\\段階的な更新、効率的な学習方法、コストの最適化};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+% 課題1〜3（原本 p.29–31）
+\newcommand{\threeblocks}[6]{%
+\begin{center}
+\begin{tikzpicture}[b/.style={draw,rounded corners,text width=11.6cm,align=left,font=\small,inner sep=6pt}]
+  \node[b,fill=gray!6] (a) {\textbf{#1}\quad #2};
+  \node[b,fill=gray!6,below=0.3cm of a] (b) {\textbf{#3}\quad #4};
+  \node[b,fill=gray!6,below=0.3cm of b] (c) {\textbf{#5}\quad #6};
+\end{tikzpicture}
+\end{center}}
+
+\begin{frame}{課題1：データの収集と品質の確保}
+\threeblocks{初期データの収集}{オープンデータの活用（例：Wikipedia など）・パートナーとの連携・クローリング}
+{品質の管理}{自動チェック・ユーザーからの報告・専門家によるレビュー}
+{ユーザーの参加}{インセンティブの設計・コミュニティの育成・フィードバックの機能}
+\end{frame}
+
+\begin{frame}{課題2：プライバシーとセキュリティの対策}
+\threeblocks{データ保護の基本}{データの匿名化・仮名化・アクセス権限の適切な管理・データの暗号化}
+{透明性の確保}{利用目的の明示・ユーザー向けのオプトアウト機能・プライバシーポリシーの定期的な更新}
+{セキュリティ対策}{定期的なセキュリティ監査・脆弱性診断・インシデント対応の体制}
+\end{frame}
+
+\begin{frame}{課題3：継続的な学習と改善}
+\threeblocks{モニタリング}{各指標（利用率・精度・応答時間など）の定期的な測定・ユーザーの声の収集・システムログの分析}
+{AI モデルの更新}{定期的な再学習・A/B テストによる効果の検証}
+{コストの最適化}{計算資源の効率的な利用・更新の頻度の最適化}
+\end{frame}
+
+\thinkframe{おすすめを良くするために\\[0.3em]自分のデータは\\[0.3em]\textbf{どこまで使われてよい？}\\[0.6em]{\large 「ここまではよい／ここからはいや」の境目を1つ}}
+
+% ============================================================
+% 生成 AI の視点（原本になし。syllabus の「生成 AI の視点」に合わせて追加）
+% ============================================================
+
+\sectionframe{生成 AI は\\[0.3em]新しいプラットフォームか？}
+
+\begin{frame}{生成 AI を「場」として見る}
+\begin{center}
+\begin{tikzpicture}[c/.style={draw,rounded corners,text width=3.4cm,minimum height=2.6cm,align=center,font=\small}]
+  \node[c,fill=gain!10,draw=gain] (p) at (0,0) {\textbf{作り手}\\[0.3em]目的に合わせた\\チャットボット\\（GPTs）を作る\\個人・企業};
+  \node[c,fill=genai!15,draw=genai,line width=1.2pt] (f) at (4.6,0) {\textbf{生成 AI の\\サービス}\\[0.3em]{\footnotesize 例：ChatGPT と\\GPT Store}};
+  \node[c,fill=boom!10,draw=boom] (u) at (9.2,0) {\textbf{使い手}\\[0.3em]目的に合った\\チャットボットを\\探して使う人};
+  \draw[arr] (p) -- (f); \draw[arr] (f) -- (u);
+\end{tikzpicture}
+\end{center}
+\vspace{0.4em}
+\begin{itemize}\small
+  \item 2024年1月に GPT Store が開始。作られた GPTs は\textbf{300万以上}（OpenAI の発表）
+  \item 「答えを返す\textbf{道具}」から、作り手と使い手が出会う「\textbf{場}」へ
+\end{itemize}
+\end{frame}
+
+\begin{frame}{成功の3条件で読む：ChatGPT}
+\begin{center}
+\begin{tikzpicture}
+  \node[colh,fill=gain!15,draw=gain] (h1) at (0,0) {条件1：明確な価値提供};
+  \node[col,fill=gain!5,draw=gain,minimum height=3.3cm] at ($(h1.south)+(0,-0.1)$) {・文章の作成・要約・相談を、\textbf{ふだんのことば}で頼める\\・使い方を覚えなくてよい};
+  \node[colh,fill=winter!15,draw=winter] (h2) at (4.5,0) {条件2：継続的な成長};
+  \node[col,fill=winter!5,draw=winter,minimum height=3.3cm] at ($(h2.south)+(0,-0.1)$) {・公開から約\textbf{2か月}で、月間利用者が\textbf{1億人}と推計\\・使われるほど、改善の材料（使われ方のデータ）が集まる};
+  \node[colh,fill=boom!15,draw=boom] (h3) at (9.0,0) {条件3：収益モデル};
+  \node[col,fill=boom!5,draw=boom,minimum height=3.3cm] at ($(h3.south)+(0,-0.1)$) {・無料版と有料版（\textbf{フリーミアム}）\\・GPTs の作り手に、使われ方に応じて支払う予定を発表（\textbf{手数料モデル}に近い）};
+\end{tikzpicture}
+\end{center}
+{\scriptsize 出典：Reuters（2023年2月、UBS の推計。Similarweb のデータによる）、OpenAI の発表を報じた記事（2024年1月）。付録2}
+\end{frame}
+
+\begin{frame}{3つの課題は、生成 AI でどう変わる？}
+\begin{center}
+\begin{tikzpicture}[h/.style={draw,rounded corners,text width=3.4cm,minimum height=1.25cm,align=center,font=\small\bfseries},b/.style={draw,rounded corners,fill=genai!5,draw=genai,text width=8.0cm,minimum height=1.25cm,align=left,font=\small,inner sep=5pt}]
+  \foreach \y/\t/\c/\d in {0/{1. データの\\収集と品質}/winter/{生成 AI が作った文章・画像が「場」にあふれる。\\\textbf{質と真偽}を見分けにくくなる},-1.5/{2. プライバシーと\\セキュリティ}/gain/{\textbf{入力する文章そのもの}に、個人情報や社外秘が\\入りうる。入力の扱いを示し、選べるようにする},-3.0/{3. 継続的な\\学習と改善}/boom/{モデルを更新するたびに\textbf{答え方が変わる}。\\更新にかかる費用も大きい}}{
+    \node[h,fill=\c!15,draw=\c] (h) at (0,\y) {\t};
+    \node[b,anchor=west] at ($(h.east)+(0.3,0)$) {\d};
+  }
+\end{tikzpicture}
+\end{center}
+\vspace{0.3em}
+\centering 見方は同じ。変わったのは\textbf{規模と速さ}
+\end{frame}
+
+% ============================================================
+% まとめ
+% ============================================================
+
+\sectionframe{まとめ}
+
+\begin{frame}{今回のまとめ}
+\begin{center}
+\begin{tikzpicture}
+  \node[colh,fill=winter!15,draw=winter,minimum height=1.1cm] (h1) at (0,0) {AIプラットフォーム\\ビジネスの本質};
+  \node[col,fill=winter!5,draw=winter,minimum height=3.0cm] at ($(h1.south)+(0,-0.1)$) {・「場」の提供による価値創造\\・複数のプレイヤーの参加\\・ネットワーク効果による成長};
+  \node[colh,fill=gain!15,draw=gain,minimum height=1.1cm] (h2) at (4.5,0) {成功のための\\3つの要件};
+  \node[col,fill=gain!5,draw=gain,minimum height=3.0cm] at ($(h2.south)+(0,-0.1)$) {・明確な価値提供\\・継続的な改善のサイクル\\・適切な収益モデル};
+  \node[colh,fill=boom!15,draw=boom,minimum height=1.1cm] (h3) at (9.0,0) {実践のうえで\\重要なポイント};
+  \node[col,fill=boom!5,draw=boom,minimum height=3.0cm] at ($(h3.south)+(0,-0.1)$) {・段階的な展開とフィードバック\\・データの品質管理\\・プライバシーとセキュリティの確保};
+\end{tikzpicture}
+\end{center}
+\vspace{0.2em}
+\centering 生成 AI も、同じ見方（場・3条件・課題）で読める\\[0.2em]\small 次回から3回は「AI を構成する技術」。推薦や最適化の\textbf{中身}を見ていく
+\end{frame}
+
+\begin{frame}{確認問題}
+\begin{center}
+\vspace{1.5em}
+{\LARGE 確認問題（5問）}\\[1.2em]
+{\large 今日の内容から、4択で5問}\\[0.6em]
+終わったら、答えを一言ずつ確かめます
+\end{center}
+\end{frame}
+
+\begin{frame}{演習課題：AIプラットフォームを分析する}
+\begin{columns}[T]
+\begin{column}{0.50\textwidth}
+\small
+次の AI プラットフォームビジネスから1つを選び、その\textbf{成功要因と課題}を分析してください。
+\begin{itemize}
+  \item Spotify（音楽配信）
+  \item Netflix（動画配信）
+  \item Uber（配車）
+  \item Airbnb（民泊）
+  \item Pinterest（画像共有）
+\end{itemize}
+\medskip
+\begin{itemize}\footnotesize
+  \item 800〜2000字。締切・提出先は LMS で
+  \item Web などで調べられる一般的な情報に基づいて。調べた情報源を書く
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{tikzpicture}
+  \node[draw,rounded corners,fill=gray!10,text width=5.6cm,align=left,font=\footnotesize,inner sep=7pt] {\textbf{分析の観点の例}\\[0.3em]
+  \textbf{プラットフォームの基本情報}\\・どのような価値を提供しているか\\・主なユーザー層\\・収益の仕組み\\[0.3em]
+  \textbf{AI の活用方法}\\・どのような機能で AI を使っているか\\・それによってユーザーにどのような価値を提供しているか\\[0.3em]
+  \textbf{成功要因と課題}\\・なぜ成功したと考えられるか\\・いまどのような課題があるか\\・今後どのような発展が考えられるか};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ============================================================
+% 付録
+% ============================================================
+
+\sectionframe{付録}
+
+\begin{frame}{付録1：プラットフォームのことば}
+\small
+\begin{description}[ネットワーク効果]
+  \item[プラットフォーム] 提供する側と利用する側が出会い、価値をやり取りする「場」
+  \item[ネットワーク効果] 利用者が増えるほど、利用者一人ひとりにとっての価値が高まること
+  \item[フリーミアム] 基本は無料で、一部の機能・サービスを有料にする収益の形
+  \item[パーソナライズ] 利用者ごとに、見せる内容・おすすめを変えること
+  \item[MVP] Minimum Viable Product。核となる価値をもつ、必要最小限の機能の製品
+  \item[KPI] 重要業績評価指標。目標に近づいているかを測る数値（DAU・継続率など）
+  \item[DAU / MAU] 1日／1か月に使った利用者の数
+  \item[LTV] 顧客生涯価値。1人の利用者が使い続ける間にもたらす収益
+  \item[オプトアウト] 利用者が、データの利用などを「やめる」と選べる仕組み
+\end{description}
+\end{frame}
+
+\begin{frame}{付録2：数字と出典}
+\small
+{\footnotesize\begin{tabular}{p{0.32\textwidth}p{0.62\textwidth}}
+\hline
+\textbf{スライドの記述} & \textbf{出典} \\ \hline
+LINE：2011年6月 サービス開始 & LINEヤフー「沿革（LINE株式会社）」\url{https://www.lycorp.co.jp/ja/company/history/line/} \\
+LINE：2011年10月 スタンプ・無料通話 & 同上（「LINEスタンプ」開始、無料通話機能と絵文字・スタンプ機能を追加） \\
+LINE：2014年12月 決済サービス & Web担当者Forum「LINE Pay を公開」（2014年12月18日）\url{https://webtan.impress.co.jp/n/2014/12/18/18953} \\
+ChatGPT：公開から約2か月で月間利用者1億人 & Reuters（2023年2月1日）。UBS の推計で、Similarweb のデータによる（OpenAI の公表値ではない） \\
+GPT Store：2024年1月開始、GPTs は300万以上、作り手への支払いの予定 & OpenAI の発表を報じた記事（Voicebot.ai、2024年1月10日） \\
+分析ツールの画面の数字 & 説明のための架空の数字 \\ \hline
+\end{tabular}}
+\medskip
+
+{\footnotesize 年号は授業で覚えることを目的にしていません。使う前に、最新の情報で確かめてください。}
+\end{frame}
+
+\end{document}

@@ -10,7 +10,7 @@
 --
 -- 「ルート .tex」とは、\documentclass を含むか、\input{slides} / \input{worksheet} で
 -- 本体を読み込むラッパー（handout.tex, worksheet_answers.tex）のこと。
--- figures/ 内の TikZ 断片のように単独でビルドしないファイルは対象外になる。
+-- figures/ 内の TikZ 断片のように単独でビルドしないファイルと、source/（既存資料の置き場）は対象外になる。
 --
 -- 画面に出すメッセージは英語のみ（Windows の古いコンソールで日本語が文字化けするため）。
 
@@ -46,7 +46,7 @@ local function is_root_tex(path)
       or src:find("\n%s*\\input{worksheet}") ~= nil
 end
 
-local skip_dir = { figures = true, build = true, [".git"] = true }
+local skip_dir = { figures = true, build = true, source = true, [".git"] = true }
 local targets = {}
 local function walk(dir)
   for name in lfs.dir(dir) do

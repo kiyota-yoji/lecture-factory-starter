@@ -6,7 +6,7 @@ LaTeX（LuaLaTeX）で **授業スライド・配布資料・ワークシート�
 麗澤大学工学部の授業で運用している教材制作の仕組みから、どの大学・どの科目でも使える部分だけを取り出し、
 できるだけシンプルにしたものです。Windows / Mac のどちらでも同じ手順で使えます。
 
-> **現在は公開準備中です。** テンプレート・手順書・サンプル教材（基礎数学5回分・AIビジネス入門2回分）が揃いました。
+> **現在は公開準備中です。** テンプレート・手順書・サンプル教材（基礎数学5回分・AIビジネス入門3回分）が揃いました。
 
 ## できること
 
@@ -26,12 +26,14 @@ LaTeX（LuaLaTeX）で **授業スライド・配布資料・ワークシート�
 | | [07](courses/basic_math/07/) | 微分法の基礎 |
 | | [10](courses/basic_math/10/) | ベクトルの基礎 |
 | | [11](courses/basic_math/11/) | 行列の基礎 |
-| [AIビジネス入門](courses/ai_business/syllabus.md) | [09](courses/ai_business/09/) | AIを構成する技術(1)：記号とルール |
+| [AIビジネス入門](courses/ai_business/syllabus.md) | [08](courses/ai_business/08/) | AIプラットフォームビジネスの全体像と課題（既存の資料から作り直した例） |
+| | [09](courses/ai_business/09/) | AIを構成する技術(1)：記号とルール |
 | | [10](courses/ai_business/10/) | AIを構成する技術(2)：機械学習 |
 
 - 各回に授業計画（`lesson_plan.md`）があります
 - 基礎数学：スライド・配布用ハンドアウト・ワークシート（学生用／解答版）・選択式の確認問題（5問）
-- AIビジネス入門：スライド（用語・出典の付録つき）・配布用ハンドアウト・講義台本・選択式の確認問題（5問）
+- AIビジネス入門：スライド（用語・出典の付録つき）・配布用ハンドアウト・講義台本（第09・10回）・選択式の確認問題（5問）
+- AIビジネス入門 第08回は、既存の資料（Google スライドの PDF）から作り直した例です。元の資料からロゴなどを消した写しと、点検の記録（`source/SOURCES.md`）もあります（[SOURCE_MATERIALS.md](docs/SOURCE_MATERIALS.md)）
 PDF は GitHub の Releases からもダウンロードできます（公開後）。
 
 ## 授業づくりの流れ
@@ -44,7 +46,9 @@ PDF は GitHub の Releases からもダウンロードできます（公開後�
 | ② | `lesson_plan.md`（1回分の設計：到達目標・授業の流れ・教材の設計） | [LESSON_PLAN_FORMAT.md](docs/LESSON_PLAN_FORMAT.md) | `lesson-plan` |
 | ③ | スライド・ワークシート・確認問題など | [AUTHORING_GUIDE.md](docs/AUTHORING_GUIDE.md) | `lesson-materials` |
 
-3つのスキルは、複数の AI で使える共通の形式で `.agents/skills/` に入っています。**Claude Code・Codex・Antigravity** などでこのフォルダを開くと使えます（[WORKFLOW.md](docs/WORKFLOW.md)）。生成 AI を使わずに、`templates/` の雛形から手で作ることもできます。
+既存の資料（PowerPoint・Google スライド・PDF など）がある回は、②の前に原本を取り込んで点検し（スキル `existing-materials`）、その内容から書き起こします。原本の置き場所と扱いは [SOURCE_MATERIALS.md](docs/SOURCE_MATERIALS.md) にあります。
+
+4つのスキルは、複数の AI で使える共通の形式で `.agents/skills/` に入っています。**Claude Code・Codex・Antigravity** などでこのフォルダを開くと使えます（[WORKFLOW.md](docs/WORKFLOW.md)）。生成 AI を使わずに、`templates/` の雛形から手で作ることもできます。
 
 ## 使い始める（3ステップ）
 
@@ -75,6 +79,7 @@ PDF は GitHub の Releases からもダウンロードできます（公開後�
 | [WORKFLOW.md](docs/WORKFLOW.md) | シラバス → 授業計画 → 教材の流れ（AI エージェントでのスキルの使い方） |
 | [SYLLABUS_FORMAT.md](docs/SYLLABUS_FORMAT.md) / [LESSON_PLAN_FORMAT.md](docs/LESSON_PLAN_FORMAT.md) | `syllabus.md`・`lesson_plan.md` の標準フォーマット |
 | [AUTHORING_GUIDE.md](docs/AUTHORING_GUIDE.md) | 新しい科目・授業回の作り方 |
+| [SOURCE_MATERIALS.md](docs/SOURCE_MATERIALS.md) | 既存の授業資料の置き場所と扱い（第三者の素材の点検・公開用の写し） |
 | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | エラーメッセージ別の対処 |
 
 ## フォルダ構成

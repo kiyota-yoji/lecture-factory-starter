@@ -16,7 +16,8 @@ description: Use this skill when the user wants to create or revise the per-less
 | `courses/<course_id>/syllabus.md` があるか | なければ先に `syllabus-markdown` スキルを勧める |
 | 既存の `lesson_plan.md` があるか | あれば**更新**する（教員が書いた記述を消さない） |
 | 使ってよい資料 | 教科書の章・ページ、前回までの教材、教員のメモ |
-| 教材がすでにあるか | あれば「書き起こし」：教材の内容をそのまま書き写し、食い違いは直さずに `# 未確定事項` へ（[LESSON_PLAN_FORMAT.md](../../../docs/LESSON_PLAN_FORMAT.md) §4） |
+| 教材がすでにあるか | あれば「書き起こし」：教材の内容をそのまま書き写し、食い違いは直さずに `# 未確定事項` へ（[LESSON_PLAN_FORMAT.md](../../../docs/LESSON_PLAN_FORMAT.md) §4.1） |
+| 学外の形式の既存の資料（PowerPoint・PDF など）があるか | あれば先に `existing-materials` スキルで原本を置き、点検して `source/SOURCES.md` を作る。そのうえで §4.2 の書き起こしで書く |
 
 ## 2. 読む
 

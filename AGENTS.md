@@ -11,6 +11,7 @@ LaTeX（LuaLaTeX）で授業のスライド・ワークシート・選択式問�
 | ① | `courses/<科目>/syllabus.md` | [docs/SYLLABUS_FORMAT.md](docs/SYLLABUS_FORMAT.md) | `syllabus-markdown` |
 | ② | `courses/<科目>/<NN>/lesson_plan.md` | [docs/LESSON_PLAN_FORMAT.md](docs/LESSON_PLAN_FORMAT.md) | `lesson-plan` |
 | ③ | `courses/<科目>/<NN>/` の教材一式 | [docs/AUTHORING_GUIDE.md](docs/AUTHORING_GUIDE.md) | `lesson-materials` |
+| ②' | 既存の資料の取り込み（`source/SOURCES.md`・公開用の写し・書き起こしの `lesson_plan.md`） | [docs/SOURCE_MATERIALS.md](docs/SOURCE_MATERIALS.md) | `existing-materials` |
 
 ## スキル
 
@@ -37,6 +38,7 @@ LaTeX（LuaLaTeX）で授業のスライド・ワークシート・選択式問�
 
 - 学生個人の情報（氏名・学籍番号・成績・提出状況・配慮の具体的な内容）を、どのファイルにも書かない。
 - 教科書の問題文・図、外部の画像を写さない（問題は番号とページで指す。図は TikZ で描く）。
+- 既存の資料の原本は `courses/<科目>/<NN>/source/original/` に置き、Git に入れない。学生の情報を含むもの・教科書のスキャンは、リポジトリのフォルダの中に置かない（[docs/SOURCE_MATERIALS.md](docs/SOURCE_MATERIALS.md)）。
 - 事例・数値には出典を書く。一次資料で確かめていない数値は使わない。
 - 各段階の終わりで、教員の確認を待ってから次の段階に進む（教員が最初から続けて頼んだ場合を除く）。
 - `.tex` の先頭行 `%%AMC:latex_engine=lualatex`、`handout.tex`・`worksheet_answers.tex` の中身（本体を読み込むだけのファイル）は書き換えない。
@@ -48,8 +50,8 @@ LaTeX（LuaLaTeX）で授業のスライド・ワークシート・選択式問�
 .agents/skills/   スキルの原本
 .claude/skills/   Claude Code 用の写し（編集しない）
 templates/        雛形（syllabus.md・lesson_plan.md・.tex）
-courses/          サンプル教材（科目/回/）
+courses/          サンプル教材（科目/回/。既存の資料は 回/source/）
 docs/             手順書・フォーマットの仕様
-tools/            build_all.lua（一括ビルド）・sync_skills.lua（スキルの写し）
+tools/            build_all.lua（一括ビルド）・sync_skills.lua（スキルの写し）・redact_pdf.py（公開用の写しを作る。任意）
 vendor/amc/       AMC の LaTeX パッケージ
 ```

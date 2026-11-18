@@ -18,7 +18,8 @@ courses/
    │  ├─ worksheet.tex     ワークシート（学生用）
    │  ├─ worksheet_answers.tex  ワークシート（解答版）
    │  ├─ amc/exercise.tex  選択式問題
-   │  └─ figures/          図
+   │  ├─ figures/          図
+   │  └─ source/           既存の資料を作り直す回だけ（SOURCE_MATERIALS.md）
    └─ 02/
 ```
 

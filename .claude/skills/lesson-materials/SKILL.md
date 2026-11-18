@@ -16,6 +16,7 @@ description: Use this skill when the user wants to generate the teaching materia
 | 作る教材 | front matter の `outputs`（教員が一部だけを求めたら、それだけ作る） |
 | 既存の教材 | 同じフォルダに `.tex` があれば、上書きする前に教員に確かめる |
 | 科目の方針 | `courses/<course_id>/syllabus.md` の `# 教材の作り方` と `# 表記の約束` |
+| 既存の資料から作り直す回か | `source/SOURCES.md` があれば読む。`lesson_plan.md` の `# 元資料との対応` に従い、ロゴ・画面写真などは使わない（[SOURCE_MATERIALS.md](../../../docs/SOURCE_MATERIALS.md)）。できたら原本と並べて、抜け・順番の違いがないかを見比べる |
 
 ## 2. ファイルを用意する
 
