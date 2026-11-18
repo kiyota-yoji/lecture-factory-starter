@@ -39,7 +39,7 @@ courses/<科目>/<NN>/slides.tex, handout.tex, worksheet.tex, amc/exercise.tex, 
 | そのほか Agent Skills に対応したツール（Cursor、Gemini CLI、GitHub Copilot など） | 各ツールの説明書を確認（多くは `.agents/skills/` か、設定で指定） | 多くは `AGENTS.md` |
 
 - スキルの**原本**は `.agents/skills/` です。`.claude/skills/` はその写しなので、スキルを直すときは `.agents/skills/` を編集し、`texlua tools/sync_skills.lua` で写してください（自動ビルドで食い違いを検査しています）。
-- 動作を確かめているのは Claude Code です。ほかのツールは、各社の公式文書にある置き場所と形式に合わせています。
+- 動作を確かめているのは Claude Code・Codex・Antigravity です（2026-11-18。[RECOMMENDED_ENV.md](RECOMMENDED_ENV.md)）。ほかのツールは、各社の公式文書にある置き場所と形式に合わせています。
 
 頼み方は、どのツールでも同じです。
 

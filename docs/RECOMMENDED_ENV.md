@@ -18,3 +18,13 @@
 | Ubuntu 24.04 / Windows Server / macOS（GitHub Actions） | TeX Live 2026（TeX-Live/setup-texlive-action） | 全39ファイルを自動ビルド | 2026-11-18 |
 | Windows 11 | TeX Live 2026 | 手元で [SETUP_WINDOWS.md](SETUP_WINDOWS.md) どおりに導入し、全39ファイルをビルド（スマート アプリ コントロールはオフ） | 2026-11-18 |
 | Windows 11 | WSL2 ＋ Ubuntu 24.04 ＋ AMC 1.7.0（apt の TeX） | 手元で [SETUP_AMC.md](SETUP_AMC.md) どおりに導入し、問題用紙の作成（原ノ味で組まれる）と画面の起動を確認。スキャン読み取りは未確認 | 2026-11-18 |
+
+## AI エージェントでの動作確認
+
+スキル（`syllabus-markdown`・`lesson-plan`・`lesson-materials`・`existing-materials`）を読み込み、手順どおりに作業できるかを確かめた結果です。使い方は [WORKFLOW.md](WORKFLOW.md) にあります。
+
+| ツール | 読み込む場所 | 日付 |
+|---|---|---|
+| Claude Code | `.claude/skills/`・`CLAUDE.md`（→ `AGENTS.md`） | 2026-11-17 |
+| Codex | `.agents/skills/`・`AGENTS.md` | 2026-11-18 |
+| Antigravity | `.agents/skills/`・`GEMINI.md`（→ `AGENTS.md`） | 2026-11-18 |

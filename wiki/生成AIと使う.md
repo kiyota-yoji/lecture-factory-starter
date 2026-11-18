@@ -5,8 +5,8 @@
 
 | ツール | 状況 |
 |---|---|
-| Claude Code（Anthropic） | 動作を確かめています |
-| Codex（OpenAI）・Antigravity（Google） | 各社の公式文書に合わせて置き場所・形式を用意しています（動作は未確認） |
+| Claude Code（Anthropic） | 動作を確かめています（`.claude/skills/` と `CLAUDE.md` を読む） |
+| Codex（OpenAI）・Antigravity（Google） | 動作を確かめています（`.agents/skills/` と `AGENTS.md`・`GEMINI.md` を読む） |
 | そのほか Agent Skills に対応したツール | 多くは `AGENTS.md` と `.agents/skills/` を読みます |
 | ローカル LLM・チャットだけの AI | スキルの文書を読ませるか貼り付けて使えます。ただし、日本語・LaTeX・数式を正確に書けるかはモデルによります |
 
