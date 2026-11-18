@@ -25,6 +25,7 @@ LaTeX（LuaLaTeX）で授業のスライド・ワークシート・選択式問�
 - `.log` に `Overfull` が出ていないこと。
 - 教材を作ったら、PDF をページごとに画像にして（`pdftoppm`）目で確かめ、解答・正解を計算で検算すること。
 - スキルを直したら `texlua tools/sync_skills.lua --check` が通ること。
+- `wiki/` を直したら `texlua tools/check_wiki.lua` が通ること。手順やファイル名を変えたときは、`wiki/` の説明が古くなっていないかも見る。
 - つまずいたら [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)。
 
 ## ブランチとコミット
@@ -52,6 +53,7 @@ LaTeX（LuaLaTeX）で授業のスライド・ワークシート・選択式問�
 templates/        雛形（syllabus.md・lesson_plan.md・.tex）
 courses/          サンプル教材（科目/回/。既存の資料は 回/source/）
 docs/             手順書・フォーマットの仕様
+wiki/             GitHub Wiki の原稿（利用者向けの入口。細部は docs/ にリンクする）
 tools/            build_all.lua（一括ビルド）・sync_skills.lua（スキルの写し）・redact_pdf.py（公開用の写しを作る。任意）
 vendor/amc/       AMC の LaTeX パッケージ
 ```

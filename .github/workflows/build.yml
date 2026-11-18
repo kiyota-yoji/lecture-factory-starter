@@ -31,6 +31,9 @@ jobs:
       - name: スキルの写し（.claude/skills）が原本（.agents/skills）と一致しているか確認
         run: texlua tools/sync_skills.lua --check
 
+      - name: Wiki の原稿（wiki/）のリンク切れがないか確認
+        run: texlua tools/check_wiki.lua
+
       - name: すべての教材をビルド
         run: texlua tools/build_all.lua
 

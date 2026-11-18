@@ -69,6 +69,8 @@ PDF は GitHub の Releases からもダウンロードできます（公開後�
 
    VS Code ＋ LaTeX Workshop を使う場合は、このフォルダを開いて `.tex` を保存するだけで PDF ができます（設定は `.vscode/` に同梱）。
 
+はじめての方向けの案内は [Wiki](https://github.com/kiyota-yoji/lecture-factory-starter/wiki) にもあります（よくある質問・困ったとき・用語集など）。
+
 詳しい手順は OS ごとの手順書を見てください。
 
 | 手順書 | 内容 |
@@ -86,7 +88,7 @@ PDF は GitHub の Releases からもダウンロードできます（公開後�
 
 ```text
 ├─ AGENTS.md         AI エージェント向けの共通の指示（CLAUDE.md・GEMINI.md からも読み込む）
-├─ .agents/skills/   スキルの原本（syllabus-markdown / lesson-plan / lesson-materials）
+├─ .agents/skills/   スキルの原本（syllabus-markdown / lesson-plan / lesson-materials / existing-materials）
 ├─ .claude/skills/   Claude Code 用の写し（tools/sync_skills.lua で作る。直接編集しない）
 ├─ templates/        新しい授業回を作るときの雛形（syllabus.md・lesson_plan.md も）
 │  ├─ preamble/      共通設定（lfs-fonts / lfs-slides / lfs-worksheet）
@@ -95,6 +97,7 @@ PDF は GitHub の Releases からもダウンロードできます（公開後�
 ├─ vendor/amc/       AMC の LaTeX パッケージ（AMC 本体なしで問題用紙を組むため）
 ├─ tools/            ビルド補助（texlua。TeX Live に同梱されているので追加インストール不要）
 ├─ docs/             手順書
+├─ wiki/             GitHub Wiki の原稿（tools/publish_wiki.sh で Wiki に写す）
 └─ .latexmkrc        LuaLaTeX を使い、templates/preamble を自動で読み込む設定
 ```
 
